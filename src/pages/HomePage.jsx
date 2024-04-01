@@ -38,10 +38,7 @@ const HomePage = () => {
                   <div className="text">
                     <h6 className="mb-1 card-title">Revenue</h6>
                     <span>$13,456.5</span>
-                    <span className="text-sm">
-                      {" "}
-                      Shipping fees are not included{" "}
-                    </span>
+                    <span className="text-sm"> Shipping fees are not included </span>
                   </div>
                 </article>
               </div>
@@ -55,10 +52,7 @@ const HomePage = () => {
                   <div className="text">
                     <h6 className="mb-1 card-title">Orders</h6>
                     <span>53.668</span>
-                    <span className="text-sm">
-                      {" "}
-                      Excluding orders in transit{" "}
-                    </span>
+                    <span className="text-sm"> Excluding orders in transit </span>
                   </div>
                 </article>
               </div>
@@ -92,6 +86,219 @@ const HomePage = () => {
               </div>
             </div>
           </div>
+          <div className="card mb-4">
+            <CardHeader />
+            <div className="card-body">
+              <div className="table-responsive">
+                <div className="table-responsive">
+                  <table className="table align-middle table-nowrap mb-0">
+                    <thead className="table-light">
+                      <tr>
+                        <th scope="col" className="text-center">
+                          <div className="form-check align-middle">
+                            <input className="form-check-input" type="checkbox" id="transactionCheck01" />
+                            <label className="form-check-label" htmlFor="transactionCheck01"></label>
+                          </div>
+                        </th>
+                        <th className="align-middle" scope="col">
+                          Order ID
+                        </th>
+                        <th className="align-middle" scope="col">
+                          Billing Name
+                        </th>
+                        <th className="align-middle" scope="col">
+                          Date
+                        </th>
+                        <th className="align-middle" scope="col">
+                          Total
+                        </th>
+                        <th className="align-middle" scope="col">
+                          Payment Status
+                        </th>
+                        <th className="align-middle" scope="col">
+                          Payment Method
+                        </th>
+                        <th className="align-middle" scope="col">
+                          View Details
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="text-center">
+                          <div className="form-check">
+                            <input className="form-check-input" type="checkbox" id="transactionCheck02" />
+                            <label className="form-check-label" htmlFor="transactionCheck02"></label>
+                          </div>
+                        </td>
+                        <td>
+                          <a href="#" className="fw-bold">
+                            #SK2540
+                          </a>
+                        </td>
+                        <td>Neal Matthews</td>
+                        <td>07 Oct, 2021</td>
+                        <td>$400</td>
+                        <td>
+                          <span className="badge badge-pill badge-soft-success">Paid</span>
+                        </td>
+                        <td>
+                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Mastercard
+                        </td>
+                        <td>
+                          <a href="#" className="btn btn-xs">
+                            {" "}
+                            View details
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-center">
+                          <div className="form-check">
+                            <input className="form-check-input" type="checkbox" id="transactionCheck03" />
+                            <label className="form-check-label" htmlFor="transactionCheck03"></label>
+                          </div>
+                        </td>
+                        <td>
+                          <a href="#" className="fw-bold">
+                            #SK2541
+                          </a>
+                        </td>
+                        <td>Jamal Burnett</td>
+                        <td>07 Oct, 2021</td>
+                        <td>$380</td>
+                        <td>
+                          <span className="badge badge-pill badge-soft-danger">Chargeback</span>
+                        </td>
+                        <td>
+                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Visa
+                        </td>
+                        <td>
+                          <a href="#" className="btn btn-xs">
+                            {" "}
+                            View details
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-center">
+                          <div className="form-check">
+                            <input className="form-check-input" type="checkbox" id="transactionCheck04" />
+                            <label className="form-check-label" htmlFor="transactionCheck04"></label>
+                          </div>
+                        </td>
+                        <td>
+                          <a href="#" className="fw-bold">
+                            #SK2542
+                          </a>
+                        </td>
+                        <td>Juan Mitchell</td>
+                        <td>06 Oct, 2021</td>
+                        <td>$384</td>
+                        <td>
+                          <span className="badge badge-pill badge-soft-success">Paid</span>
+                        </td>
+                        <td>
+                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Paypal
+                        </td>
+                        <td>
+                          <a href="#" className="btn btn-xs">
+                            {" "}
+                            View details
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-center">
+                          <div className="form-check">
+                            <input className="form-check-input" type="checkbox" id="transactionCheck05" />
+                            <label className="form-check-label" htmlFor="transactionCheck05"></label>
+                          </div>
+                        </td>
+                        <td>
+                          <a href="#" className="fw-bold">
+                            #SK2543
+                          </a>
+                        </td>
+                        <td>Barry Dick</td>
+                        <td>05 Oct, 2021</td>
+                        <td>$412</td>
+                        <td>
+                          <span className="badge badge-pill badge-soft-success">Paid</span>
+                        </td>
+                        <td>
+                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Mastercard
+                        </td>
+                        <td>
+                          <a href="#" className="btn btn-xs">
+                            {" "}
+                            View details
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-center">
+                          <div className="form-check">
+                            <input className="form-check-input" type="checkbox" id="transactionCheck06" />
+                            <label className="form-check-label" htmlFor="transactionCheck06"></label>
+                          </div>
+                        </td>
+                        <td>
+                          <a href="#" className="fw-bold">
+                            #SK2544
+                          </a>
+                        </td>
+                        <td>Ronald Taylor</td>
+                        <td>04 Oct, 2021</td>
+                        <td>$404</td>
+                        <td>
+                          <span className="badge badge-pill badge-soft-warning">Refund</span>
+                        </td>
+                        <td>
+                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Visa
+                        </td>
+                        <td>
+                          <a href="#" className="btn btn-xs">
+                            {" "}
+                            View details
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-center">
+                          <div className="form-check">
+                            <input className="form-check-input" type="checkbox" id="transactionCheck07" />
+                            <label className="form-check-label" htmlFor="transactionCheck07"></label>
+                          </div>
+                        </td>
+                        <td>
+                          <a href="#" className="fw-bold">
+                            #SK2545
+                          </a>
+                        </td>
+                        <td>Jacob Hunter</td>
+                        <td>04 Oct, 2021</td>
+                        <td>$392</td>
+                        <td>
+                          <span className="badge badge-pill badge-soft-success">Paid</span>
+                        </td>
+                        <td>
+                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Paypal
+                        </td>
+                        <td>
+                          <a href="#" className="btn btn-xs">
+                            {" "}
+                            View details
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="row">
             <div className="col-xl-8 col-lg-12">
               <div className="card mb-4">
@@ -159,8 +366,7 @@ const HomePage = () => {
                           <div className="media">
                             <div className="me-3">
                               <h6>
-                                <span>Today</span>{" "}
-                                <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
+                                <span>Today</span> <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
                               </h6>
                             </div>
                             <div className="media-body">
@@ -175,14 +381,11 @@ const HomePage = () => {
                           <div className="media">
                             <div className="me-3">
                               <h6>
-                                <span>17 May</span>{" "}
-                                <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
+                                <span>17 May</span> <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
                               </h6>
                             </div>
                             <div className="media-body">
-                              <div>
-                                Debitis nesciunt voluptatum dicta reprehenderit
-                              </div>
+                              <div>Debitis nesciunt voluptatum dicta reprehenderit</div>
                             </div>
                           </div>
                         </li>
@@ -193,8 +396,7 @@ const HomePage = () => {
                           <div className="media">
                             <div className="me-3">
                               <h6>
-                                <span>13 May</span>{" "}
-                                <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
+                                <span>13 May</span> <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
                               </h6>
                             </div>
                             <div className="media-body">
@@ -209,14 +411,11 @@ const HomePage = () => {
                           <div className="media">
                             <div className="me-3">
                               <h6>
-                                <span>05 April</span>{" "}
-                                <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
+                                <span>05 April</span> <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
                               </h6>
                             </div>
                             <div className="media-body">
-                              <div>
-                                At vero eos et accusamus et iusto odio dignissi
-                              </div>
+                              <div>At vero eos et accusamus et iusto odio dignissi</div>
                             </div>
                           </div>
                         </li>
@@ -227,8 +426,7 @@ const HomePage = () => {
                           <div className="media">
                             <div className="me-3">
                               <h6>
-                                <span>26 Mar</span>{" "}
-                                <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
+                                <span>26 Mar</span> <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
                               </h6>
                             </div>
                             <div className="media-body">
@@ -254,334 +452,35 @@ const HomePage = () => {
                   <h5 className="card-title">Marketing Chanel</h5>
                   <span className="text-muted font-xs">Facebook</span>
                   <div className="progress mb-3">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      style={{ width: "15%" }}
-                    >
+                    <div className="progress-bar" role="progressbar" style={{ width: "15%" }}>
                       15%
                     </div>
                   </div>
                   <span className="text-muted font-xs">Instagram</span>
                   <div className="progress mb-3">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      style={{ width: "65%" }}
-                    >
+                    <div className="progress-bar" role="progressbar" style={{ width: "65%" }}>
                       65%
                     </div>
                   </div>
                   <span className="text-muted font-xs">Google</span>
                   <div className="progress mb-3">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      style={{ width: "51%" }}
-                    >
+                    <div className="progress-bar" role="progressbar" style={{ width: "51%" }}>
                       51%
                     </div>
                   </div>
                   <span className="text-muted font-xs">Twitter</span>
                   <div className="progress mb-3">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      style={{ width: "80%" }}
-                    >
+                    <div className="progress-bar" role="progressbar" style={{ width: "80%" }}>
                       80%
                     </div>
                   </div>
                   <span className="text-muted font-xs">Other</span>
                   <div className="progress mb-3">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      style={{ width: "80%" }}
-                    >
+                    <div className="progress-bar" role="progressbar" style={{ width: "80%" }}>
                       80%
                     </div>
                   </div>
                 </article>
-              </div>
-            </div>
-          </div>
-          <div className="card mb-4">
-            <CardHeader />
-            <div className="card-body">
-              <div className="table-responsive">
-                <div className="table-responsive">
-                  <table className="table align-middle table-nowrap mb-0">
-                    <thead className="table-light">
-                      <tr>
-                        <th scope="col" className="text-center">
-                          <div className="form-check align-middle">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id="transactionCheck01"
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="transactionCheck01"
-                            ></label>
-                          </div>
-                        </th>
-                        <th className="align-middle" scope="col">
-                          Order ID
-                        </th>
-                        <th className="align-middle" scope="col">
-                          Billing Name
-                        </th>
-                        <th className="align-middle" scope="col">
-                          Date
-                        </th>
-                        <th className="align-middle" scope="col">
-                          Total
-                        </th>
-                        <th className="align-middle" scope="col">
-                          Payment Status
-                        </th>
-                        <th className="align-middle" scope="col">
-                          Payment Method
-                        </th>
-                        <th className="align-middle" scope="col">
-                          View Details
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="text-center">
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id="transactionCheck02"
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="transactionCheck02"
-                            ></label>
-                          </div>
-                        </td>
-                        <td>
-                          <a href="#" className="fw-bold">
-                            #SK2540
-                          </a>
-                        </td>
-                        <td>Neal Matthews</td>
-                        <td>07 Oct, 2021</td>
-                        <td>$400</td>
-                        <td>
-                          <span className="badge badge-pill badge-soft-success">
-                            Paid
-                          </span>
-                        </td>
-                        <td>
-                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i>{" "}
-                          Mastercard
-                        </td>
-                        <td>
-                          <a href="#" className="btn btn-xs">
-                            {" "}
-                            View details
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="text-center">
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id="transactionCheck03"
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="transactionCheck03"
-                            ></label>
-                          </div>
-                        </td>
-                        <td>
-                          <a href="#" className="fw-bold">
-                            #SK2541
-                          </a>
-                        </td>
-                        <td>Jamal Burnett</td>
-                        <td>07 Oct, 2021</td>
-                        <td>$380</td>
-                        <td>
-                          <span className="badge badge-pill badge-soft-danger">
-                            Chargeback
-                          </span>
-                        </td>
-                        <td>
-                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i>{" "}
-                          Visa
-                        </td>
-                        <td>
-                          <a href="#" className="btn btn-xs">
-                            {" "}
-                            View details
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="text-center">
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id="transactionCheck04"
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="transactionCheck04"
-                            ></label>
-                          </div>
-                        </td>
-                        <td>
-                          <a href="#" className="fw-bold">
-                            #SK2542
-                          </a>
-                        </td>
-                        <td>Juan Mitchell</td>
-                        <td>06 Oct, 2021</td>
-                        <td>$384</td>
-                        <td>
-                          <span className="badge badge-pill badge-soft-success">
-                            Paid
-                          </span>
-                        </td>
-                        <td>
-                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i>{" "}
-                          Paypal
-                        </td>
-                        <td>
-                          <a href="#" className="btn btn-xs">
-                            {" "}
-                            View details
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="text-center">
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id="transactionCheck05"
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="transactionCheck05"
-                            ></label>
-                          </div>
-                        </td>
-                        <td>
-                          <a href="#" className="fw-bold">
-                            #SK2543
-                          </a>
-                        </td>
-                        <td>Barry Dick</td>
-                        <td>05 Oct, 2021</td>
-                        <td>$412</td>
-                        <td>
-                          <span className="badge badge-pill badge-soft-success">
-                            Paid
-                          </span>
-                        </td>
-                        <td>
-                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i>{" "}
-                          Mastercard
-                        </td>
-                        <td>
-                          <a href="#" className="btn btn-xs">
-                            {" "}
-                            View details
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="text-center">
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id="transactionCheck06"
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="transactionCheck06"
-                            ></label>
-                          </div>
-                        </td>
-                        <td>
-                          <a href="#" className="fw-bold">
-                            #SK2544
-                          </a>
-                        </td>
-                        <td>Ronald Taylor</td>
-                        <td>04 Oct, 2021</td>
-                        <td>$404</td>
-                        <td>
-                          <span className="badge badge-pill badge-soft-warning">
-                            Refund
-                          </span>
-                        </td>
-                        <td>
-                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i>{" "}
-                          Visa
-                        </td>
-                        <td>
-                          <a href="#" className="btn btn-xs">
-                            {" "}
-                            View details
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="text-center">
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id="transactionCheck07"
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="transactionCheck07"
-                            ></label>
-                          </div>
-                        </td>
-                        <td>
-                          <a href="#" className="fw-bold">
-                            #SK2545
-                          </a>
-                        </td>
-                        <td>Jacob Hunter</td>
-                        <td>04 Oct, 2021</td>
-                        <td>$392</td>
-                        <td>
-                          <span className="badge badge-pill badge-soft-success">
-                            Paid
-                          </span>
-                        </td>
-                        <td>
-                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i>{" "}
-                          Paypal
-                        </td>
-                        <td>
-                          <a href="#" className="btn btn-xs">
-                            {" "}
-                            View details
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
               </div>
             </div>
           </div>
