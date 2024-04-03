@@ -6,7 +6,10 @@ const BasicProductDetails = () => {
     productImage: "",
     productName: "",
     brand: "",
-    sizesAvailable: "",
+    sizesAvailable: [{
+      size:"",
+      quantity:""
+    }],
     colorsAvailable: "",
     description: "",
     gender: "",
@@ -108,8 +111,8 @@ const BasicProductDetails = () => {
                 placeholder="e.g., 36,37,38"
                 className="form-control"
                 id="product_sizes"
-                name="sizesAvailable"
-                value={formData.sizesAvailable}
+                name="sizesAvailable" 
+                value={formData.sizesAvailable.quantity}
                 onChange={handleChange}
               />
             </div>
