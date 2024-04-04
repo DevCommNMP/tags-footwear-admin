@@ -1,0 +1,13 @@
+{
+  "title": "women women women stylish fancy comfortable gold block heels 1",  // text input
+"sizesAvailable": [
+    { "size": "36", "quantity": 1 },
+    { "size": "37", "quantity": 0 },
+    { "size": "38", "quantity": 5 },
+], // array of objects
+  "colorsAvailable": ["maroon","gold","peach","Brownx"], // array of colors
+  "gender": "Unisex", // select from dropdown
+  "price": 3395, // number input
+  "category": "65fa8540dee62eaafc69ad76", // select from dropdown
+  "reviews": [], // text input
+}
