@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProductsAction } from "../redux/actions/product/productActions";
 
@@ -12,9 +12,6 @@ const BasicProductDetails = () => {
     dispatch(fetchAllProductsAction());
   }, [dispatch]);
 
-  // console.log(products, productsLoading, appErr, serverErr);
-  // console.log(products.map((product) => product.colorsAvailable));
-
   const standardColors = ["red", "blue", "green", "yellow", "orange"];
 
   const [formData, setFormData] = useState({
@@ -25,6 +22,7 @@ const BasicProductDetails = () => {
     price: 0,
     category: "",
     reviews: [],
+    selectedTag: "", // Selected tag
   });
 
   const [errors, setErrors] = useState({});
@@ -82,6 +80,12 @@ const BasicProductDetails = () => {
       // Handle form submission here, e.g., send data to backend
       console.log(formData);
     }
+  };
+
+  // Define function to handle tag change
+  const handleTagChange = (e) => {
+    const { value } = e.target;
+    setFormData({ ...formData, selectedTag: value });
   };
 
   return (
@@ -143,6 +147,24 @@ const BasicProductDetails = () => {
               {errors.size && (
                 <span style={{ color: "red" }}>{errors.size}</span>
               )}
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="tags" className="form-label">
+                Tags:
+              </label>
+              <select
+                id="tags"
+                name="tags"
+                value={formData.selectedTag}
+                onChange={handleTagChange}
+                className="form-select"
+              >
+                <option value="">Select Tag</option>
+                <option value="Tag 1">Tag 1</option>
+                <option value="Tag 2">Tag 2</option>
+                {/* Add more tag options if needed */}
+              </select>
             </div>
 
             <div className="mb-4">
