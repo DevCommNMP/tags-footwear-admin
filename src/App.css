@@ -44,3 +44,35 @@
   align-items: center;
   justify-content: center;
 }
+
+.color-boxes {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.color-box {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.color-span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+}
+
+.gold {
+  background-color: gold;
+}
+
+.peach {
+  background-color: peach;
+}
+
+.Brownx {
+  background-color: brown;
+}
+
+/* Add styles for other colors as needed */

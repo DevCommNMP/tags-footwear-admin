@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllCategories } from "../../actions/categories/allCategoriesActions";
+import { fetchAllsubCategories } from "../../actions/categories/allCategoriesActions";
 
 const initialState = {
   categories: [],
@@ -19,18 +19,18 @@ const categoriesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllCategories.pending, (state) => {
+      .addCase(fetchAllsubCategories.pending, (state) => {
         state.loading = true;
         state.appErr = null;
         state.serverErr = null;
       })
-      .addCase(fetchAllCategories.fulfilled, (state, action) => {
+      .addCase(fetchAllsubCategories.fulfilled, (state, action) => {
         state.loading = false;
         state.categories = action.payload;
         state.appErr = null;
         state.serverErr = null;
       })
-      .addCase(fetchAllCategories.rejected, (state, action) => {
+      .addCase(fetchAllsubCategories.rejected, (state, action) => {
         state.loading = false;
         state.appErr = action.payload?.message || "An error occurred";
         state.serverErr = action.payload?.message || "Network error";

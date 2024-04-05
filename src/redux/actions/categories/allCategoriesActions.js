@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { baseUrl } from "../../../utils/baseUrl";
 
-export const fetchAllCategories = createAsyncThunk(
+export const fetchAllsubCategories = createAsyncThunk(
   "products/categories",
   async (_, { rejectWithValue, getState }) => {
     try {

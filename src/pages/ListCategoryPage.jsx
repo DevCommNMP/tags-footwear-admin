@@ -1,42 +1,41 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllsubCategories } from "../redux/actions/categories/allCategoriesActions";
+
 import Aside from "../components/Aside";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProductsAction } from "../redux/actions/product/productActions";
-// import "bootstrap/dist/js/bootstrap.bundle.min";
-import { Link } from "react-router-dom";
 
-const ListProductPage = () => {
+const ListCategoryPage = () => {
   const dispatch = useDispatch();
+
+  const storeData = useSelector((store) => store.categories);
+  console.log(storeData);
+  storeData.categories.map((category) => category.subcategoriesName);
+  const allSubcategories = storeData.categories.map(
+    (category) => category.subcategoriesName
+  );
+
+  useEffect(() => {
+    dispatch(fetchAllsubCategories());
+  }, [dispatch]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(4); // Number of products per page
 
-  const storeData = useSelector((store) => store.products);
-  const { products, productsLoading, appErr, serverErr } = storeData;
-
-  useEffect(() => {
-    dispatch(fetchAllProductsAction());
-  }, [dispatch]);
-
-  console.log(products, productsLoading, appErr, serverErr);
-
-  // Get current products
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(
+  const currentProducts = allSubcategories.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Handle dropdown change
   const handleDropdownChange = (value) => {
     setProductsPerPage(value);
-    setCurrentPage(1); // Reset to first page when changing products per page
+    setCurrentPage(1);
   };
 
   return (
@@ -48,7 +47,7 @@ const ListProductPage = () => {
         <section className="content-main">
           <div className="content-header">
             <div>
-              <h2 className="content-title card-title">Products List</h2>
+              <h2 className="content-title card-title">All Categories</h2>
               <p>Lorem ipsum dolor sit amet.</p>
             </div>
             <div>
@@ -84,32 +83,6 @@ const ListProductPage = () => {
                         4
                       </button>
                     </li>
-
-                    <li>
-                      <button
-                        className="dropdown-item border-none"
-                        onClick={() => handleDropdownChange(5)}
-                      >
-                        5
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        className="dropdown-item border-none"
-                        onClick={() => handleDropdownChange(10)}
-                      >
-                        10
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        className="dropdown-item border-none"
-                        onClick={() => handleDropdownChange(20)}
-                      >
-                        20
-                      </button>
-                    </li>
-                    {/* Add more options as needed */}
                   </ul>
                 </div>
               </div>
@@ -120,36 +93,35 @@ const ListProductPage = () => {
                 Import
               </a>
               <Link
-                to="/add-product"
+                to="/add-category"
                 className="btn btn-primary btn-sm rounded"
               >
-                Add New Product
+                Add New Category
               </Link>
             </div>
           </div>
           <div className="card mb-4">
-            <header className="card-header">{/* Your table headers */}</header>
+            <header className="card-header"></header>
             <div className="card-body">
-              {/* Render current products */}
-              {currentProducts.map((product) => (
-                <article key={product.id} className="itemlist">
+              {currentProducts.map((subcategories) => (
+                <article key={subcategories.id} className="itemlist">
                   <div className="row align-items-center">
                     <div className="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
                       <a className="itemside" href="#">
                         <div className="left">
                           <img
-                            src={product.productImage}
+                            src={subcategories}
                             className="img-sm img-thumbnail"
                             alt="Item"
                           />
                         </div>
                         <div className="info">
-                          <h6 className="mb-0">{product.title}</h6>
+                          <h6 className="mb-0">{subcategories}</h6>
                         </div>
                       </a>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-price">
-                      <span>&#8377;{product.SellingPrice}</span>
+                      <span>&#8377;span</span>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-status">
                       <span className="badge rounded-pill alert-success">
@@ -157,7 +129,7 @@ const ListProductPage = () => {
                       </span>
                     </div>
                     <div className="col-lg-1 col-sm-2 col-4 col-date">
-                      <span>{product.subcategoryType.subcategoryTypeName}</span>
+                      <span>00</span>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-action text-end">
                       <a
@@ -181,11 +153,16 @@ const ListProductPage = () => {
               ))}
             </div>
           </div>
+          {/* pagination */}
           <div className="pagination-area mt-30 mb-50">
             <nav aria-label="Page navigation example">
               <ul className="pagination justify-content-start">
                 {Array.from(
-                  { length: Math.ceil(products.length / productsPerPage) },
+                  {
+                    length: Math.ceil(
+                      allSubcategories.length / productsPerPage
+                    ),
+                  },
                   (_, index) => (
                     <li
                       key={index}
@@ -213,4 +190,4 @@ const ListProductPage = () => {
   );
 };
 
-export default ListProductPage;
+export default ListCategoryPage;

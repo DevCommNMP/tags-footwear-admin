@@ -6,7 +6,7 @@ import BasicProductDetails from "../components/ProductBasicDetails";
 import ProductMainImage from "../components/ProductMainImage";
 import ProductSubImages from "../components/ProductSubImages";
 
-const AddProductPage = () => {
+const AddCategoryPage = () => {
   return (
     <>
       <div className="screen-overlay"></div>
@@ -59,4 +59,4 @@ const AddProductPage = () => {
   );
 };
 
-export default AddProductPage;
+export default AddCategoryPage;

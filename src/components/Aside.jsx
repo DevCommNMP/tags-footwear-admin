@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/imgs/theme/logo.png";
 
 const Aside = () => {
-  const [isSubMenuVisible, setSubMenuVisible] = useState(false);
+  const [isSubMenuVisible, setSubMenuVisible] = useState(true);
 
   const toggleSubMenu = () => {
     setSubMenuVisible(!isSubMenuVisible);
@@ -42,6 +42,14 @@ const Aside = () => {
               >
                 <Link to="/products-list">Manage Products</Link>
                 <Link to="/add-product">Add Product</Link>
+              </div>
+              <hr />
+              <div
+                className="submenu"
+                style={{ display: isSubMenuVisible ? "block" : "none" }}
+              >
+                <Link to="/manage-categories">Manage Categories</Link>
+                <Link to="/add-categories">Add Categories</Link>
               </div>
             </li>
           </ul>
