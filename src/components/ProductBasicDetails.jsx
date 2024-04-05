@@ -3,11 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProductsAction } from "../redux/actions/product/productActions";
 import { fetchAllsubCategories,fetchAllFootrwearType } from "../redux/actions/categories/allCategoriesActions";
 
-import {
-  fetchAllsubCategories,
-  fetchAllFootrwearType,
-} from "../redux/actions/categories/allCategoriesActions";
-
 const BasicProductDetails = () => {
   const dispatch = useDispatch();
 
