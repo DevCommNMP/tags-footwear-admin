@@ -20,10 +20,9 @@ const AddProductPage = () => {
               <div className="content-header">
                 <h2 className="content-title">Add New Product</h2>
                 <div>
-                  <Link to="/">
+                  <Link to="/products-list">
                     <button
-                      onClick={Navigate("/")}
-                      className="btn btn-danger text-white rounded font-sm mr-5 text-body hover-up"
+                      className="btn btn-danger text-light rounded font-sm mr-5 hover-up"
                     >
                       View Products
                     </button>
