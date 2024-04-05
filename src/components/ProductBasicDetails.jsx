@@ -1,29 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProductsAction } from "../redux/actions/product/productActions";
+import { fetchAllsubCategories,fetchAllFootrwearType } from "../redux/actions/categories/allCategoriesActions";
 
 const BasicProductDetails = () => {
   const dispatch = useDispatch();
 
-  const storeData = useSelector((store) => store.products);
-  const { products, productsLoading, appErr, serverErr } = storeData;
+  const storeData = useSelector((store) => store.categories);
+  const { categoriesData,footwearTypeData, loading, appErr, serverErr } = storeData;
 
   useEffect(() => {
-    dispatch(fetchAllProductsAction());
+    dispatch(fetchAllsubCategories());
+    dispatch(fetchAllFootrwearType())
   }, [dispatch]);
-
-  // console.log(products, productsLoading, appErr, serverErr);
-  // console.log(products.map((product) => product.colorsAvailable));
-
+console.log(footwearTypeData)
+  
   const standardColors = ["red", "blue", "green", "yellow", "orange"];
 
   const [formData, setFormData] = useState({
     title: "",
+    skewId:"",
+    tag:"",
+    promotionalPrice:"",
+    description:"",
     sizesAvailable: [{ size: "", quantity: 0 }],
     colorsAvailable: [],
     gender: "Unisex",
     price: 0,
     category: "",
+    footwearType:"",
     reviews: [],
   });
 
@@ -48,10 +53,16 @@ const BasicProductDetails = () => {
   };
 
   const handleColorChange = (e) => {
-    const { value } = e.target;
+    const { value, checked } = e.target;
+    let updatedColors;
+    if (checked) {
+      updatedColors = [...formData.colorsAvailable, value];
+    } else {
+      updatedColors = formData.colorsAvailable.filter((color) => color !== value);
+    }
     setFormData({
       ...formData,
-      colorsAvailable: value,
+      colorsAvailable: updatedColors,
     });
   };
 
@@ -73,7 +84,7 @@ const BasicProductDetails = () => {
       } else {
         sizeSet.add(size.size);
       }
-    });
+    });  
 
     if (sizeError) {
       setErrors({ size: "Same size cannot be selected twice" });
@@ -95,6 +106,20 @@ const BasicProductDetails = () => {
             <div className="mb-4">
               <label htmlFor="title" className="form-label">
                 Title:
+              </label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                className="form-control"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="title" className="form-label">
+                Skew Id
               </label>
               <input
                 type="text"
@@ -156,6 +181,7 @@ const BasicProductDetails = () => {
                     id={color}
                     name="colorsAvailable"
                     value={color}
+                    checked={formData.colorsAvailable.includes(color)}
                     onChange={handleColorChange}
                     className="form-check-input"
                   />
@@ -202,18 +228,44 @@ const BasicProductDetails = () => {
 
             <div className="mb-4">
               <label htmlFor="category" className="form-label">
-                Category:
+                Category Type
               </label>
               <select
-                id="category"
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                className="form-select"
-              >
-                <option value="">Select Category</option>
-                {/* Add category options here */}
-              </select>
+  id="category"
+  name="category"
+  value={formData.category}
+  onChange={handleChange}
+  className="form-select"
+>
+  <option value="">Select Category</option>
+  {categoriesData.map((item, index) => (
+    <option key={index} value={item._id}>
+      {loading ? "Loading..." : item.subcategoriesName}
+    </option>
+  ))}
+</select>
+
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="footwearType" className="form-label">
+                Footwear Type
+              </label>
+              <select
+  id="footwearType"
+  name="footwearType"
+  value={formData.footwearType}
+  onChange={handleChange}
+  className="form-select"
+>
+  <option value="">Select Category</option>
+  {footwearTypeData.map((item, index) => (
+    <option key={index} value={item._id}>
+      {loading ? "Loading..." : item.subcategoryTypeName}
+    </option>
+  ))}
+</select>
+
             </div>
 
             <button type="submit" className="btn btn-primary">

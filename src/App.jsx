@@ -6,7 +6,7 @@ import AddProductPage from "./pages/AddProductPage";
 import QuickView from "./components/QuickView";
 import StateModal from "./components/StateModal";
 import NotfoundPage from "./pages/NotfoundPage";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+// import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./App.css";
 import store from "../src/redux/store/store"
 import { Provider } from "react-redux";
@@ -20,7 +20,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Homepage />} />
           <Route exact path="/blank" element={<Blankpage />} />
-          <Route exact path="/manage-products" element={<ListProductPage />} />
+          <Route exact path="/products-list" element={<ListProductPage />} />
           <Route exact path="/add-product" element={<AddProductPage />} />
           <Route exact path="/quickview" element={<QuickView />} />
           <Route exact path="/state" element={<StateModal />} />
