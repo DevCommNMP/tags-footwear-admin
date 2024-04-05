@@ -5,6 +5,7 @@ import BasicProductDetails from "../components/ProductBasicDetails";
 // import ProductShippingDetails from "../components/ProductShippingDetails";
 import ProductMainImage from "../components/ProductMainImage";
 import ProductSubImages from "../components/ProductSubImages";
+import { Link, Navigate } from "react-router-dom";
 
 const AddProductPage = () => {
   return (
@@ -19,12 +20,13 @@ const AddProductPage = () => {
               <div className="content-header">
                 <h2 className="content-title">Add New Product</h2>
                 <div>
-                  <button className="btn btn-light rounded font-sm mr-5 text-body hover-up">
-                    Save to draft
-                  </button>
-                  <button className="btn btn-md rounded font-sm hover-up">
-                    Publish
-                  </button>
+                  <Link to="/products-list">
+                    <button
+                      className="btn btn-danger text-light rounded font-sm mr-5 hover-up"
+                    >
+                      View Products
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
