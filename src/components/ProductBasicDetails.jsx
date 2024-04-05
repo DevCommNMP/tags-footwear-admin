@@ -13,7 +13,7 @@ const BasicProductDetails = () => {
     dispatch(fetchAllsubCategories());
     dispatch(fetchAllFootrwearType())
   }, [dispatch]);
-console.log(footwearTypeData)
+// console.log(footwearTypeData)
   
   const standardColors = ["red", "blue", "green", "yellow", "orange"];
 

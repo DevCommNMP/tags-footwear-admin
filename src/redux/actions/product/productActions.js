@@ -26,8 +26,62 @@ export const fetchAllProductsAction = createAsyncThunk(
     }
   }
 );
+//  update particular product Image
+
+export const updateProductImage = createAsyncThunk(
+  'api/products/image',
+  async ({ id, formData }, { rejectWithValue }) => {
+    try {
+      // const formData = new FormData();
+      // formData.append('image', imageData);
+
+      console.log(id)
+      console.log(formData)
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+
+      const res = await axios.post(`${baseUrl}/api/products/${id}`, formData, config);
+      console.log(res);
+      return res.data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
+export const updateProductSubImage = createAsyncThunk(
+  'api/products/subImages',
+  async ({ id, imageData }, { rejectWithValue }) => {
+    try {
+      const formData = new FormData();
+      formData.append('image', imageData);
+
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+
+      const res = await axios.put(`${baseUrl}/api/products/${id}/image`, formData, config);
+      console.log(res);
+      return res.data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 //  fetch particular product
-// Fetch All products
 export const fetchParticularProduct = createAsyncThunk(
     "api/products/id",
     async (id, { rejectWithValue }) => {

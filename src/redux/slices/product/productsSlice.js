@@ -1,10 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllProductsAction,fetchParticularProduct } from "../../actions/product/productActions";
+import { fetchAllProductsAction,fetchParticularProduct,updateProductSubImage ,updateProductImage } from "../../actions/product/productActions";
 
 const initialState = {
   products: [],
   particularproduct:{},
+  productImage:"",
+  productSubImages:"",
   productsLoading: false,
+  profilePhotoLoading:false,
+  subImagesLoading:false,
   appErr: null,
   serverErr: null,
 };
@@ -31,6 +35,39 @@ const productSlice = createSlice({
     });
     builder.addCase(fetchAllProductsAction.rejected, (state, action) => {
       state.productsLoading = false;
+      state.appErr = action.payload?.message || "An error occurred";
+      state.serverErr = action.payload?.message || "Network error";
+    });
+
+     //update productImage 
+     builder.addCase(updateProductImage.pending, (state) => {
+      state.profilePhotoLoading = true;
+      state.appErr = null;
+      state.serverErr = null;
+    });
+    builder.addCase(updateProductImage.fulfilled, (state, action) => {
+      state.profilePhotoLoading = false;
+      state.productImage = action.payload;
+    });
+    builder.addCase(updateProductImage.rejected, (state, action) => {
+      state.profilePhotoLoading = false;
+      state.appErr = action.payload?.message || "An error occurred";
+      state.serverErr = action.payload?.message || "Network error";
+    });
+
+    
+     //update productSubImage  
+    builder.addCase(updateProductSubImage.pending, (state) => {
+      state.subImagesLoading = true;
+      state.appErr = null;
+      state.serverErr = null;
+    });
+    builder.addCase(updateProductSubImage.fulfilled, (state, action) => {
+      state.subImagesLoading = false;
+      state.productSubImages = action.payload;
+    });
+    builder.addCase(updateProductSubImage.rejected, (state, action) => {
+      state.subImagesLoading = false;
       state.appErr = action.payload?.message || "An error occurred";
       state.serverErr = action.payload?.message || "Network error";
     });
