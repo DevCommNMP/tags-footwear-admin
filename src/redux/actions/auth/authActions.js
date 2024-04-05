@@ -34,6 +34,7 @@ export const loginUserAction = createAsyncThunk(
   "user/login",
   async (userData, { rejectWithValue }) => {
     const config = {
+      
       headers: {
         "Content-Type": "application/json",
       },

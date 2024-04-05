@@ -1,26 +1,39 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProductsAction } from "../redux/actions/product/productActions";
+import { fetchAllsubCategories,fetchAllFootrwearType } from "../redux/actions/categories/allCategoriesActions";
+
+import {
+  fetchAllsubCategories,
+  fetchAllFootrwearType,
+} from "../redux/actions/categories/allCategoriesActions";
 
 const BasicProductDetails = () => {
   const dispatch = useDispatch();
 
-  const storeData = useSelector((store) => store.products);
-  const { products, productsLoading, appErr, serverErr } = storeData;
+  const storeData = useSelector((store) => store.categories);
+  const { categoriesData, footwearTypeData, loading, appErr, serverErr } = storeData;
 
   useEffect(() => {
-    dispatch(fetchAllProductsAction());
+    dispatch(fetchAllsubCategories());
+    dispatch(fetchAllFootrwearType());
   }, [dispatch]);
+  // console.log(footwearTypeData);
 
   const standardColors = ["red", "blue", "green", "yellow", "orange"];
 
   const [formData, setFormData] = useState({
     title: "",
+    skewId: "",
+    tag: "",
+    promotionalPrice: "",
+    description: "",
     sizesAvailable: [{ size: "", quantity: 0 }],
     colorsAvailable: [],
     gender: "Unisex",
     price: 0,
     category: "",
+    footwearType: "",
     reviews: [],
     selectedTag: "", // Selected tag
   });
@@ -46,10 +59,18 @@ const BasicProductDetails = () => {
   };
 
   const handleColorChange = (e) => {
-    const { value } = e.target;
+    const { value, checked } = e.target;
+    let updatedColors;
+    if (checked) {
+      updatedColors = [...formData.colorsAvailable, value];
+    } else {
+      updatedColors = formData.colorsAvailable.filter(
+        (color) => color !== value
+      );
+    }
     setFormData({
       ...formData,
-      colorsAvailable: value,
+      colorsAvailable: updatedColors,
     });
   };
 
@@ -60,21 +81,42 @@ const BasicProductDetails = () => {
     });
   };
 
+  const handleRemoveSize = (index) => {
+    const updatedSizes = [...formData.sizesAvailable];
+    updatedSizes.splice(index, 1);
+    setFormData({
+      ...formData,
+      sizesAvailable: updatedSizes,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validate sizes
-    const sizeSet = new Set();
-    let sizeError = false;
-    formData.sizesAvailable.forEach((size) => {
-      if (sizeSet.has(size.size)) {
-        sizeError = true;
-      } else {
-        sizeSet.add(size.size);
-      }
-    });
+    let formErrors = {};
+    let hasErrors = false;
 
-    if (sizeError) {
-      setErrors({ size: "Same size cannot be selected twice" });
+    // Validate required fields
+    if (!formData.title) {
+      formErrors.title = "Title is required";
+      hasErrors = true;
+    }
+    if (!formData.price) {
+      formErrors.price = "Price is required";
+      hasErrors = true;
+    }
+    if (!formData.category) {
+      formErrors.category = "Category is required";
+      hasErrors = true;
+    }
+    if (!formData.footwearType) {
+      formErrors.footwearType = "Footwear Type is required";
+      hasErrors = true;
+    }
+
+    // Set errors if any
+    if (hasErrors) {
+      setErrors(formErrors);
+      return;
     } else {
       setErrors({});
       // Handle form submission here, e.g., send data to backend
@@ -108,6 +150,23 @@ const BasicProductDetails = () => {
                 onChange={handleChange}
                 className="form-control"
               />
+              {errors.title && (
+                <span style={{ color: "red" }}>{errors.title}</span>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="skewId" className="form-label">
+                Skew Id:
+              </label>
+              <input
+                type="text"
+                id="skewId"
+                name="skewId"
+                value={formData.skewId}
+                onChange={handleChange}
+                className="form-control"
+              />
             </div>
 
             <div className="mb-4">
@@ -133,8 +192,15 @@ const BasicProductDetails = () => {
                     name="quantity"
                     value={size.quantity}
                     onChange={(e) => handleSizeChange(index, e)}
-                    className="form-control"
+                    className="form-control me-2"
                   />
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveSize(index)}
+                    className="btn btn-danger"
+                  >
+                    Remove
+                  </button>
                 </div>
               ))}
               <button
@@ -144,9 +210,6 @@ const BasicProductDetails = () => {
               >
                 Add Size
               </button>
-              {errors.size && (
-                <span style={{ color: "red" }}>{errors.size}</span>
-              )}
             </div>
 
             <div className="mb-4">
@@ -161,9 +224,10 @@ const BasicProductDetails = () => {
                 className="form-select"
               >
                 <option value="">Select Tag</option>
-                <option value="Tag 1">Tag 1</option>
-                <option value="Tag 2">Tag 2</option>
-                {/* Add more tag options if needed */}
+                <option value="new">New</option>
+                <option value="hot">Hot</option>
+                <option value="popular">Popular</option>
+                <option value="trending">Trending</option>
               </select>
             </div>
 
@@ -178,6 +242,7 @@ const BasicProductDetails = () => {
                     id={color}
                     name="colorsAvailable"
                     value={color}
+                    checked={formData.colorsAvailable.includes(color)}
                     onChange={handleColorChange}
                     className="form-check-input"
                   />
@@ -193,22 +258,6 @@ const BasicProductDetails = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="gender" className="form-label">
-                Gender:
-              </label>
-              <select
-                id="gender"
-                name="gender"
-                value={formData.gender}
-                onChange={handleChange}
-                className="form-select"
-              >
-                <option value="Unisex">Unisex</option>
-                {/* Add other gender options here */}
-              </select>
-            </div>
-
-            <div className="mb-4">
               <label htmlFor="price" className="form-label">
                 Price:
               </label>
@@ -220,11 +269,14 @@ const BasicProductDetails = () => {
                 onChange={handleChange}
                 className="form-control"
               />
+              {errors.price && (
+                <span style={{ color: "red" }}>{errors.price}</span>
+              )}
             </div>
 
             <div className="mb-4">
               <label htmlFor="category" className="form-label">
-                Category:
+                Category Type:
               </label>
               <select
                 id="category"
@@ -234,8 +286,38 @@ const BasicProductDetails = () => {
                 className="form-select"
               >
                 <option value="">Select Category</option>
-                {/* Add category options here */}
+                {categoriesData.map((item, index) => (
+                  <option key={index} value={item._id}>
+                    {loading ? "Loading..." : item.subcategoriesName}
+                  </option>
+                ))}
               </select>
+              {errors.category && (
+                <span style={{ color: "red" }}>{errors.category}</span>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="footwearType" className="form-label">
+                Footwear Type:
+              </label>
+              <select
+                id="footwearType"
+                name="footwearType"
+                value={formData.footwearType}
+                onChange={handleChange}
+                className="form-select"
+              >
+                <option value="">Select Category</option>
+                {footwearTypeData.map((item, index) => (
+                  <option key={index} value={item._id}>
+                    {loading ? "Loading..." : item.subcategoryTypeName}
+                  </option>
+                ))}
+              </select>
+              {errors.footwearType && (
+                <span style={{ color: "red" }}>{errors.footwearType}</span>
+              )}
             </div>
 
             <button type="submit" className="btn btn-primary">
