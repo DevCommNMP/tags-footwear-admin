@@ -12,6 +12,8 @@ import store from "../src/redux/store/store"
 import { Provider } from "react-redux";
 import ListCategoryPage from "./pages/ListCategoryPage";
 import AddCategoryPage from "./pages/AddCategoryPage";
+import AddProductImages from "./pages/AddProductImages";
+import Invoice from "./pages/Invoice";
 function App() {
   return (
     <>
@@ -22,11 +24,14 @@ function App() {
           <Route exact path="/blank" element={<Blankpage />} />
           <Route exact path="/products-list" element={<ListProductPage />} />
           <Route exact path="/add-product" element={<AddProductPage />} />
+          <Route exact path="/add-product-images" element={<AddProductImages />} />
           <Route exact path="/quickview" element={<QuickView />} />
           <Route exact path="/state" element={<StateModal />} />
           <Route exact path="/notfound" element={<NotfoundPage />} />
           <Route path="/manage-categories" element={<ListCategoryPage />} />
           <Route path="/add-category" element={<AddCategoryPage />} />
+          <Route path="/invoice" element={<Invoice />} />
+
         </Routes>
       </BrowserRouter>
       </Provider>
