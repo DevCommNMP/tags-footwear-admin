@@ -5,6 +5,7 @@ import BasicProductDetails from "../components/ProductBasicDetails";
 import ProductMainImage from "../components/ProductMainImage";
 import ProductSubImages from "../components/ProductSubImages";
 import { Link } from "react-router-dom";
+import { Slide, toast, ToastContainer } from "react-toastify";
 
 const AddProductImages = () => {
   return (
@@ -12,6 +13,7 @@ const AddProductImages = () => {
       <div className="screen-overlay"></div>
       <Aside />
       <main className="main-wrap">
+      <ToastContainer />
         <Header />
         <section className="content-main">
           <div className="row">

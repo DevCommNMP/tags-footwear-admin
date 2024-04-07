@@ -4,12 +4,13 @@ import placeholderImg from "../assets/imgs/theme/add_image.svg";
 import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { updateProductImage } from "../redux/actions/product/productActions";
-
+import { useParams } from 'react-router-dom';
+import { Slide, toast, ToastContainer } from "react-toastify";
 const MyDropzone = () => {
   const [selectedFiles, setSelectedFiles] = useState([0]);
   const [placeholderVisible, setPlaceholderVisible] = useState(true);
   const dispatch = useDispatch();
-
+  const {id}=useParams();
   const onDrop = useCallback((acceptedFiles) => {
     setSelectedFiles(
       acceptedFiles.map((file) =>
@@ -40,20 +41,32 @@ const MyDropzone = () => {
   });
 
   const uploadFiles = async () => {
-    const id = "66092732579e90fb6cf26c38";
+  
     const formData = new FormData();
     formData.append('image', selectedFiles[0].file);
     // selectedFiles.forEach((file) => {
     //   formData.append('image', file);
     // });
 
-    dispatch(updateProductImage({ id, image:selectedFiles[0] }));
+    dispatch(updateProductImage({ id, image:selectedFiles[0] }))
+  .then(action => {
+    
+    if( action.payload.status==200){
+    toast.success("Product image updated successfully !")
+    }
+    // Do something with action.payload
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+ dispatch(updateProductImage({ id, image:selectedFiles[0] }));
   };
 
   // console.log(selectedFiles)
   const renderSelectedFiles = () => {
     return (
       <div>
+        <ToastContainer/>
         {selectedFiles.map((file, index) => (
           <div key={index} className="selected-file">
             <img
