@@ -1,0 +1,18 @@
+page[size="A4"] {
+  width: 21cm !important;
+  height: 29.7cm !important;
+}
+
+@media print {
+
+  body,
+  page {
+    margin: 0;
+    box-shadow: 0;
+    padding: 0;
+  }
+}
+
+#invoice_wrapper {
+  margin-top: 100px;
+}

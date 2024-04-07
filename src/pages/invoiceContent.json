@@ -1,0 +1,47 @@
+{
+  "logoUrl": "../assets/imgs/theme/logo.png",
+  "invoiceNumber": "#1970191",
+  "invoiceDate": "30 Nov 2024",
+  "invoiceTo": {
+    "name": "NestMart Inc",
+    "address": "205 North Michigan Avenue, Suite 810\nChicago, 60601, USA",
+    "phone": "(+123) 456-7890",
+    "email": "contact@nestmart.com"
+  },
+  "billTo": {
+    "name": "Webz Poland",
+    "address": "Madalinskiego 8\n71-101 Szczecin, Poland",
+    "phone": "+48 444 666 3333",
+    "email": "info@webz.com.pl"
+  },
+  "items": [
+    {
+      "description": "Field Roast Chao Cheese Creamy Original",
+      "sku": "FWM15VKT",
+      "unitPrice": "$10.99",
+      "quantity": 1,
+      "amount": "$10.99"
+    },
+    {
+      "description": "Blue Diamond Almonds Lightly Salted",
+      "sku": "FWM15VKT",
+      "unitPrice": "$20.00",
+      "quantity": 3,
+      "amount": "$60.00"
+    },
+    {
+      "description": "Fresh Organic Mustard Leaves Bell Pepper",
+      "sku": "KVM15VK",
+      "unitPrice": "$640.00",
+      "quantity": 1,
+      "amount": "$640.00"
+    },
+    {
+      "description": "All Natural Italian-Style Chicken Meatballs",
+      "sku": "98HFG",
+      "unitPrice": "$240.00",
+      "quantity": 1,
+      "amount": "$240.00"
+    }
+  ]
+}
