@@ -47,10 +47,10 @@ const MyDropzone = () => {
     //   formData.append('image', file);
     // });
 
-    dispatch(updateProductImage({ id, formData }));
+    dispatch(updateProductImage({ id, image:selectedFiles[0] }));
   };
 
-  console.log(selectedFiles)
+  // console.log(selectedFiles)
   const renderSelectedFiles = () => {
     return (
       <div>
