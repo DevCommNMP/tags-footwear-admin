@@ -3,9 +3,9 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import BasicProductDetails from "../components/ProductBasicDetails";
 // import ProductShippingDetails from "../components/ProductShippingDetails";
-import ProductMainImage from "../components/ProductMainImage";
-import ProductSubImages from "../components/ProductSubImages";
-import { Link, Navigate } from "react-router-dom";
+// import ProductMainImage from "../components/ProductMainImage";
+// import ProductSubImages from "../components/ProductSubImages";
+import { Link} from "react-router-dom";
 
 const AddProductPage = () => {
   return (
@@ -16,7 +16,7 @@ const AddProductPage = () => {
         <Header />
         <section className="content-main">
           <div className="row">
-            <div className="col-9">
+            <div className="col-9 m-auto">
               <div className="content-header">
                 <h2 className="content-title">Add New Product</h2>
                 <div>
@@ -30,13 +30,13 @@ const AddProductPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-9 m-auto">
               <BasicProductDetails />
             </div>
-            <div className="col-lg-3">
+            {/* <div className="col-lg-3">
               <ProductMainImage />
               <ProductSubImages />
-              {/* <ProductShippingDetails /> */}
+              <ProductShippingDetails />
               <div className="card mb-4">
                 <div className="card-header">
                   <h4>Coupon Code</h4>
@@ -52,7 +52,7 @@ const AddProductPage = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
         <Footer />
