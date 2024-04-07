@@ -8,6 +8,10 @@ import BasicProductDetails from "../components/ProductBasicDetails";
 import { Link} from "react-router-dom";
 
 const AddProductPage = () => {
+
+
+
+  
   return (
     <>
       <div className="screen-overlay"></div>

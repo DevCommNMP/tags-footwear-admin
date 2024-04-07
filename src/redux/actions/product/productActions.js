@@ -27,6 +27,36 @@ export const fetchAllProductsAction = createAsyncThunk(
     }
   }
 );
+//create product
+
+export const createProduct = createAsyncThunk(
+  "api/products",
+  async (data, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      console.log("fetching data")
+      const res = await axios.post(`${baseUrl}/api/products`,data, config);
+      console.log("fetched data")
+      return res.data;
+    } catch (error) {
+      if (!error?.response) {
+        console.log(error.message)
+        throw error;
+     
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+
+
+
+
 //  update particular product Image
 
 export const updateProductImage = createAsyncThunk(
@@ -110,6 +140,6 @@ export const fetchParticularProduct = createAsyncThunk(
           throw error;
         }
         return rejectWithValue(error?.response?.data);
-      }
+      }              
     }
   );

@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { fetchAllProductsAction } from "../redux/actions/product/productActions";
+import { Link, useNavigate } from "react-router-dom";
 import {
   fetchAllsubCategories,
   fetchAllFootrwearType,
 } from "../redux/actions/categories/allCategoriesActions";
-import { Link, Navigate } from "react-router-dom";
+
+import { createProduct } from "../redux/actions/product/productActions";
 
 const capitalizeFirstCharacter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
+
+
 const BasicProductDetails = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const storeData = useSelector((store) => store.categories);
   const { categoriesData, footwearTypeData, loading, appErr, serverErr } =
     storeData;
@@ -22,7 +25,6 @@ const BasicProductDetails = () => {
     dispatch(fetchAllsubCategories());
     dispatch(fetchAllFootrwearType());
   }, [dispatch]);
-  // console.log(footwearTypeData)
 
   const standardColors = ["red", "blue", "green", "yellow", "orange"];
 
@@ -39,7 +41,7 @@ const BasicProductDetails = () => {
     category: "",
     footwearType: "",
     reviews: [],
-    selectedTag: "", // Selected tag
+    selectedTag: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -116,7 +118,25 @@ const BasicProductDetails = () => {
       formErrors.footwearType = "Footwear Type is required";
       hasErrors = true;
     }
+    if (!formData.description) {
+      formErrors.description = "Description is required";
+      hasErrors = true;
+    }
 
+    if (!formData.skewId) {
+      formErrors.skewId = "Product Id is required";
+      hasErrors = true;
+    }
+    
+    if (!formData.sizesAvailable.every(size => size.size && size.quantity > 0)) {
+      formErrors.sizesAvailable  = "Shoes Size and Quantity are required";
+      hasErrors = true;
+    }
+
+    if (formData.colorsAvailable.length === 0) {
+      formErrors.colorsAvailable = "At least one Shoe color is required";
+      hasErrors = true;
+    }
     // Set errors if any
     if (hasErrors) {
       setErrors(formErrors);
@@ -124,7 +144,15 @@ const BasicProductDetails = () => {
     } else {
       setErrors({});
       // Handle form submission here, e.g., send data to backend
-      console.log(formData);
+      dispatch(createProduct(formData))
+      .then(action => {
+        console.log(action.payload);
+        navigate(`/add-product-images/${action.payload._id}`)
+        // Do something with action.payload
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
     }
   };
 
@@ -154,6 +182,7 @@ const BasicProductDetails = () => {
                   value={formData.title}
                   onChange={handleChange}
                   className="form-control"
+                  required
                 />
                 {errors.title && (
                   <span style={{ color: "red" }}>{errors.title}</span>
@@ -171,7 +200,27 @@ const BasicProductDetails = () => {
                   value={formData.skewId}
                   onChange={handleChange}
                   className="form-control"
+                  required
                 />
+                {errors.skewId && (
+                  <span style={{ color: "red" }}>{errors.skewId}</span>
+                )}
+              </div>
+              <div className="mb-4 col-12">
+                <label htmlFor="product_description" className="form-label">
+                  Product Description
+                </label>
+                <textarea
+                  id="product_description"
+                  name="description"
+                  className="form-control"
+                  value={formData.description}
+                  onChange={handleChange}
+                  required
+                />
+                {errors.description && (
+                  <span style={{ color: "red" }}>{errors.description}</span>
+                )}
               </div>
 
               <div className="mb-4 col-6">
@@ -185,12 +234,12 @@ const BasicProductDetails = () => {
                       value={size.size}
                       onChange={(e) => handleSizeChange(index, e)}
                       className="form-select me-2"
+                      required
                     >
                       <option value="">Select Size</option>
                       <option value="36">36</option>
                       <option value="37">37</option>
                       <option value="38">38</option>
-                      {/* Add more size options if needed */}
                     </select>
                     <input
                       type="number"
@@ -198,6 +247,7 @@ const BasicProductDetails = () => {
                       value={size.quantity}
                       onChange={(e) => handleSizeChange(index, e)}
                       className="form-control me-2"
+                      required
                     />
                     <button
                       type="button"
@@ -208,6 +258,9 @@ const BasicProductDetails = () => {
                     </button>
                   </div>
                 ))}
+                {errors.sizesAvailable && (
+                  <span style={{ color: "red" }}>{errors.sizesAvailable}</span>
+                )}
                 <button
                   type="button"
                   onClick={handleAddSize}
@@ -223,7 +276,10 @@ const BasicProductDetails = () => {
                   className="form-label mb-3 mt-1"
                 >
                   Colors Available:
-                </label>{" "}
+                </label>
+                {errors.colorsAvailable && (
+                  <span style={{ color: "red" }}>{errors.colorsAvailable}</span>
+                )}
                 <br />
                 {standardColors.map((color, index) => (
                   <div
@@ -241,6 +297,7 @@ const BasicProductDetails = () => {
                       style={{
                         fontSize: "large",
                       }}
+                      required
                     />
                     <label
                       htmlFor={color}
@@ -255,10 +312,6 @@ const BasicProductDetails = () => {
                     >
                       {capitalizeFirstCharacter(color)}
                     </label>
-                    {/* <span
-                      className="color-indicator"
-                      style={{ backgroundColor: color }}
-                    ></span> */}
                   </div>
                 ))}
               </div>
@@ -274,6 +327,7 @@ const BasicProductDetails = () => {
                   value={formData.price}
                   onChange={handleChange}
                   className="form-control"
+                  required
                 />
                 {errors.price && (
                   <span style={{ color: "red" }}>{errors.price}</span>
@@ -309,6 +363,7 @@ const BasicProductDetails = () => {
                   value={formData.category}
                   onChange={handleChange}
                   className="form-select"
+                  required
                 >
                   <option value="">Select Category</option>
                   {categoriesData.map((item, index) => (
@@ -331,6 +386,7 @@ const BasicProductDetails = () => {
                   value={formData.footwearType}
                   onChange={handleChange}
                   className="form-select"
+                  required
                 >
                   <option value="">Select Category</option>
                   {footwearTypeData.map((item, index) => (
@@ -349,7 +405,7 @@ const BasicProductDetails = () => {
                 </div>
                 <div className="card-body">
                   <div className="row gx-2">
-                    <div className="mb-4">
+                    <div className="mb-4 col-12">
                       <label htmlFor="product_name" className="form-label">
                         Enter coupon code for this product
                       </label>
@@ -360,27 +416,24 @@ const BasicProductDetails = () => {
               </div>
 
               <div className="row">
-
-              <div className="ml-auto col">
-                  <button
+                <div className="ml-auto col">
+                  {/* <button
                     type="submit"
                     className="btn btn-outline-danger ml-auto m-auto"
                   >
                     Validate
-                  </button>
-              </div>
-              <div className="ml-auto col">
-                <Link  to='/add-product-images'>
+                  </button> */}
+                </div>
+                <div className="ml-auto col">
                   <button
                     type="submit"
                     className="btn btn-primary ml-auto"
+                    onClick={handleSubmit}
                   >
                     Next Page
                   </button>
-                </Link>
+                </div>
               </div>
-              </div>
-
             </div>
           </form>
         </div>

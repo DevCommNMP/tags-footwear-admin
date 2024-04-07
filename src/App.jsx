@@ -24,7 +24,7 @@ function App() {
           <Route exact path="/blank" element={<Blankpage />} />
           <Route exact path="/products-list" element={<ListProductPage />} />
           <Route exact path="/add-product" element={<AddProductPage />} />
-          <Route exact path="/add-product-images" element={<AddProductImages />} />
+          <Route exact path="/add-product-images/:id" element={<AddProductImages />} />
           <Route exact path="/quickview" element={<QuickView />} />
           <Route exact path="/state" element={<StateModal />} />
           <Route exact path="/notfound" element={<NotfoundPage />} />
