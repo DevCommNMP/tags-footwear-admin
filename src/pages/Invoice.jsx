@@ -1,135 +1,152 @@
+import "./invoice.css";
+
 const Invoice = () => {
   return (
-    <>
-      <div className="container mt-6 mb-7">
-        <div className="row justify-content-center">
-          <div className="col-lg-12 col-xl-7">
-            <div className="card">
-              <div className="card-body p-5">
-                <h2>Hey Anna,</h2>
-                <p className="fs-sm">
-                  This is the receipt for a payment of <strong>$312.00</strong>{" "}
-                  (USD) you made to Spacial Themes.
-                </p>
-
-                <div className="border-top border-gray-200 pt-4 mt-4">
-                  <div className="row">
+    <page size="A4" className="theme-color2 bg-light">
+      <section className="theme-invoice-1 section-b-space">
+        <div className="container">
+          <div className="row">
+            <div className="col-xl-8 m-auto">
+              <div className="invoice-wrapper">
+                <div className="invoice-header">
+                  <div className="upper-icon">
+                    <img
+                      src="assets/images/invoice.svg"
+                      className="img-fluid"
+                      alt=""
+                    />
+                  </div>
+                  <div className="row header-content">
                     <div className="col-md-6">
-                      <div className="text-muted mb-2">Payment No.</div>
-                      <strong>#88305</strong>
+                      <img
+                        src="assets/images/logo.png"
+                        className="img-fluid"
+                        alt=""
+                      />
+                      <div className="mt-md-4 mt-3">
+                        <h4 className="mb-2">
+                          Multikart Demo Store india - 363512
+                        </h4>
+                        <h4 className="mb-0">support@multikart.com</h4>
+                      </div>
                     </div>
-                    <div className="col-md-6 text-md-end">
-                      <div className="text-muted mb-2">Payment Date</div>
-                      <strong>Feb/09/20</strong>
+                    <div className="col-md-6 text-md-end mt-md-0 mt-4">
+                      <h2>invoice</h2>
+                      <div className="mt-md-4 mt-3">
+                        <h4 className="mb-2">2664 Tail Ends Road, ORADELL</h4>
+                        <h4 className="mb-0">New Jersey, 07649</h4>
+                      </div>
                     </div>
+                  </div>
+                  <div className="detail-bottom">
+                    <ul>
+                      <li>
+                        <span>issue date :</span> <br />
+                        <h4> 20 march, 2024</h4>
+                      </li>
+                      <li>
+                        <span>invoice no :</span> <br />
+                        <h4> 908452</h4>
+                      </li>
+                      <li>
+                        <span>email :</span>
+                        <h4> whatifemailislong@gmail.com</h4> <br />
+                      </li>
+                    </ul>
                   </div>
                 </div>
-
-                <div className="border-top border-gray-200 mt-4 py-4">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="text-muted mb-2">Client</div>
-                      <strong>John McClane</strong>
-                      <p className="fs-sm">
-                        989 5th Avenue, New York, 55832
-                        <br />
-                        <a href="#!" className="text-purple">
-                          john@email.com
-                        </a>
-                      </p>
-                    </div>
-                    <div className="col-md-6 text-md-end">
-                      <div className="text-muted mb-2">Payment To</div>
-                      <strong>Themes LLC</strong>
-                      <p className="fs-sm">
-                        9th Avenue, San Francisco 99383
-                        <br />
-                        <a href="#!" className="text-purple">
-                          themes@email.com
-                        </a>
-                      </p>
-                    </div>
-                  </div>
+                <div className="invoice-body table-responsive-md">
+                  <table className="table table-borderless mb-0">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">description</th>
+                        <th scope="col">price</th>
+                        <th scope="col">hrs.</th>
+                        <th scope="col">total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Logo Designing</td>
+                        <td>$50</td>
+                        <td>2</td>
+                        <td>$100</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>website & banner design</td>
+                        <td>$30</td>
+                        <td>3</td>
+                        <td>$90</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>frontend development</td>
+                        <td>$95</td>
+                        <td>1</td>
+                        <td>$95</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">4</th>
+                        <td>backend development</td>
+                        <td>$95</td>
+                        <td>1</td>
+                        <td>$95</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">5</th>
+                        <td>SEO, Deigital marketing</td>
+                        <td>$95</td>
+                        <td>1</td>
+                        <td>$95</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colSpan="2"></td>
+                        <td className="font-bold text-dark" colSpan="2">
+                          GRAND TOTAL
+                        </td>
+                        <td className="font-bold text-theme">$325.00</td>
+                      </tr>
+                    </tfoot>
+                  </table>
                 </div>
-
-                <table className="table border-bottom border-gray-200 mt-3">
-                  <thead>
-                    <tr>
-                      <th
-                        scope="col"
-                        className="fs-sm text-dark text-uppercase-bold-sm px-0"
-                      >
-                        Description
-                      </th>
-                      <th
-                        scope="col"
-                        className="fs-sm text-dark text-uppercase-bold-sm text-end px-0"
-                      >
-                        Amount
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="px-0">Theme customization</td>
-                      <td className="text-end px-0">$60.00</td>
-                    </tr>
-                    <tr>
-                      <td className="px-0">Website design</td>
-                      <td className="text-end px-0">$80.00</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div className="mt-5">
-                  <div className="d-flex justify-content-end">
-                    <p className="text-muted me-3">Subtotal:</p>
-                    <span>$390.00</span>
+                <div className="invoice-footer text-end">
+                  <div className="authorise-sign">
+                    <img
+                      src="assets/images/sign.png"
+                      className="img-fluid"
+                      alt="sing"
+                    />
+                    <span className="line"></span>
+                    <h6>Authorised Sign</h6>
                   </div>
-                  <div className="d-flex justify-content-end">
-                    <p className="text-muted me-3">Discount:</p>
-                    <span>-$40.00</span>
-                  </div>
-                  <div className="d-flex justify-content-end mt-3">
-                    <h5 className="me-3">Total:</h5>
-                    <h5 className="text-success">$399.99 USD</h5>
+                  <div className="buttons">
+                    <a
+                      href="#"
+                      className="btn btn-solid-default rounded-2 me-2"
+                      onClick="window.print();"
+                    >
+                      export as PDF
+                    </a>
+                    <a
+                      href="#"
+                      className="btn btn-solid-dark rounded-2"
+                      onClick="window.print();"
+                    >
+                      print
+                    </a>
                   </div>
                 </div>
               </div>
-              <a
-                href="#!"
-                className="btn btn-dark btn-lg card-footer-btn justify-content-center text-uppercase-bold-sm hover-lift-light"
-              >
-                <span className="svg-icon text-white me-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="512"
-                    height="512"
-                    viewBox="0 0 512 512"
-                  >
-                    <title>ionicons-v5-g</title>
-                    <path
-                      d="M336,208V113a80,80,0,0,0-160,0v95"
-                    //   style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"
-                    ></path>
-                    <rect
-                      x="96"
-                      y="208"
-                      width="320"
-                      height="272"
-                      rx="48"
-                      ry="48"
-                    //   style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"
-                    ></rect>
-                  </svg>
-                </span>
-                Pay Now
-              </a>
             </div>
           </div>
         </div>
-      </div>
-    </>
+      </section>
+    </page>
   );
 };
 

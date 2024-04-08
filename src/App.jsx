@@ -13,7 +13,7 @@ import { Provider } from "react-redux";
 import ListCategoryPage from "./pages/ListCategoryPage";
 import AddCategoryPage from "./pages/AddCategoryPage";
 import AddProductImages from "./pages/AddProductImages";
-import Invoice from "./pages/Invoice";
+import Invoice from "./pages/Invoice2";
 function App() {
   return (
     <>
