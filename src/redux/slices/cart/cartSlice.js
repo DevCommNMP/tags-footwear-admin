@@ -1,10 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addToCartHandler } from "../../actions/cart/cartActions";
 
-
-
-const initialState={
-cart:[],
+const initialState = {
+  cart: [],
   cartLoading: false,
   appErr: null,
   serverErr: null,
@@ -12,7 +10,7 @@ cart:[],
 const cartSlice = createSlice({
   name: "cart",
   initialState,
- 
+
   reducers: {
     clearErrors: (state) => {
       state.appErr = null;
@@ -23,22 +21,18 @@ const cartSlice = createSlice({
     // Add to cart
     builder.addCase(addToCartHandler.pending, (state, action) => {
       state.cartLoading = true;
-      state.addedtocart=false,
-      state.appErr = null;
+      (state.addedtocart = false), (state.appErr = null);
       state.serverErr = null;
     });
     builder.addCase(addToCartHandler.fulfilled, (state, action) => {
       state.cartLoading = false;
-      state.addedtocart=false,
-      state.cart = action?.payload;
+      (state.addedtocart = false), (state.cart = action?.payload);
     });
     builder.addCase(addToCartHandler.rejected, (state, action) => {
       state.cartLoading = false;
-      state.appErr = action?.payload?.message || 'An error occurred';
-      state.serverErr = action?.payload?.message || 'Network error';
+      state.appErr = action?.payload?.message || "An error occurred";
+      state.serverErr = action?.payload?.message || "Network error";
     });
-
-   
   },
 });
 

@@ -1,12 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUserAction,verifyEmail, logoutAction, registerUserAction } from "../../actions/auth/authActions";
+import { loginUserAction, verifyEmail, logoutAction, registerUserAction } from "../../actions/auth/authActions";
 
-
-
-const initialState={
+const initialState = {
   user: "",
   registered: "",
-  emailVerified:false,
+  emailVerified: false,
   loading: false,
   appErr: null,
   serverErr: null,
@@ -14,7 +12,7 @@ const initialState={
 const authSlice = createSlice({
   name: "auth",
   initialState,
- 
+
   reducers: {
     clearErrors: (state) => {
       state.appErr = null;
@@ -24,7 +22,7 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     // register
     builder.addCase(registerUserAction.pending, (state, action) => {
-      state.registered =false;
+      state.registered = false;
       state.loading = true;
       state.appErr = null;
       state.serverErr = null;
@@ -35,9 +33,9 @@ const authSlice = createSlice({
     });
     builder.addCase(registerUserAction.rejected, (state, action) => {
       state.loading = false;
-      state.registered =false;
-      state.appErr = action?.payload?.message || 'An error occurred';
-      state.serverErr = action?.payload?.message || 'Network error';
+      state.registered = false;
+      state.appErr = action?.payload?.message || "An error occurred";
+      state.serverErr = action?.payload?.message || "Network error";
     });
 
     // login
@@ -61,7 +59,7 @@ const authSlice = createSlice({
 
     //verify-email
     builder.addCase(verifyEmail.pending, (state, action) => {
-      state.registered =false;
+      state.registered = false;
       state.emailVerified = false;
       state.loading = true;
       state.appErr = null;
@@ -73,10 +71,10 @@ const authSlice = createSlice({
     });
     builder.addCase(verifyEmail.rejected, (state, action) => {
       state.loading = false;
-      state.registered =false;
+      state.registered = false;
       state.emailVerified = false;
-      state.appErr = action?.payload?.message || 'An error occurred';
-      state.serverErr = action?.payload?.message || 'Network error';
+      state.appErr = action?.payload?.message || "An error occurred";
+      state.serverErr = action?.payload?.message || "Network error";
     });
 
     // logoutAction

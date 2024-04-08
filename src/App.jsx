@@ -14,6 +14,7 @@ import ListCategoryPage from "./pages/ListCategoryPage";
 import AddCategoryPage from "./pages/AddCategoryPage";
 import AddProductImages from "./pages/AddProductImages";
 import Invoice from "./pages/Invoice2";
+import InvoiceWithForm from "./pages/InvoiceWithForm";
 function App() {
   return (
     <>
@@ -31,7 +32,7 @@ function App() {
           <Route path="/manage-categories" element={<ListCategoryPage />} />
           <Route path="/add-category" element={<AddCategoryPage />} />
           <Route path="/invoice" element={<Invoice />} />
-
+          <Route path="/create-invoice" element={<InvoiceWithForm />} />
         </Routes>
       </BrowserRouter>
       </Provider>

@@ -1,14 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllProductsAction,fetchParticularProduct,updateProductSubImage ,updateProductImage } from "../../actions/product/productActions";
+import {
+  fetchAllProductsAction,
+  fetchParticularProduct,
+  updateProductSubImage,
+  updateProductImage,
+} from "../../actions/product/productActions";
 
 const initialState = {
   products: [],
-  particularproduct:{},
-  productImage:"",
-  productSubImages:"",
+  particularproduct: {},
+  productImage: "",
+  productSubImages: "",
   productsLoading: false,
-  profilePhotoLoading:false,
-  subImagesLoading:false,
+  profilePhotoLoading: false,
+  subImagesLoading: false,
   appErr: null,
   serverErr: null,
 };
@@ -39,8 +44,8 @@ const productSlice = createSlice({
       state.serverErr = action.payload?.message || "Network error";
     });
 
-     //update productImage 
-     builder.addCase(updateProductImage.pending, (state) => {
+    //update productImage
+    builder.addCase(updateProductImage.pending, (state) => {
       state.profilePhotoLoading = true;
       state.appErr = null;
       state.serverErr = null;
@@ -55,8 +60,7 @@ const productSlice = createSlice({
       state.serverErr = action.payload?.message || "Network error";
     });
 
-    
-     //update productSubImage  
+    //update productSubImage
     builder.addCase(updateProductSubImage.pending, (state) => {
       state.subImagesLoading = true;
       state.appErr = null;
@@ -74,20 +78,19 @@ const productSlice = createSlice({
 
     //fetching perticular data
     builder.addCase(fetchParticularProduct.pending, (state) => {
-        state.productsLoading = true;
-        state.appErr = null;
-        state.serverErr = null;
-      });
-      builder.addCase(fetchParticularProduct.fulfilled, (state, action) => {
-        state.productsLoading = false;
-        state.particularproduct = action.payload;
-      });
-      builder.addCase(fetchParticularProduct.rejected, (state, action) => {
-        state.productsLoading = false;
-        state.appErr = action.payload?.message || "An error occurred";
-        state.serverErr = action.payload?.message || "Network error";
-      });
-
+      state.productsLoading = true;
+      state.appErr = null;
+      state.serverErr = null;
+    });
+    builder.addCase(fetchParticularProduct.fulfilled, (state, action) => {
+      state.productsLoading = false;
+      state.particularproduct = action.payload;
+    });
+    builder.addCase(fetchParticularProduct.rejected, (state, action) => {
+      state.productsLoading = false;
+      state.appErr = action.payload?.message || "An error occurred";
+      state.serverErr = action.payload?.message || "Network error";
+    });
   },
 });
 
