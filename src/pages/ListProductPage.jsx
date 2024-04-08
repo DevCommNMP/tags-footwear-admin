@@ -3,13 +3,21 @@ import Aside from "../components/Aside";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProductsAction } from "../redux/actions/product/productActions";
+import { deleteParticularProductAction, fetchAllProductsAction } from "../redux/actions/product/productActions";
 // import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Link } from "react-router-dom";
 
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
+
 const ListProductPage = () => {
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [productIdToDelete, setProductIdToDelete] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(4); // Number of products per page
 
@@ -30,6 +38,17 @@ const ListProductPage = () => {
     indexOfLastProduct
   );
 
+  const deleteHandler=(productId)=>{
+    setShow(!show)
+    setProductIdToDelete(productId);
+  }
+
+  const deleteproductHandler=()=>{
+    console.log("product deleted successfully")
+  const res= dispatch(deleteParticularProductAction(productIdToDelete))
+  console.log(res)
+    setShow(!show)
+  }
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -38,9 +57,24 @@ const ListProductPage = () => {
     setProductsPerPage(value);
     setCurrentPage(1); // Reset to first page when changing products per page
   };
+ 
 
   return (
     <>
+{show ?  <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Warning !</Modal.Title>
+        </Modal.Header>
+        <Modal.Body> You will not be able to retrieve the product after deletion.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={deleteproductHandler}>
+           {productsLoading ?"Loading":"Delete"}
+          </Button>
+        </Modal.Footer>
+      </Modal>:""}
       <div className="screen-overlay"></div>
       <Aside />
       <main className="main-wrap">
@@ -168,8 +202,9 @@ const ListProductPage = () => {
                         <i className="material-icons md-edit"></i> Edit{" "}
                       </a>
                       <a
-                        href="#"
+                        
                         className="btn btn-sm font-sm btn-light rounded"
+                        onClick={() => deleteHandler(product._id)}
                       >
                         {" "}
                         <i className="material-icons md-delete_forever"></i>{" "}
@@ -195,7 +230,7 @@ const ListProductPage = () => {
                     >
                       <a
                         onClick={() => paginate(index + 1)}
-                        className="page-link"
+                        className="page-link" 
                         href="#"
                       >
                         {index + 1}

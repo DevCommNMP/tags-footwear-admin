@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllProductsAction,fetchParticularProduct,updateProductSubImage ,updateProductImage } from "../../actions/product/productActions";
+import { fetchAllProductsAction,fetchParticularProduct,updateProductSubImage ,updateProductImage,deleteParticularProductAction } from "../../actions/product/productActions";
 
 const initialState = {
   products: [],
@@ -83,6 +83,22 @@ const productSlice = createSlice({
         state.particularproduct = action.payload;
       });
       builder.addCase(fetchParticularProduct.rejected, (state, action) => {
+        state.productsLoading = false;
+        state.appErr = action.payload?.message || "An error occurred";
+        state.serverErr = action.payload?.message || "Network error";
+      });
+
+      //delete particularproduct
+      builder.addCase(deleteParticularProductAction.pending, (state) => {
+        state.productsLoading = true;
+        state.appErr = null;
+        state.serverErr = null;
+      });
+      builder.addCase(deleteParticularProductAction.fulfilled, (state, action) => {
+        state.productsLoading = false;
+        state.particularproduct = action.payload;
+      });
+      builder.addCase(deleteParticularProductAction.rejected, (state, action) => {
         state.productsLoading = false;
         state.appErr = action.payload?.message || "An error occurred";
         state.serverErr = action.payload?.message || "Network error";

@@ -143,3 +143,25 @@ export const fetchParticularProduct = createAsyncThunk(
       }              
     }
   );
+
+  //delete particular product
+  export const deleteParticularProductAction = createAsyncThunk(
+    "api/products/delete/id",
+    async (id, { rejectWithValue }) => {
+      try {
+        const config = {
+          headers: {  
+            "Content-Type": "application/json",
+          },
+        };
+        const res = await axios.delete(`${baseUrl}/api/products/${id}`, config);
+        console.log(res)
+        return res.data;
+      } catch (error) {
+        if (!error?.response) {
+          throw error;
+        }
+        return rejectWithValue(error?.response?.data);
+      }              
+    }
+  );
