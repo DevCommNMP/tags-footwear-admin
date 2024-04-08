@@ -10,7 +10,8 @@ import { Slide, toast, ToastContainer } from "react-toastify";
 const AddProductImages = () => {
   return (
     <>
-      <div className="screen-overlay"></div>
+      <div className="screen-hardlight
+      "></div>
       <Aside />
       <main className="main-wrap">
       <ToastContainer />
@@ -31,7 +32,8 @@ const AddProductImages = () => {
             </div>
             <div className="col-lg-9 m-auto">
               <div className="row">
-                <div className="col-4">
+                <div classNam
+              e="col-47">
                   <ProductMainImage />
                 </div>
                 <div className="col-8">
