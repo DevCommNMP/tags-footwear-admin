@@ -3,12 +3,12 @@ import { fetchAllProductsAction,fetchParticularProduct,updateProductSubImage ,up
 
 const initialState = {
   products: [],
-  particularproduct:{},
-  productImage:"",
-  productSubImages:"",
+  particularproduct: {},
+  productImage: "",
+  productSubImages: "",
   productsLoading: false,
-  profilePhotoLoading:false,
-  subImagesLoading:false,
+  profilePhotoLoading: false,
+  subImagesLoading: false,
   appErr: null,
   serverErr: null,
 };
@@ -39,8 +39,8 @@ const productSlice = createSlice({
       state.serverErr = action.payload?.message || "Network error";
     });
 
-     //update productImage 
-     builder.addCase(updateProductImage.pending, (state) => {
+    //update productImage
+    builder.addCase(updateProductImage.pending, (state) => {
       state.profilePhotoLoading = true;
       state.appErr = null;
       state.serverErr = null;
@@ -55,8 +55,7 @@ const productSlice = createSlice({
       state.serverErr = action.payload?.message || "Network error";
     });
 
-    
-     //update productSubImage  
+    //update productSubImage
     builder.addCase(updateProductSubImage.pending, (state) => {
       state.subImagesLoading = true;
       state.appErr = null;

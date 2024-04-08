@@ -16,3 +16,9 @@ page[size="A4"] {
 #invoice_wrapper {
   margin-top: 100px;
 }
+
+@media print {
+  .print-hide {
+    display: none !important;
+  }
+}

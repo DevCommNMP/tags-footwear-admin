@@ -6,7 +6,7 @@ import { baseUrl } from "../../../utils/baseUrl";
 const addToCart = (product) => {
   // Get existing cart items from local storage or initialize an empty array
   let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-  
+
   // Check if the product is already in the cart
   const existingProductIndex = cartItems.findIndex((item) => item.productId === product.productId);
 
@@ -15,14 +15,20 @@ const addToCart = (product) => {
     cartItems[existingProductIndex].quantity += 1;
   } else {
     // If the product is not in the cart, add it as a new item
-    cartItems.push({ productId: product._id, quantity: 1,productImage:product.productImage,price:product.SellingPrice,title:product.title});
+    cartItems.push({
+      productId: product._id,
+      quantity: 1,
+      productImage: product.productImage,
+      price: product.SellingPrice,
+      title: product.title,
+    });
   }
 
   // Save the updated cart items back to local storage
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
   // Return the updated cart items
-  console.log(cartItems)
+  console.log(cartItems);
   return cartItems;
 };
 
@@ -42,14 +48,14 @@ export const addToCartHandler = createAsyncThunk("products/addtocart", async (da
         },
       };
       // Send request to server to add item to cart
-    //   const res = await axios.post(`${baseUrl}/api/cart`, { productId }, config);
-    //   return res.data;
-    addToCart(data);
-    return JSON.parse(localStorage.getItem("cartItems"))
+      //   const res = await axios.post(`${baseUrl}/api/cart`, { productId }, config);
+      //   return res.data;
+      addToCart(data);
+      return JSON.parse(localStorage.getItem("cartItems"));
     } else {
       // User is not authenticated, add item to cart in local storage only
       addToCart(data);
-     return JSON.parse(localStorage.getItem("cartItems"))
+      return JSON.parse(localStorage.getItem("cartItems"));
     }
   } catch (error) {
     if (!error?.response) {

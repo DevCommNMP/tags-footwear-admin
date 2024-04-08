@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllsubCategories,fetchAllFootrwearType } from "../../actions/categories/allCategoriesActions";
+import { fetchAllsubCategories, fetchAllFootrwearType } from "../../actions/categories/allCategoriesActions";
 
 const initialState = {
   categoriesData: [],
-  footwearTypeData:[],
+  footwearTypeData: [],
   loading: false,
   appErr: null,
   serverErr: null,
@@ -34,7 +34,6 @@ const categoriesSlice = createSlice({
       state.serverErr = action.payload?.message || "Network error";
     });
 
-
     // footwear type slice
     builder.addCase(fetchAllFootrwearType.pending, (state) => {
       state.loading = true;
@@ -50,9 +49,7 @@ const categoriesSlice = createSlice({
       state.appErr = action.payload?.message || "An error occurred";
       state.serverErr = action.payload?.message || "Network error";
     });
-      
   },
-  
 });
 
 export const { clearErrors } = categoriesSlice.actions;
