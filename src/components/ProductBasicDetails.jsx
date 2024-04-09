@@ -26,7 +26,61 @@ const BasicProductDetails = () => {
     dispatch(fetchAllFootrwearType());
   }, [dispatch]);
 
-  const standardColors = ["red", "blue", "green", "yellow", "orange"];
+  const standardColors = [
+    "Gold",
+    "Peach",
+    "Pink",
+    "Black",
+    "White",
+    "Chique",
+    "N Blue",
+    "Rust",
+    "O Green",
+    "Brownx",
+    "Chico",
+    "Brownz",
+    "Maroon",
+    "Brown",
+    "Green",
+    "Beige",
+    "Orange",
+    "M. Green",
+    "M. Yellow",
+    "G M T",
+    "N.Blue",
+    "Browon",
+    "Chikoo",
+    "Begie",
+    "N.Blue / B/TT",
+    "O Green/ B. TT",
+    "NT/B.TT",
+    "T Blue",
+    "L Gray",
+    "Ruat",
+    "Brownz",
+    "Rust B.TT",
+    "SW",
+    "M R H",
+    "Gun Metal",
+    "Yellow",
+    "Grey",
+    "Musturd",
+    "Blue",
+    "L Blue",
+    "D Blue",
+    "Sultan",
+    "Antique",
+    "Tan",
+    "Cream",
+    "XX",
+    "G A R",
+    "AXX",
+    "S S",
+    "Purple",
+    "Gray",
+    "ANT"
+];
+
 
   const [formData, setFormData] = useState({
     title: "",
@@ -240,6 +294,10 @@ const BasicProductDetails = () => {
                       <option value="36">36</option>
                       <option value="37">37</option>
                       <option value="38">38</option>
+                      <option value="38">39</option>
+                      <option value="38">40</option>
+                      <option value="38">41</option>
+                      <option value="38">42</option>
                     </select>
                     <input
                       type="number"
