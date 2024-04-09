@@ -4,12 +4,23 @@ import Footer from "../components/Footer";
 import BasicProductDetails from "../components/ProductBasicDetails";
 import ProductMainImage from "../components/ProductMainImage";
 import ProductSubImages from "../components/ProductSubImages";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Slide, toast, ToastContainer } from "react-toastify";
+import { useState } from "react";
 
 const AddProductImages = () => {
+   const[updatedProductImage,setProductImage]=useState(false);
+   const [updateProductSubImage,setupdatedProductSubImages]=useState(false);
+   const navigate = useNavigate();
+   if(updatedProductImage  && updateProductSubImage){
+    setTimeout(() => {
+      navigate("/products-list");
+    },2000);
+    
+   }
   return (
     <>
+    
       <div className="screen-hardlight
       "></div>
       <Aside />
@@ -34,10 +45,10 @@ const AddProductImages = () => {
               <div className="row">
                 <div classNam
               e="col-47">
-                  <ProductMainImage />
+                  <ProductMainImage  setProductImage={setProductImage}/>
                 </div>
                 <div className="col-8">
-                  <ProductSubImages />
+                  <ProductSubImages setupdatedProductSubImages={setupdatedProductSubImages} />
                 </div>
               </div>
             </div>

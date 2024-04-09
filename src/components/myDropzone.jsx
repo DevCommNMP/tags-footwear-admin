@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState ,useEffect} from "react";
 import { useDropzone } from "react-dropzone";
 import placeholderImg from "../assets/imgs/theme/add_image.svg";
 import axios from 'axios';
@@ -6,17 +6,24 @@ import { useDispatch } from "react-redux";
 import { updateProductImage } from "../redux/actions/product/productActions";
 import { useParams } from 'react-router-dom';
 import { Slide, toast, ToastContainer } from "react-toastify";
-const MyDropzone = () => {
-  const [selectedFiles, setSelectedFiles] = useState([0]);
+import Alert from 'react-bootstrap/Alert';
+
+const MyDropzone = ({setProductImage}) => {
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [successMessage, setSuccessMessage] = useState(false);
+  const[imageCount,setimageCount]=useState(0)
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [message, setMessage] = useState("");
   const [placeholderVisible, setPlaceholderVisible] = useState(true);
   const dispatch = useDispatch();
-  const {id}=useParams();
+  const { id } = useParams();
+
   const onDrop = useCallback((acceptedFiles) => {
     setSelectedFiles(
       acceptedFiles.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
-        }),
+        })
       )
     );
     setPlaceholderVisible(false);
@@ -40,33 +47,49 @@ const MyDropzone = () => {
     activeClassName: "dropzone-active",
   });
 
-  const uploadFiles = async () => {
+  useEffect(() => {
+  setTimeout(() => {
+    setMessage("")
+  }, 5000);
+  }, [message])
   
+  const uploadFiles = async () => {
     const formData = new FormData();
-    formData.append('image', selectedFiles[0].file);
-    // selectedFiles.forEach((file) => {
-    //   formData.append('image', file);
-    // });
+    formData.append('image', selectedFiles[0]);
 
-    dispatch(updateProductImage({ id, image:selectedFiles[0] }))
-  .then(action => {
-    
-    if( action.payload.status==200){
-    toast.success("Product image updated successfully !")
-    }
-    // Do something with action.payload
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
- dispatch(updateProductImage({ id, image:selectedFiles[0] }));
+    dispatch(updateProductImage({ id, image: selectedFiles[0] }))
+      .then(action => {
+        if (action.payload.status) {
+          setSuccessMessage(true);
+          setMessage("Product image updated successfully !");
+          setSelectedFiles([])
+          setPlaceholderVisible(true);
+          setProductImage(true);
+        
+        }
+      })
+      .catch(error => {
+        setErrorMessage(true);
+        setMessage("Error occurred while updating product image !");
+        console.error('Error:', error);
+      });
   };
 
-  // console.log(selectedFiles)
   const renderSelectedFiles = () => {
     return (
       <div>
-        <ToastContainer/>
+        {(successMessage && message)&&
+          <Alert variant="success" onClose={() => setSuccessMessage(false)} >
+            <Alert.Heading>Success!</Alert.Heading>
+            <p>{message}</p>
+          </Alert>
+        }
+        {(errorMessage && message)&&
+          <Alert variant="danger" onClose={() => setErrorMessage(false)} >
+            <Alert.Heading>Error!</Alert.Heading>
+            <p>{message}</p>
+          </Alert>
+        }
         {selectedFiles.map((file, index) => (
           <div key={index} className="selected-file">
             <img
@@ -112,8 +135,4 @@ const MyDropzone = () => {
   );
 };
 
-
-console.log("french fries");
-
-console.log();
 export default MyDropzone;

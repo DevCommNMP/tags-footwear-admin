@@ -1,9 +1,9 @@
 import MyDropzone from "./myDropzone";
 
-const ProductMainImage = () => {
+const ProductMainImage = ({setProductImage}) => {
   return (
     <>
-      <MyDropzone />
+      <MyDropzone setProductImage={setProductImage}/>
     </>
   );
 };

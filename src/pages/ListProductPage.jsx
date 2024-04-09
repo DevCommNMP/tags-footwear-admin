@@ -14,6 +14,7 @@ import Modal from 'react-bootstrap/Modal';
 const ListProductPage = () => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+  
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -46,7 +47,7 @@ const ListProductPage = () => {
   const deleteproductHandler=()=>{
     console.log("product deleted successfully")
   const res= dispatch(deleteParticularProductAction(productIdToDelete))
-  console.log(res)
+  console.log(res.status)
     setShow(!show)
   }
   // Change page

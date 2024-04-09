@@ -14,6 +14,7 @@ const AddProductPage = () => {
   
   return (
     <>
+    
       <div className="screen-overlay"></div>
       <Aside />
       <main className="main-wrap">
@@ -37,26 +38,7 @@ const AddProductPage = () => {
             <div className="col-lg-9 m-auto">
               <BasicProductDetails />
             </div>
-            {/* <div className="col-lg-3">
-              <ProductMainImage />
-              <ProductSubImages />
-              <ProductShippingDetails />
-              <div className="card mb-4">
-                <div className="card-header">
-                  <h4>Coupon Code</h4>
-                </div>
-                <div className="card-body">
-                  <div className="row gx-2">
-                    <div className="mb-4">
-                      <label htmlFor="product_name" className="form-label">
-                        Enter coupon code for this product
-                      </label>
-                      <input type="text" className="form-control" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
+           
           </div>
         </section>
         <Footer />

@@ -1,9 +1,9 @@
 import MultipleUploadDropzone from "./MultipleUploadDropzone"
 
-const ProductSubImages = () => {
+const ProductSubImages = ({setupdatedProductSubImages}) => {
   return (
     <div>
-      <MultipleUploadDropzone />
+      <MultipleUploadDropzone setupdatedProductSubImages={setupdatedProductSubImages} />
     </div>
   )
 }
