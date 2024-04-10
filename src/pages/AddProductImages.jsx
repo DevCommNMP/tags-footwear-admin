@@ -43,8 +43,7 @@ const AddProductImages = () => {
             </div>
             <div className="col-lg-9 m-auto">
               <div className="row">
-                <div classNam
-              e="col-47">
+                <div className="col-4">
                   <ProductMainImage  setProductImage={setProductImage}/>
                 </div>
                 <div className="col-8">

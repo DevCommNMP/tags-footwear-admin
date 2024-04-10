@@ -1,17 +1,17 @@
-import { useCallback, useState ,useEffect} from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import placeholderImg from "../assets/imgs/theme/add_image.svg";
-import axios from 'axios';
+import axios from "axios";
 import { useDispatch } from "react-redux";
 import { updateProductImage } from "../redux/actions/product/productActions";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import { Slide, toast, ToastContainer } from "react-toastify";
-import Alert from 'react-bootstrap/Alert';
+import Alert from "react-bootstrap/Alert";
 
-const MyDropzone = ({setProductImage}) => {
+const MyDropzone = ({ setProductImage }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [successMessage, setSuccessMessage] = useState(false);
-  const[imageCount,setimageCount]=useState(0)
+  const [imageCount, setimageCount] = useState(0);
   const [errorMessage, setErrorMessage] = useState(false);
   const [message, setMessage] = useState("");
   const [placeholderVisible, setPlaceholderVisible] = useState(true);
@@ -48,58 +48,55 @@ const MyDropzone = ({setProductImage}) => {
   });
 
   useEffect(() => {
-  setTimeout(() => {
-    setMessage("")
-  }, 5000);
-  }, [message])
-  
+    setTimeout(() => {
+      setMessage("");
+    }, 5000);
+  }, [message]);
+
   const uploadFiles = async () => {
     const formData = new FormData();
-    formData.append('image', selectedFiles[0]);
+    formData.append("image", selectedFiles[0]);
 
     dispatch(updateProductImage({ id, image: selectedFiles[0] }))
-      .then(action => {
+      .then((action) => {
         if (action.payload.status) {
           setSuccessMessage(true);
           setMessage("Product image updated successfully !");
-          setSelectedFiles([])
+          setSelectedFiles([]);
           setPlaceholderVisible(true);
           setProductImage(true);
-        
         }
       })
-      .catch(error => {
+      .catch((error) => {
         setErrorMessage(true);
         setMessage("Error occurred while updating product image !");
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   };
 
   const renderSelectedFiles = () => {
     return (
       <div>
-        {(successMessage && message)&&
-          <Alert variant="success" onClose={() => setSuccessMessage(false)} >
+        {successMessage && message && (
+          <Alert variant="success" onClose={() => setSuccessMessage(false)}>
             <Alert.Heading>Success!</Alert.Heading>
             <p>{message}</p>
           </Alert>
-        }
-        {(errorMessage && message)&&
-          <Alert variant="danger" onClose={() => setErrorMessage(false)} >
+        )}
+        {errorMessage && message && (
+          <Alert variant="danger" onClose={() => setErrorMessage(false)}>
             <Alert.Heading>Error!</Alert.Heading>
             <p>{message}</p>
           </Alert>
-        }
+        )}
         {selectedFiles.map((file, index) => (
           <div key={index} className="selected-file">
-            <img
-              src={file.preview}
-              alt={`Preview ${file.name}`}
-              className="img-fluid"
-            />
+            <img src={file.preview} alt={`Preview ${file.name}`} className="img-fluid" />
             <p>{file.name}</p>
             <div className="d-flex justify-content-around">
-              <button className="btn btn-dark justify-center text-center" style={{ width: '100%' }} onClick={() => removeFile(index)}>Replace</button>
+              <button className="btn btn-dark justify-center text-center" style={{ width: "100%" }} onClick={() => removeFile(index)}>
+                Replace
+              </button>
             </div>
           </div>
         ))}
@@ -108,30 +105,26 @@ const MyDropzone = ({setProductImage}) => {
   };
 
   return (
-    <div className="card">
-      <div className="card-header">
-        <h4>Main Image</h4>
-      </div>
+    <>
+      {" "}
       <div {...getRootProps()} className="card-body">
         <input {...getInputProps()} />
         {placeholderVisible ? (
           <div className="placeholder">
             <p>Drag &apos;N&apos; drop some files here, or click to select files</p>
-            <img
-              src={placeholderImg}
-              alt="Placeholder"
-              className="img-fluid"
-            />
+            <img src={placeholderImg} alt="Placeholder" className="img-fluid" />
           </div>
         ) : null}
         {renderSelectedFiles()}
       </div>
       {selectedFiles.length > 0 && (
         <div className="mx-3 mb-15">
-          <button className="btn btn-danger mt-5 justify-center" style={{ width: '100%' }} onClick={uploadFiles}>Upload Selected</button>
+          <button className="btn btn-danger mt-5 justify-center" style={{ width: "100%" }} onClick={uploadFiles}>
+            Upload Selected
+          </button>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
