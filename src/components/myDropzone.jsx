@@ -107,10 +107,8 @@ const MyDropzone = ({ setUpdatedProductImage }) => {
   };
 
   return (
-    <div className="card">
-      <div className="card-header">
-        <h4>Main Image</h4>
-      </div>
+    <>
+      {" "}
       <div {...getRootProps()} className="card-body">
         <input {...getInputProps()} />
         {placeholderVisible ? (
@@ -128,7 +126,7 @@ const MyDropzone = ({ setUpdatedProductImage }) => {
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
