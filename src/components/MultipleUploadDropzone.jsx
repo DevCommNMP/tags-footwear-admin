@@ -1,47 +1,49 @@
-import React, { useCallback, useState,useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDispatch } from "react-redux";
-import { toast, ToastContainer } from "react-toastify"; // Import toast from react-toastify
-import Alert from 'react-bootstrap/Alert';
 import { updateProductSubImage } from "../redux/actions/product/productActions";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
+import { Alert } from "react-bootstrap";
 
-const MultipleUploadDropzone = ({setupdatedProductSubImages}) => {
+const MultipleUploadDropzone = ({ setUpdatedProductSubImage }) => {
   const dispatch = useDispatch();
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [successMessage, setSuccessMessage] = useState(false);
-  
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [alertType, setAlertType] = useState("");
+
   const { id } = useParams();
 
   const uploadImageHandler = async () => {
-    // Example id
     if (selectedFiles.length > 0) {
-      dispatch(updateProductSubImage({ id, image: selectedFiles }))
-        .then(action => {
-          if (action.payload.success) {
-            setSuccessMessage(true);
-            setMessage("Product image updated successfully !");
-            setSelectedFiles([])
-            setupdatedProductSubImages(true);
-            // setPlaceholderVisible(true);
-       
-          }
-        })
-        .catch(error => {
-          setErrorMessage(true);
+      setLoading(true);
+      try {
+        const action = await dispatch(updateProductSubImage({ id, image: selectedFiles }));
+        if (action.payload.success) {
+          setMessage("Product image updated successfully !");
+          setAlertType("success");
+          setSelectedFiles([]);
+          // Ensure setUpdatedProductSubImage is invoked as a function
+          setUpdatedProductSubImage(true); // Assuming it should be set to true
+        } else {
           setMessage("Error occurred while updating product image !");
-          console.error('Error:', error);
-        });
+          setAlertType("error");
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setMessage("Error occurred while updating product image !");
+        setAlertType("error");
+      }
+      setLoading(false);
     }
   };
+
   useEffect(() => {
-    setTimeout(() => {
-      setMessage("")
+    const timer = setTimeout(() => {
+      setMessage("");
     }, 5000);
-    }, [message])
-    
+    return () => clearTimeout(timer);
+  }, [message]);
 
   const onDrop = useCallback((acceptedFiles) => {
     if (selectedFiles.length + acceptedFiles.length <= 10) {
@@ -57,9 +59,7 @@ const MultipleUploadDropzone = ({setupdatedProductSubImages}) => {
   }, [selectedFiles]);
 
   const removeFile = (fileIndex) => {
-    const updatedFiles = selectedFiles.filter(
-      (file, index) => index !== fileIndex
-    );
+    const updatedFiles = selectedFiles.filter((file, index) => index !== fileIndex);
     setSelectedFiles(updatedFiles);
   };
 
@@ -74,18 +74,11 @@ const MultipleUploadDropzone = ({setupdatedProductSubImages}) => {
   const renderSelectedFiles = () => {
     return (
       <div>
-         {(successMessage && message)&&
-          <Alert variant="success" onClose={() => setSuccessMessage(false)} >
-            <Alert.Heading>Success!</Alert.Heading>
+        {message && (
+          <Alert variant={alertType} onClose={() => setMessage("")}>
             <p>{message}</p>
           </Alert>
-        }
-        {(errorMessage && message)&&
-          <Alert variant="danger" onClose={() => setErrorMessage(false)} >
-            <Alert.Heading>Error!</Alert.Heading>
-            <p>{message}</p>
-          </Alert>
-        }
+        )}
         {selectedFiles.map((file, index) => (
           <div key={index} style={multipleImgStyle}>
             <button className="btn btn-dark" onClick={() => removeFile(index)}>
@@ -119,7 +112,6 @@ const MultipleUploadDropzone = ({setupdatedProductSubImages}) => {
       </div>
 
       <div className="card-body">
-       
         {renderSelectedFiles()}
         <div {...getRootProps()} className="flex-items-center">
           <input {...getInputProps()} />
@@ -127,7 +119,9 @@ const MultipleUploadDropzone = ({setupdatedProductSubImages}) => {
             <div className="btn btn-outline-danger mb-5">+</div>
           </p>
         </div>
-        <button className="btn btn-danger mt-5 justify-center" style={{ width: '100%' }} onClick={uploadImageHandler}>Upload Selected</button>
+        <button className="btn btn-danger mt-5 justify-center" style={{ width: "100%" }} onClick={uploadImageHandler} disabled={loading}>
+          {loading ? "Loading..." : "Upload Selected"}
+        </button>
       </div>
     </div>
   );

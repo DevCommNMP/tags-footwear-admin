@@ -1,19 +1,17 @@
-import { useCallback, useState ,useEffect} from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import placeholderImg from "../assets/imgs/theme/add_image.svg";
-import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { updateProductImage } from "../redux/actions/product/productActions";
-import { useParams } from 'react-router-dom';
-import { Slide, toast, ToastContainer } from "react-toastify";
-import Alert from 'react-bootstrap/Alert';
+import { useParams } from "react-router-dom";
+import { Alert } from "react-bootstrap";
 
-const MyDropzone = ({setProductImage}) => {
+const MyDropzone = ({ setUpdatedProductImage }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [successMessage, setSuccessMessage] = useState(false);
-  const[imageCount,setimageCount]=useState(0)
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
   const [placeholderVisible, setPlaceholderVisible] = useState(true);
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -48,58 +46,59 @@ const MyDropzone = ({setProductImage}) => {
   });
 
   useEffect(() => {
-  setTimeout(() => {
-    setMessage("")
-  }, 5000);
-  }, [message])
-  
+    const timer = setTimeout(() => {
+      setSuccessMessage(false);
+      setErrorMessage(false);
+      setMessage("");
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [successMessage, errorMessage]);
+
   const uploadFiles = async () => {
     const formData = new FormData();
-    formData.append('image', selectedFiles[0]);
-
-    dispatch(updateProductImage({ id, image: selectedFiles[0] }))
-      .then(action => {
-        if (action.payload.status) {
-          setSuccessMessage(true);
-          setMessage("Product image updated successfully !");
-          setSelectedFiles([])
-          setPlaceholderVisible(true);
-          setProductImage(true);
-        
-        }
-      })
-      .catch(error => {
-        setErrorMessage(true);
-        setMessage("Error occurred while updating product image !");
-        console.error('Error:', error);
-      });
+    formData.append("image", selectedFiles[0]);
+    setLoading(true);
+    try {
+      const action = await dispatch(updateProductImage({ id, image: selectedFiles[0] }));
+      if (action.payload.status) {
+        setSuccessMessage(true);
+        setErrorMessage(false); // Reset error message state
+        setMessage("Product image updated successfully !");
+        setSelectedFiles([]);
+        setPlaceholderVisible(true);
+        setUpdatedProductImage(true);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setErrorMessage(true);
+      setSuccessMessage(false); // Reset success message state
+      setMessage("Error occurred while updating product image !");
+    }
+    setLoading(false);
   };
 
   const renderSelectedFiles = () => {
     return (
       <div>
-        {(successMessage && message)&&
-          <Alert variant="success" onClose={() => setSuccessMessage(false)} >
-            <Alert.Heading>Success!</Alert.Heading>
-            <p>{message}</p>
+        {successMessage && (
+          <Alert variant="success" onClose={() => setSuccessMessage(false)}>
+            <Alert.Heading>{message}</Alert.Heading>
           </Alert>
-        }
-        {(errorMessage && message)&&
-          <Alert variant="danger" onClose={() => setErrorMessage(false)} >
-            <Alert.Heading>Error!</Alert.Heading>
-            <p>{message}</p>
+        )}
+        {errorMessage && (
+          <Alert variant="danger" onClose={() => setErrorMessage(false)}>
+            <Alert.Heading>{message}</Alert.Heading>
+           
           </Alert>
-        }
+        )}
         {selectedFiles.map((file, index) => (
           <div key={index} className="selected-file">
-            <img
-              src={file.preview}
-              alt={`Preview ${file.name}`}
-              className="img-fluid"
-            />
+            <img src={file.preview} alt={`Preview ${file.name}`} className="img-fluid" />
             <p>{file.name}</p>
             <div className="d-flex justify-content-around">
-              <button className="btn btn-dark justify-center text-center" style={{ width: '100%' }} onClick={() => removeFile(index)}>Replace</button>
+              <button className="btn btn-dark justify-center text-center" style={{ width: "100%" }} onClick={() => removeFile(index)}>
+                Replace
+              </button>
             </div>
           </div>
         ))}
@@ -116,19 +115,17 @@ const MyDropzone = ({setProductImage}) => {
         <input {...getInputProps()} />
         {placeholderVisible ? (
           <div className="placeholder">
-            <p>Drag &apos;N&apos; drop some files here, or click to select files</p>
-            <img
-              src={placeholderImg}
-              alt="Placeholder"
-              className="img-fluid"
-            />
+            <p>Drag 'N' drop some files here, or click to select files</p>
+            <img src={placeholderImg} alt="Placeholder" className="img-fluid" />
           </div>
         ) : null}
         {renderSelectedFiles()}
       </div>
       {selectedFiles.length > 0 && (
         <div className="mx-3 mb-15">
-          <button className="btn btn-danger mt-5 justify-center" style={{ width: '100%' }} onClick={uploadFiles}>Upload Selected</button>
+          <button className="btn btn-danger mt-5 justify-center" style={{ width: "100%" }} onClick={uploadFiles} disabled={loading}>
+            {loading ? "Loading ...." : "Upload Selected"}
+          </button>
         </div>
       )}
     </div>
