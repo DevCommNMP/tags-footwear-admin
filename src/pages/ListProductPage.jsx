@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteParticularProductAction, fetchAllProductsAction } from "../redux/actions/product/productActions";
-// import "bootstrap/dist/js/bootstrap.bundle.min";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Link } from "react-router-dom";
 
 import Button from 'react-bootstrap/Button';
