@@ -4,23 +4,18 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteParticularProductAction, fetchAllProductsAction } from "../redux/actions/product/productActions";
-<<<<<<< HEAD
 // import "bootstrap/dist/js/bootstrap.bundle.min";
-import { Link, useNavigate} from "react-router-dom";
-=======
+import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import { Link } from "react-router-dom";
->>>>>>> b078a64278676997264dd61c6d48557243b5c6e1
 
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 const ListProductPage = () => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -40,52 +35,52 @@ const ListProductPage = () => {
   // Get current products
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
-  const editProductHandler=(productId)=>{
-navigate(`/edit-product/${productId}`)
-console.log(productId)
-  }
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const editProductHandler = (productId) => {
+    navigate(`/edit-product/${productId}`);
+    console.log(productId);
+  };
 
-  const deleteHandler=(productId)=>{
-    setShow(!show)
+  const deleteHandler = (productId) => {
+    setShow(!show);
     setProductIdToDelete(productId);
-  }
+  };
 
-  const deleteproductHandler=()=>{
-    console.log("product deleted successfully")
-  const res= dispatch(deleteParticularProductAction(productIdToDelete))
-  console.log(res.status)
-    setShow(!show)
-  }
+  const deleteproductHandler = () => {
+    console.log("product deleted successfully");
+    const res = dispatch(deleteParticularProductAction(productIdToDelete));
+    console.log(res.status);
+    setShow(!show);
+  };
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Handle dropdown change 
+  // Handle dropdown change
   const handleDropdownChange = (value) => {
     setProductsPerPage(value);
     setCurrentPage(1); // Reset to first page when changing products per page
   };
- 
 
   return (
     <>
-{show ?  <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Warning !</Modal.Title>
-        </Modal.Header>
-        <Modal.Body> You will not be able to retrieve the product after deletion.</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={deleteproductHandler}>
-           {productsLoading ?"Loading":"Delete"}
-          </Button>
-        </Modal.Footer>
-      </Modal>:""}
+      {show ? (
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Warning !</Modal.Title>
+          </Modal.Header>
+          <Modal.Body> You will not be able to retrieve the product after deletion.</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={deleteproductHandler}>
+              {productsLoading ? "Loading" : "Delete"}
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      ) : (
+        ""
+      )}
       <div className="screen-overlay"></div>
       <Aside />
       <main className="main-wrap">
@@ -109,48 +104,30 @@ console.log(productId)
                   >
                     Show {productsPerPage} per page
                   </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li>
-                      <button
-                        className="dropdown-item border-none"
-                        onClick={() => handleDropdownChange(2)}
-                      >
+                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(2)}>
                         2
                       </button>
                     </li>
                     <li>
-                      <button
-                        className="dropdown-item border-none"
-                        onClick={() => handleDropdownChange(4)}
-                      >
+                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(4)}>
                         4
                       </button>
                     </li>
 
                     <li>
-                      <button
-                        className="dropdown-item border-none"
-                        onClick={() => handleDropdownChange(5)}
-                      >
+                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(5)}>
                         5
                       </button>
                     </li>
                     <li>
-                      <button
-                        className="dropdown-item border-none"
-                        onClick={() => handleDropdownChange(10)}
-                      >
+                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(10)}>
                         10
                       </button>
                     </li>
                     <li>
-                      <button
-                        className="dropdown-item border-none"
-                        onClick={() => handleDropdownChange(20)}
-                      >
+                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(20)}>
                         20
                       </button>
                     </li>
@@ -164,10 +141,7 @@ console.log(productId)
               <a href="#" className="btn btn-light rounded font-md">
                 Import
               </a>
-              <Link
-                to="/add-product"
-                className="btn btn-primary btn-sm rounded"
-              >
+              <Link to="/add-product" className="btn btn-primary btn-sm rounded">
                 Add New Product
               </Link>
             </div>
@@ -182,11 +156,7 @@ console.log(productId)
                     <div className="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
                       <a className="itemside" href="#">
                         <div className="left">
-                          <img
-                            src={product.productImage}
-                            className="img-sm img-thumbnail"
-                            alt="Item"
-                          />
+                          <img src={product.productImage} className="img-sm img-thumbnail" alt="Item" />
                         </div>
                         <div className="info">
                           <h6 className="mb-0">{product.title}</h6>
@@ -197,30 +167,19 @@ console.log(productId)
                       <span>&#8377;{product.SellingPrice}</span>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-status">
-                      <span className="badge rounded-pill alert-success">
-                        Active
-                      </span>
+                      <span className="badge rounded-pill alert-success">Active</span>
                     </div>
                     <div className="col-lg-1 col-sm-2 col-4 col-date">
                       <span>{product.subcategoryType.subcategoryTypeName}</span>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-action text-end">
-                      <a
-                        
-                        className="btn btn-sm font-sm rounded btn-brand" 
-                        onClick={()=>editProductHandler(product._id)}
-                      >
+                      <a className="btn btn-sm font-sm rounded btn-brand" onClick={() => editProductHandler(product._id)}>
                         {" "}
                         <i className="material-icons md-edit"></i> Edit{" "}
                       </a>
-                      <a
-                        
-                        className="btn btn-sm font-sm btn-light rounded"
-                        onClick={() => deleteHandler(product._id)}
-                      >
+                      <a className="btn btn-sm font-sm btn-light rounded" onClick={() => deleteHandler(product._id)}>
                         {" "}
-                        <i className="material-icons md-delete_forever"></i>{" "}
-                        Delete{" "}
+                        <i className="material-icons md-delete_forever"></i> Delete{" "}
                       </a>
                     </div>
                   </div>
@@ -231,25 +190,13 @@ console.log(productId)
           <div className="pagination-area mt-30 mb-50">
             <nav aria-label="Page navigation example">
               <ul className="pagination justify-content-start">
-                {Array.from(
-                  { length: Math.ceil(products.length / productsPerPage) },
-                  (_, index) => (
-                    <li
-                      key={index}
-                      className={`page-item ${
-                        currentPage === index + 1 ? "active" : ""
-                      }`}
-                    >
-                      <a
-                        onClick={() => paginate(index + 1)}
-                        className="page-link" 
-                        href="#"
-                      >
-                        {index + 1}
-                      </a>
-                    </li>
-                  )
-                )}
+                {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, index) => (
+                  <li key={index} className={`page-item ${currentPage === index + 1 ? "active" : ""}`}>
+                    <a onClick={() => paginate(index + 1)} className="page-link" href="#">
+                      {index + 1}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </nav>
           </div>
