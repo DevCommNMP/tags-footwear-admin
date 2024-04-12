@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteParticularProductAction, fetchAllProductsAction } from "../redux/actions/product/productActions";
 // import "bootstrap/dist/js/bootstrap.bundle.min";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -14,7 +14,8 @@ import Modal from 'react-bootstrap/Modal';
 const ListProductPage = () => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
-  
+
+  const navigate=useNavigate();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -38,6 +39,10 @@ const ListProductPage = () => {
     indexOfFirstProduct,
     indexOfLastProduct
   );
+  const editProductHandler=(productId)=>{
+navigate(`/edit-product/${productId}`)
+console.log(productId)
+  }
 
   const deleteHandler=(productId)=>{
     setShow(!show)
@@ -53,7 +58,7 @@ const ListProductPage = () => {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Handle dropdown change
+  // Handle dropdown change 
   const handleDropdownChange = (value) => {
     setProductsPerPage(value);
     setCurrentPage(1); // Reset to first page when changing products per page
@@ -84,7 +89,7 @@ const ListProductPage = () => {
           <div className="content-header">
             <div>
               <h2 className="content-title card-title">Products List</h2>
-              <p>Lorem ipsum dolor sit amet.</p>
+              <p></p>
             </div>
             <div>
               <div className="btn-group me-2">
@@ -196,8 +201,9 @@ const ListProductPage = () => {
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-action text-end">
                       <a
-                        href="#"
-                        className="btn btn-sm font-sm rounded btn-brand"
+                        
+                        className="btn btn-sm font-sm rounded btn-brand" 
+                        onClick={()=>editProductHandler(product._id)}
                       >
                         {" "}
                         <i className="material-icons md-edit"></i> Edit{" "}

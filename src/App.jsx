@@ -14,6 +14,7 @@ import ListCategoryPage from "./pages/ListCategoryPage";
 import AddCategoryPage from "./pages/AddCategoryPage";
 import AddProductImages from "./pages/AddProductImages";
 import Invoice from "./pages/Invoice2";
+import EditProductPage from "./pages/editProductPage";
 // import InvoiceWithForm from "./pages/InvoiceWithForm";
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/blank" element={<Blankpage />} />
           <Route exact path="/products-list" element={<ListProductPage />} />
           <Route exact path="/add-product" element={<AddProductPage />} />
+          <Route exact path="/edit-product/:id" element={<EditProductPage />} />
           <Route exact path="/add-product-images/:id" element={<AddProductImages />} />
           <Route exact path="/quickview" element={<QuickView />} />
           <Route exact path="/state" element={<StateModal />} />

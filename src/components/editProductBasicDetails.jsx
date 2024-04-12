@@ -1,92 +1,33 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import{useParams}from "react-router-dom"
 import {
   fetchAllsubCategories,
   fetchAllFootrwearType,
 } from "../redux/actions/categories/allCategoriesActions";
-
-import { createProduct } from "../redux/actions/product/productActions";
+import { updateProductDetails } from "../redux/actions/product/productActions";
 
 const capitalizeFirstCharacter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
-
+const standardColors = [
+  "Gold", "Peach", "Pink", "Black", "White", "Chique", "N Blue", "Rust", "O Green", "Brownx", "Chico", "Brownz", "Maroon", "Brown", "Green", "Beige", "Orange", "M. Green", "M. Yellow", "G M T", "N.Blue", "Browon", "Chikoo", "Begie", "N.Blue / B/TT", "O Green/ B. TT", "NT/B.TT", "T Blue", "L Gray", "Ruat", "Brownz", "Rust B.TT", "SW", "M R H", "Gun Metal", "Yellow", "Grey", "Musturd", "Blue", "L Blue", "D Blue", "Sultan", "Antique", "Tan", "Cream", "XX", "G A R", "AXX", "S S", "Purple", "Gray", "ANT"
+];
 
 const BasicProductDetails = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const storeData = useSelector((store) => store.categories);
-  const { categoriesData, footwearTypeData, loading, appErr, serverErr } =
-    storeData;
+  const { categoriesData, footwearTypeData, loading } = storeData;
 
-  useEffect(() => {
-    dispatch(fetchAllsubCategories());
-    dispatch(fetchAllFootrwearType());
-  }, [dispatch]);
-
-  const standardColors = [
-    "Gold",
-    "Peach",
-    "Pink",
-    "Black",
-    "White",
-    "Chique",
-    "N Blue",
-    "Rust",
-    "O Green",
-    "Brownx",
-    "Chico",
-    "Brownz",
-    "Maroon",
-    "Brown",
-    "Green",
-    "Beige",
-    "Orange",
-    "M. Green",
-    "M. Yellow",
-    "G M T",
-    "N.Blue",
-    "Browon",
-    "Chikoo",
-    "Begie",
-    "N.Blue / B/TT",
-    "O Green/ B. TT",
-    "NT/B.TT",
-    "T Blue",
-    "L Gray",
-    "Ruat",
-    "Brownz",
-    "Rust B.TT",
-    "SW",
-    "M R H",
-    "Gun Metal",
-    "Yellow",
-    "Grey",
-    "Musturd",
-    "Blue",
-    "L Blue",
-    "D Blue",
-    "Sultan",
-    "Antique",
-    "Tan",
-    "Cream",
-    "XX",
-    "G A R",
-    "AXX",
-    "S S",
-    "Purple",
-    "Gray",
-    "ANT"
-];
-
-
+  const productdata = useSelector((store) => store.products);
+  const { particularproduct, productsLoading, appErr, serverErr } = productdata;
+const{id}=useParams();
   const [formData, setFormData] = useState({
     title: "",
-    skewId: "",
+    skuId: "",
     tag: "",
-    promotionalPrice: "",
+    promotionalPrice: 0,
     description: "",
     sizesAvailable: [{ size: "", quantity: 0 }],
     colorsAvailable: [],
@@ -98,7 +39,30 @@ const BasicProductDetails = () => {
     selectedTag: "",
   });
 
+  console.log(id)
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    dispatch(fetchAllsubCategories());
+    dispatch(fetchAllFootrwearType());
+    // Update formData title when particularproduct.title changes
+    setFormData((prevData) => ({
+      ...prevData,
+      title: particularproduct.title,
+      skuId: particularproduct.productName,
+      tag: particularproduct.tag,
+      promotionalPrice:0,
+      description:particularproduct.description ,
+      sizesAvailable: [{ size: "", quantity: 0 }],
+      colorsAvailable: [],
+      gender: "Unisex",
+      price: particularproduct.SellingPrice,
+      category: particularproduct.Subcategory,
+      footwearType: particularproduct.subcategoryType,
+    //   reviews: [],
+      selectedTag: particularproduct.tag,
+    }));
+  }, [dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -176,17 +140,18 @@ const BasicProductDetails = () => {
       formErrors.description = "Description is required";
       hasErrors = true;
     }
-
-    if (!formData.skewId) {
-      formErrors.skewId = "Product Id is required";
+    if (!formData.skuId) {
+      formErrors.skuId = "Product Id is required";
       hasErrors = true;
     }
-    
-    if (!formData.sizesAvailable.every(size => size.size && size.quantity > 0)) {
-      formErrors.sizesAvailable  = "Shoes Size and Quantity are required";
+    if (
+      !formData.sizesAvailable.every(
+        (size) => size.size && size.quantity > 0
+      )
+    ) {
+      formErrors.sizesAvailable = "Shoe Size and Quantity are required";
       hasErrors = true;
     }
-
     if (formData.colorsAvailable.length === 0) {
       formErrors.colorsAvailable = "At least one Shoe color is required";
       hasErrors = true;
@@ -198,26 +163,21 @@ const BasicProductDetails = () => {
     } else {
       setErrors({});
       // Handle form submission here, e.g., send data to backend
-      dispatch(createProduct(formData))
-      .then(action => {
-        console.log(action.payload);
-        navigate(`/add-product-images/${action.payload._id}`)
-        // Do something with action.payload
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+      console.log("updating Datat")
+     const res= dispatch(updateProductDetails({id,formData}))
+     console.log(res);
+        // .then((action) => {
+        //   console.log(action.payload);
+        //   // Do something with action.payload
+        // })
+        // .catch((error) => {
+        //   console.error("Error:", error);
+        // });
     }
   };
 
-  // Define function to handle tag change
-  const handleTagChange = (e) => {
-    const { value } = e.target;
-    setFormData({ ...formData, selectedTag: value });
-  };
-
   return (
-    <div>         
+    <div>
       <div className="card mb-4">
         <div className="card-header">
           <h4>Basic</h4>
@@ -244,28 +204,28 @@ const BasicProductDetails = () => {
               </div>
 
               <div className="mb-4 col-6">
-                <label htmlFor="skewId" className="form-label">
+                <label htmlFor="skuId" className="form-label">
                   Product ID:
                 </label>
                 <input
                   type="text"
-                  id="skewId"
-                  name="skewId"
-                  value={formData.skewId}
+                  id="skuId"
+                  name="skuId"
+                  value={formData.skuId}
                   onChange={handleChange}
                   className="form-control"
                   required
                 />
-                {errors.skewId && (
-                  <span style={{ color: "red" }}>{errors.skewId}</span>
+                {errors.skuId && (
+                  <span style={{ color: "red" }}>{errors.skuId}</span>
                 )}
               </div>
               <div className="mb-4 col-12">
-                <label htmlFor="product_description" className="form-label">
+                <label htmlFor="description" className="form-label">
                   Product Description
                 </label>
                 <textarea
-                  id="product_description"
+                  id="description"
                   name="description"
                   className="form-control"
                   value={formData.description}
@@ -294,10 +254,10 @@ const BasicProductDetails = () => {
                       <option value="36">36</option>
                       <option value="37">37</option>
                       <option value="38">38</option>
-                      <option value="38">39</option>
-                      <option value="38">40</option>
-                      <option value="38">41</option>
-                      <option value="38">42</option>
+                      <option value="39">39</option>
+                      <option value="40">40</option>
+                      <option value="41">41</option>
+                      <option value="42">42</option>
                     </select>
                     <input
                       type="number"
@@ -393,14 +353,14 @@ const BasicProductDetails = () => {
               </div>
 
               <div className="mb-4 col-6">
-                <label htmlFor="tags" className="form-label">
+                <label htmlFor="selectedTag" className="form-label">
                   Tags:
                 </label>
                 <select
-                  id="tags"
-                  name="tags"
+                  id="selectedTag"
+                  name="selectedTag"
                   value={formData.selectedTag}
-                  onChange={handleTagChange}
+                  onChange={handleChange}
                   className="form-select"
                 >
                   <option value="">Select Tag</option>
@@ -464,10 +424,10 @@ const BasicProductDetails = () => {
                 <div className="card-body">
                   <div className="row gx-2">
                     <div className="mb-4 col-12">
-                      <label htmlFor="product_name" className="form-label">
+                      <label htmlFor="coupon_code" className="form-label">
                         Enter coupon code for this product
                       </label>
-                      <input type="text" className="form-control" />
+                      <input type="text" className="form-control" id="coupon_code" />
                     </div>
                   </div>
                 </div>

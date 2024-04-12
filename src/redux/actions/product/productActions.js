@@ -45,6 +45,28 @@ export const createProduct = createAsyncThunk("api/products", async (data, { rej
   }
 });
 
+export const updateProductDetails = createAsyncThunk("api/products/image", async ({id,formData}, { rejectWithValue }) => {
+  try {
+   
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+    // for (let pair of formData.entries()) {
+    //   console.log(pair[0] + ', ' + (pair[1] instanceof File ? pair[1].name : pair[1]));
+    // }
+    const res = await axios.post(`${baseUrl}/api/products/${id}`, formData, config);
+    console.log(res);
+    return res.data;
+  } catch (error) {
+    if (!error?.response) {
+      throw error;
+    }
+    return rejectWithValue(error.response.data);
+  }
+});
+
 //  update particular product Image
 
 export const updateProductImage = createAsyncThunk("api/products/image", async ({ id, image }, { rejectWithValue }) => {
