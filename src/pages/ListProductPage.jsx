@@ -4,8 +4,13 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteParticularProductAction, fetchAllProductsAction } from "../redux/actions/product/productActions";
+<<<<<<< HEAD
 // import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Link, useNavigate} from "react-router-dom";
+=======
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import { Link } from "react-router-dom";
+>>>>>>> b078a64278676997264dd61c6d48557243b5c6e1
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
