@@ -45,9 +45,8 @@ export const createProduct = createAsyncThunk("api/products", async (data, { rej
   }
 });
 
-export const updateProductDetails = createAsyncThunk("api/products/image", async ({id,formData}, { rejectWithValue }) => {
+export const updateProductDetails = createAsyncThunk("api/products/image", async ({ id, formData }, { rejectWithValue }) => {
   try {
-   
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -141,27 +140,22 @@ export const fetchParticularProduct = createAsyncThunk("api/products/id", async 
     return rejectWithValue(error?.response?.data);
   }
 });
-  
 
-  //delete particular product
-  export const deleteParticularProductAction = createAsyncThunk(
-    "api/products/delete/id",
-    async (id, { rejectWithValue }) => {
-      try {
-        const config = {
-          headers: {  
-            "Content-Type": "application/json",
-          },
-        };
-        const res = await axios.delete(`${baseUrl}/api/products/${id}`, config);
-        console.log(res)
-        return res.data;
-      } catch (error) {
-        if (!error?.response) {
-          throw error;
-        }
-        return rejectWithValue(error?.response?.data);
-      }              
+//delete particular product
+export const deleteParticularProductAction = createAsyncThunk("api/products/delete/id", async (id, { rejectWithValue }) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios.delete(`${baseUrl}/api/products/${id}`, config);
+    console.log(res);
+    return res.data;
+  } catch (error) {
+    if (!error?.response) {
+      throw error;
     }
-  );
- 
+    return rejectWithValue(error?.response?.data);
+  }
+});
