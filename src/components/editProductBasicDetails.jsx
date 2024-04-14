@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import{useParams}from "react-router-dom"
+import{useParams,useNavigate}from "react-router-dom"
 import {
   fetchAllsubCategories,
   fetchAllFootrwearType,
@@ -23,9 +23,10 @@ const BasicProductDetails = () => {
   const productdata = useSelector((store) => store.products);
   const { particularproduct, productsLoading, appErr, serverErr } = productdata;
 const{id}=useParams();
+const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
-    skuId: "",
+    skewId: "",
     tag: "",
     promotionalPrice: 0,
     description: "",
@@ -49,7 +50,7 @@ const{id}=useParams();
     setFormData((prevData) => ({
       ...prevData,
       title: particularproduct.title,
-      skuId: particularproduct.productName,
+      skewId: particularproduct.productName,
       tag: particularproduct.tag,
       promotionalPrice:0,
       description:particularproduct.description ,
@@ -114,11 +115,11 @@ const{id}=useParams();
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let formErrors = {};
     let hasErrors = false;
-
+console.log("editing dattad")
     // Validate required fields
     if (!formData.title) {
       formErrors.title = "Title is required";
@@ -140,8 +141,8 @@ const{id}=useParams();
       formErrors.description = "Description is required";
       hasErrors = true;
     }
-    if (!formData.skuId) {
-      formErrors.skuId = "Product Id is required";
+    if (!formData.skewId) {
+      formErrors.skewId = "Product Id is required";
       hasErrors = true;
     }
     if (
@@ -164,8 +165,14 @@ const{id}=useParams();
       setErrors({});
       // Handle form submission here, e.g., send data to backend
       console.log("updating Datat")
-     const res= dispatch(updateProductDetails({id,formData}))
-     console.log(res);
+      console.log(formData);
+     const action= await dispatch(updateProductDetails({id,formData}))
+     if(action.payload.success){
+      navigate(`/add-product-images/${id}`);
+     }
+     else{
+      console.log(" time pass")
+     }
         // .then((action) => {
         //   console.log(action.payload);
         //   // Do something with action.payload
@@ -204,20 +211,20 @@ const{id}=useParams();
               </div>
 
               <div className="mb-4 col-6">
-                <label htmlFor="skuId" className="form-label">
+                <label htmlFor="skewId" className="form-label">
                   Product ID:
                 </label>
                 <input
                   type="text"
-                  id="skuId"
-                  name="skuId"
-                  value={formData.skuId}
+                  id="skewId"
+                  name="skewId"
+                  value={formData.skewId}
                   onChange={handleChange}
                   className="form-control"
                   required
                 />
-                {errors.skuId && (
-                  <span style={{ color: "red" }}>{errors.skuId}</span>
+                {errors.skewId && (
+                  <span style={{ color: "red" }}>{errors.skewId}</span>
                 )}
               </div>
               <div className="mb-4 col-12">

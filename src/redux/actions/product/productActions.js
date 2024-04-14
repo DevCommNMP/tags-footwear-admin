@@ -49,13 +49,13 @@ export const updateProductDetails = createAsyncThunk("api/products/image", async
   try {
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json"
       },
     };
     // for (let pair of formData.entries()) {
     //   console.log(pair[0] + ', ' + (pair[1] instanceof File ? pair[1].name : pair[1]));
     // }
-    const res = await axios.post(`${baseUrl}/api/products/${id}`, formData, config);
+    const res = await axios.put(`${baseUrl}/api/products/${id}`, formData, config);
     console.log(res);
     return res.data;
   } catch (error) {
