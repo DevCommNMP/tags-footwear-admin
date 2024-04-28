@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  fetchAllsubCategories,
-  fetchAllFootrwearType,
-} from "../redux/actions/categories/allCategoriesActions";
+import { fetchAllsubCategories, fetchAllFootrwearType } from "../redux/actions/categories/allCategoriesActions";
 
 import { createProduct } from "../redux/actions/product/productActions";
 
@@ -12,14 +9,11 @@ const capitalizeFirstCharacter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
-
-
 const BasicProductDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const storeData = useSelector((store) => store.categories);
-  const { categoriesData, footwearTypeData, loading, appErr, serverErr } =
-    storeData;
+  const { categoriesData, footwearTypeData, loading, appErr, serverErr } = storeData;
 
   useEffect(() => {
     dispatch(fetchAllsubCategories());
@@ -78,9 +72,8 @@ const BasicProductDetails = () => {
     "S S",
     "Purple",
     "Gray",
-    "ANT"
-];
-
+    "ANT",
+  ];
 
 
 
@@ -129,9 +122,7 @@ const BasicProductDetails = () => {
     if (checked) {
       updatedColors = [...formData.colorsAvailable, value];
     } else {
-      updatedColors = formData.colorsAvailable.filter(
-        (color) => color !== value
-      );
+      updatedColors = formData.colorsAvailable.filter((color) => color !== value);
     }
     setFormData({
       ...formData,
@@ -186,9 +177,9 @@ const BasicProductDetails = () => {
       formErrors.skewId = "Product Id is required";
       hasErrors = true;
     }
-    
-    if (!formData.sizesAvailable.every(size => size.size && size.quantity > 0)) {
-      formErrors.sizesAvailable  = "Shoes Size and Quantity are required";
+
+    if (!formData.sizesAvailable.every((size) => size.size && size.quantity > 0)) {
+      formErrors.sizesAvailable = "Shoes Size and Quantity are required";
       hasErrors = true;
     }
 
@@ -210,14 +201,14 @@ const BasicProductDetails = () => {
       // console.log(formData)
       // Handle form submission here, e.g., send data to backend
       dispatch(createProduct(formData))
-      .then(action => {
-        console.log(action.payload);
-       navigate(`/add-product-images/${action.payload._id}`)
-        // Do something with action.payload
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+        .then((action) => {
+          console.log(action.payload);
+          navigate(`/add-product-images/${action.payload._id}`);
+          // Do something with action.payload
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
   };
 
@@ -229,7 +220,7 @@ const BasicProductDetails = () => {
 
 
   return (
-    <div>         
+    <div>
       <div className="card mb-4">
         <div className="card-header">
           <h4>Basic</h4>
@@ -250,9 +241,7 @@ const BasicProductDetails = () => {
                   className="form-control"
                   required
                 />
-                {errors.title && (
-                  <span style={{ color: "red" }}>{errors.title}</span>
-                )}
+                {errors.title && <span style={{ color: "red" }}>{errors.title}</span>}
               </div>
 
               <div className="mb-4 col-6">
@@ -268,9 +257,7 @@ const BasicProductDetails = () => {
                   className="form-control"
                   required
                 />
-                {errors.skewId && (
-                  <span style={{ color: "red" }}>{errors.skewId}</span>
-                )}
+                {errors.skewId && <span style={{ color: "red" }}>{errors.skewId}</span>}
               </div>
               <div className="mb-4 col-12">
                 <label htmlFor="product_description" className="form-label">
@@ -284,9 +271,7 @@ const BasicProductDetails = () => {
                   onChange={handleChange}
                   required
                 />
-                {errors.description && (
-                  <span style={{ color: "red" }}>{errors.description}</span>
-                )}
+                {errors.description && <span style={{ color: "red" }}>{errors.description}</span>}
               </div>
 
               <div className="mb-4 col-6">
@@ -319,43 +304,25 @@ const BasicProductDetails = () => {
                       className="form-control me-2"
                       required
                     />
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveSize(index)}
-                      className="btn btn-outline-danger"
-                    >
+                    <button type="button" onClick={() => handleRemoveSize(index)} className="btn btn-outline-danger">
                       Remove
                     </button>
                   </div>
                 ))}
-                {errors.sizesAvailable && (
-                  <span style={{ color: "red" }}>{errors.sizesAvailable}</span>
-                )}
-                <button
-                  type="button"
-                  onClick={handleAddSize}
-                  className="btn btn-outline-danger"
-                >
+                {errors.sizesAvailable && <span style={{ color: "red" }}>{errors.sizesAvailable}</span>}
+                <button type="button" onClick={handleAddSize} className="btn btn-outline-danger">
                   Add Size
                 </button>
               </div>
 
               <div className="mb-4 col-6">
-                <label
-                  htmlFor="colorsAvailable"
-                  className="form-label mb-3 mt-1"
-                >
+                <label htmlFor="colorsAvailable" className="form-label mb-3 mt-1">
                   Colors Available:
                 </label>
-                {errors.colorsAvailable && (
-                  <span style={{ color: "red" }}>{errors.colorsAvailable}</span>
-                )}
+                {errors.colorsAvailable && <span style={{ color: "red" }}>{errors.colorsAvailable}</span>}
                 <br />
                 {standardColors.map((color, index) => (
-                  <div
-                    key={index}
-                    className="form-check form-check-inline d-inline-block"
-                  >
+                  <div key={index} className="form-check form-check-inline d-inline-block mb-5">
                     <input
                       type="checkbox"
                       id={color}
@@ -371,9 +338,9 @@ const BasicProductDetails = () => {
                     />
                     <label
                       htmlFor={color}
-                      className="form-check-label "
+                      className={`form-check-label  product${capitalizeFirstCharacter(color)}`}
                       style={{
-                        backgroundColor: color,
+                        // backgroundColor: `${capitalizeFirstCharacter(color)}`,
                         padding: "2px 5px",
                         borderRadius: "5px",
                         color: "white",
@@ -399,9 +366,7 @@ const BasicProductDetails = () => {
                   className="form-control"
                   required
                 />
-                {errors.price && (
-                  <span style={{ color: "red" }}>{errors.price}</span>
-                )}
+                {errors.price && <span style={{ color: "red" }}>{errors.price}</span>}
               </div>
               
 
@@ -409,13 +374,7 @@ const BasicProductDetails = () => {
                 <label htmlFor="tags" className="form-label">
                   Tags:
                 </label>
-                <select
-                  id="tags"
-                  name="tags"
-                  value={formData.selectedTag}
-                  onChange={handleTagChange}
-                  className="form-select"
-                >
+                <select id="tags" name="tags" value={formData.selectedTag} onChange={handleTagChange} className="form-select">
                   <option value="">Select Tag</option>
                   <option value="new">New</option>
                   <option value="sale">Sale</option>
@@ -448,14 +407,7 @@ const BasicProductDetails = () => {
                 <label htmlFor="category" className="form-label">
                   Category Type:
                 </label>
-                <select
-                  id="category"
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  className="form-select"
-                  required
-                >
+                <select id="category" name="category" value={formData.category} onChange={handleChange} className="form-select" required>
                   <option value="">Select Category</option>
                   {categoriesData.map((item, index) => (
                     <option key={index} value={item._id}>
@@ -463,9 +415,7 @@ const BasicProductDetails = () => {
                     </option>
                   ))}
                 </select>
-                {errors.category && (
-                  <span style={{ color: "red" }}>{errors.category}</span>
-                )}
+                {errors.category && <span style={{ color: "red" }}>{errors.category}</span>}
               </div>
               <div className="mb-4 col-6">
                 <label htmlFor="footwearType" className="form-label">
@@ -486,9 +436,7 @@ const BasicProductDetails = () => {
                     </option>
                   ))}
                 </select>
-                {errors.footwearType && (
-                  <span style={{ color: "red" }}>{errors.footwearType}</span>
-                )}
+                {errors.footwearType && <span style={{ color: "red" }}>{errors.footwearType}</span>}
               </div>
               <div className="mb-4 col-6">
                 <label htmlFor="isPremiumLeather" className="form-label">
@@ -536,11 +484,7 @@ const BasicProductDetails = () => {
                   </button> */}
                 </div>
                 <div className="ml-auto col">
-                  <button
-                    type="submit"
-                    className="btn btn-primary ml-auto"
-                    onClick={handleSubmit}
-                  >
+                  <button type="submit" className="btn btn-primary ml-auto" onClick={handleSubmit}>
                     Next Page
                   </button>
                 </div>
