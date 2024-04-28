@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteParticularProductAction, fetchAllProductsAction } from "../redux/actions/product/productActions";
-// import "bootstrap/dist/js/bootstrap.bundle.min";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
@@ -21,7 +21,7 @@ const ListProductPage = () => {
   const handleShow = () => setShow(true);
   const [productIdToDelete, setProductIdToDelete] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(4); // Number of products per page
+  const [productsPerPage, setProductsPerPage] = useState(10); // Number of products per page
 
   const storeData = useSelector((store) => store.products);
   const { products, productsLoading, appErr, serverErr } = storeData;
