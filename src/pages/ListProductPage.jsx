@@ -47,6 +47,7 @@ const ListProductPage = () => {
   };
 
   const deleteproductHandler = () => {
+    
     console.log("product deleted successfully");
     const res = dispatch(deleteParticularProductAction(productIdToDelete));
     console.log(res.status);
@@ -147,11 +148,11 @@ const ListProductPage = () => {
             </div>
           </div>
           <div className="card mb-4">
-            <header className="card-header">{/* Your table headers */}</header>
+            <header className="card-header">Product List</header>
             <div className="card-body">
-              {/* Render current products */}
-              {currentProducts.map((product) => (
-                <article key={product.id} className="itemlist">
+            
+              {currentProducts.map((product,index) => (
+                <article key={index} className="itemlist">
                   <div className="row align-items-center">
                     <div className="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
                       <a className="itemside" href="#">

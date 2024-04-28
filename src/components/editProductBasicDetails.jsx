@@ -5,8 +5,7 @@ import {
   fetchAllsubCategories,
   fetchAllFootrwearType,
 } from "../redux/actions/categories/allCategoriesActions";
-import { updateProductDetails } from "../redux/actions/product/productActions";
-
+import { fetchParticularProduct, updateProductDetails } from "../redux/actions/product/productActions";
 const capitalizeFirstCharacter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
@@ -15,13 +14,13 @@ const standardColors = [
   "Gold", "Peach", "Pink", "Black", "White", "Chique", "N Blue", "Rust", "O Green", "Brownx", "Chico", "Brownz", "Maroon", "Brown", "Green", "Beige", "Orange", "M. Green", "M. Yellow", "G M T", "N.Blue", "Browon", "Chikoo", "Begie", "N.Blue / B/TT", "O Green/ B. TT", "NT/B.TT", "T Blue", "L Gray", "Ruat", "Brownz", "Rust B.TT", "SW", "M R H", "Gun Metal", "Yellow", "Grey", "Musturd", "Blue", "L Blue", "D Blue", "Sultan", "Antique", "Tan", "Cream", "XX", "G A R", "AXX", "S S", "Purple", "Gray", "ANT"
 ];
 
-const BasicProductDetails = () => {
+const BasicProductDetails = ({particularproduct,productsLoading,appErr,serverErr}) => {
   const dispatch = useDispatch();
   const storeData = useSelector((store) => store.categories);
   const { categoriesData, footwearTypeData, loading } = storeData;
 
-  const productdata = useSelector((store) => store.products);
-  const { particularproduct, productsLoading, appErr, serverErr } = productdata;
+  // const productdata = useSelector((store) => store.products);
+  // const { particularproduct, productsLoading, appErr, serverErr } = productdata;
 const{id}=useParams();
 const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -46,6 +45,8 @@ const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchAllsubCategories());
     dispatch(fetchAllFootrwearType());
+   
+
     // Update formData title when particularproduct.title changes
     setFormData((prevData) => ({
       ...prevData,

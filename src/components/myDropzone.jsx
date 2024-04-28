@@ -132,3 +132,33 @@ const MyDropzone = ({ setUpdatedProductImage }) => {
 };
 
 export default MyDropzone;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

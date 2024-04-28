@@ -12,12 +12,13 @@ import { fetchParticularProduct } from "../redux/actions/product/productActions"
 import { Slide, toast, ToastContainer } from "react-toastify";
 import EditProductBasicDetails from "../components/editProductBasicDetails";
 const EditProductPage = () => {
- 
+//  const [loading,setLoading]=useState(false);
     const{id}=useParams()
     const dispatch = useDispatch();
     const storeData = useSelector((store) => store.products);
     const { particularproduct, productsLoading, appErr, serverErr } = storeData;
  useEffect(() => {
+
     const fetchData = async () => {
         try {
           // Dispatch the action and wait for the response
@@ -58,7 +59,8 @@ toast.error("Something went wrong try again!")
               </div>
             </div>
             <div className="col-lg-9 m-auto">
-              <EditProductBasicDetails particularproduct={particularproduct} />
+              {productsLoading ? <h1>Loading....</h1>:<EditProductBasicDetails particularproduct={particularproduct} productsLoading={productsLoading} appErr={appErr} serverErr={serverErr} />
+}
             </div>
           </div>
         </section>

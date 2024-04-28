@@ -82,6 +82,9 @@ const BasicProductDetails = () => {
 ];
 
 
+
+
+
   const [formData, setFormData] = useState({
     title: "",
     skewId: "",
@@ -209,7 +212,7 @@ const BasicProductDetails = () => {
       dispatch(createProduct(formData))
       .then(action => {
         console.log(action.payload);
-        navigate(`/add-product-images/${action.payload._id}`)
+       navigate(`/add-product-images/${action.payload._id}`)
         // Do something with action.payload
       })
       .catch(error => {
