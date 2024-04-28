@@ -78,9 +78,9 @@ const BasicProductDetails = () => {
   const [formData, setFormData] = useState({
     title: "",
     skewId: "",
-    tag: "",
     promotionalPrice: "",
     description: "",
+    isPremiumLeather:"",
     sizesAvailable: [{ size: "", quantity: 0 }],
     colorsAvailable: [],
     gender: "Unisex",
@@ -91,6 +91,7 @@ const BasicProductDetails = () => {
     selectedTag: "",
   });
 
+
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -99,6 +100,7 @@ const BasicProductDetails = () => {
       ...formData,
       [name]: value,
     });
+    // console.log(formData);
   };
 
   const handleSizeChange = (index, e) => {
@@ -182,12 +184,18 @@ const BasicProductDetails = () => {
       formErrors.colorsAvailable = "At least one Shoe color is required";
       hasErrors = true;
     }
+    if (!formData.isPremiumLeather) {
+      formErrors.isPremiumLeather = "Leather Type is required";
+      hasErrors = true;
+    }
     // Set errors if any
     if (hasErrors) {
       setErrors(formErrors);
       return;
     } else {
       setErrors({});
+
+      // console.log(formData)
       // Handle form submission here, e.g., send data to backend
       dispatch(createProduct(formData))
         .then((action) => {
@@ -203,9 +211,10 @@ const BasicProductDetails = () => {
 
   // Define function to handle tag change
   const handleTagChange = (e) => {
-    const { value } = e.target;
+    const { value } = e.target; 
     setFormData({ ...formData, selectedTag: value });
   };
+
 
   return (
     <div>
@@ -279,10 +288,10 @@ const BasicProductDetails = () => {
                       <option value="36">36</option>
                       <option value="37">37</option>
                       <option value="38">38</option>
-                      <option value="38">39</option>
-                      <option value="38">40</option>
-                      <option value="38">41</option>
-                      <option value="38">42</option>
+                      <option value="39">39</option>
+                      <option value="40">40</option>
+                      <option value="41">41</option>
+                      <option value="42">42</option>
                     </select>
                     <input
                       type="number"
@@ -356,6 +365,7 @@ const BasicProductDetails = () => {
                 />
                 {errors.price && <span style={{ color: "red" }}>{errors.price}</span>}
               </div>
+              
 
               <div className="mb-4 col-6">
                 <label htmlFor="tags" className="form-label">
@@ -364,11 +374,31 @@ const BasicProductDetails = () => {
                 <select id="tags" name="tags" value={formData.selectedTag} onChange={handleTagChange} className="form-select">
                   <option value="">Select Tag</option>
                   <option value="new">New</option>
+                  <option value="sale">Sale</option>
                   <option value="hot">Hot</option>
                   <option value="popular">Popular</option>
                   <option value="trending">Trending</option>
                 </select>
               </div>
+              { formData.selectedTag=="sale" ? 
+              <div className="mb-4 col-6">
+                <label htmlFor="promotionalPrice" className="form-label">
+                 Promotional promotionalPrice:
+                </label>
+                <input
+                  type="number"
+                  id="promotionalPrice"
+                  name="promotionalPrice"
+                  value={formData.promotionalPrice}
+                  onChange={handleChange}
+                  className="form-control"
+                  required
+                />
+                {errors.price && (
+                  <span style={{ color: "red" }}>{errors.price}</span>
+                )}
+              </div> :""
+              }
 
               <div className="mb-4 col-6">
                 <label htmlFor="category" className="form-label">
@@ -405,6 +435,26 @@ const BasicProductDetails = () => {
                 </select>
                 {errors.footwearType && <span style={{ color: "red" }}>{errors.footwearType}</span>}
               </div>
+              <div className="mb-4 col-6">
+                <label htmlFor="isPremiumLeather" className="form-label">
+                  Category Type:
+                </label>
+                <select
+                  id="isPremiumLeather"
+                  name="isPremiumLeather"
+                  value={formData.isPremiumLeather}
+                  onChange={handleChange}
+                  className="form-select"
+                  required
+                >
+                  <option value="">Select </option>
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
+                {errors.isPremiumLeather && (
+                  <span style={{ color: "red" }}>{errors.isPremiumLeather}</span>
+                )}
+              </div>
               <div className="card mb-4">
                 <div className="card-header">
                   <h4>Coupon Code</h4>
@@ -438,7 +488,7 @@ const BasicProductDetails = () => {
               </div>
             </div>
           </form>
-        </div>
+        </div>  
       </div>
     </div>
   );
