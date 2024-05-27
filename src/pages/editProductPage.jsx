@@ -11,14 +11,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchParticularProduct } from "../redux/actions/product/productActions";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import EditProductBasicDetails from "../components/editProductBasicDetails";
+import { useNavigate } from "react-router-dom/dist";
+
 const EditProductPage = () => {
 //  const [loading,setLoading]=useState(false);
+const navigate = useNavigate();
+  const data = JSON.parse(localStorage.getItem('userData'));
+  const token = data?.token ?? null; // Providing a default value for token
+
     const{id}=useParams()
     const dispatch = useDispatch();
     const storeData = useSelector((store) => store.products);
     const { particularproduct, productsLoading, appErr, serverErr } = storeData;
  useEffect(() => {
-
+  if(!token){
+    navigate("/login")
+   }
     const fetchData = async () => {
         try {
           // Dispatch the action and wait for the response
@@ -37,7 +45,7 @@ toast.error("Something went wrong try again!")
       // Call the async function to fetch the data
       fetchData();
 
- }, [])
+ }, [token])
  
   return (
     <>

@@ -6,40 +6,77 @@ import { fetchAllsubCategories } from "../redux/actions/categories/allCategories
 import Aside from "../components/Aside";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom/dist";
 
-const ListCategoryPage = () => {
+const ListCategoryPage = () => { 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const data = JSON.parse(localStorage.getItem('userData'));
+  const token = data?.token ?? null; // Providing a default value for token
 
+  // Fetching subcategories from the Redux store
   const storeData = useSelector((store) => store.categories);
-  console.log(storeData);
-  storeData.categories.map((category) => category.subcategoriesName);
-  const allSubcategories = storeData.categories.map(
-    (category) => category.subcategoriesName
-  );
-
+  const allSubcategories = storeData.categoriesData; // assuming storeData.categoriesData contains the subcategories array
+  
   useEffect(() => {
+    if(!token){
+      navigate("/login")
+      return;
+     }
     dispatch(fetchAllsubCategories());
-  }, [dispatch]);
+  }, [dispatch,token]);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(4); // Number of products per page
+  // State to handle the delete modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
 
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = allSubcategories.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
+  // Function to handle opening the delete modal
+  const handleShowDeleteModal = (subcategory) => {
+    setSelectedSubcategory(subcategory);
+    setShowDeleteModal(true);
+  };
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // Function to handle closing the delete modal
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
+    setSelectedSubcategory(null);
+  };
 
-  const handleDropdownChange = (value) => {
-    setProductsPerPage(value);
-    setCurrentPage(1);
+  // Function to handle subcategory deletion
+  const handleDeleteSubcategory = () => {
+    // Dispatch action to delete subcategory
+    // This is where you would dispatch the action to delete the selected subcategory
+    console.log("Deleting subcategory:", selectedSubcategory);
+    // After deletion, you can close the modal
+    setShowDeleteModal(false);
+    setSelectedSubcategory(null);
   };
 
   return (
     <>
+      {/* Delete Modal */}
+      {showDeleteModal && (
+        <div className="modal" tabIndex="-1" role="dialog" style={{ display: "block" }}>
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Delete Subcategory</h5>
+                {/* <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={handleCloseDeleteModal}>
+                  <span aria-hidden="true">&times;</span>
+                </button> */}
+              </div>
+              <div className="modal-body">
+                <p>Are you sure you want to delete the subcategory "{selectedSubcategory.subcategoriesName}"?</p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={handleCloseDeleteModal}>Cancel</button>
+                <button type="button" className="btn btn-danger" onClick={handleDeleteSubcategory}>Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="screen-overlay"></div>
       <Aside />
       <main className="main-wrap">
@@ -51,77 +88,34 @@ const ListCategoryPage = () => {
               <p>Lorem ipsum dolor sit amet.</p>
             </div>
             <div>
-              <div className="btn-group me-2">
-                <div className="dropdown">
-                  <button
-                    className="btn-light rounded font-md dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    style={{ border: "1px solid #e3e6f0" }}
-                  >
-                    Show {productsPerPage} per page
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <li>
-                      <button
-                        className="dropdown-item border-none"
-                        onClick={() => handleDropdownChange(2)}
-                      >
-                        2
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        className="dropdown-item border-none"
-                        onClick={() => handleDropdownChange(4)}
-                      >
-                        4
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <a href="#" className="btn btn-light rounded font-md">
-                Export
-              </a>
-              <a href="#" className="btn btn-light rounded font-md">
-                Import
-              </a>
-              <Link
-                to="/add-category"
-                className="btn btn-primary btn-sm rounded"
-              >
-                Add New Category
-              </Link>
-            </div>
+              {/* Dropdown and buttons */}
+              <Link to="/add-category" className="btn btn-primary btn-sm rounded">
+                Add New Product
+              </Link>            </div>
           </div>
           <div className="card mb-4">
             <header className="card-header"></header>
             <div className="card-body">
-              {currentProducts.map((subcategories) => (
-                <article key={subcategories.id} className="itemlist">
+              {/* Displaying subcategories */}
+              {allSubcategories.map((subcategory, index) => (
+                <article key={index} className="itemlist">
                   <div className="row align-items-center">
                     <div className="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
                       <a className="itemside" href="#">
                         <div className="left">
                           <img
-                            src={subcategories}
+                            src={subcategory.imgUrl} // Assuming subcategory has imgUrl property
                             className="img-sm img-thumbnail"
                             alt="Item"
                           />
                         </div>
                         <div className="info">
-                          <h6 className="mb-0">{subcategories}</h6>
+                          <h6 className="mb-0">{subcategory.subcategoriesName}</h6>
                         </div>
                       </a>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-price">
-                      <span>&#8377;span</span>
+                      <span>&#8377;{subcategory.price}</span> {/* Assuming subcategory has price property */}
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-status">
                       <span className="badge rounded-pill alert-success">
@@ -136,16 +130,15 @@ const ListCategoryPage = () => {
                         href="#"
                         className="btn btn-sm font-sm rounded btn-brand"
                       >
-                        {" "}
-                        <i className="material-icons md-edit"></i> Edit{" "}
+                        <i className="material-icons md-edit"></i> Edit
                       </a>
                       <a
                         href="#"
                         className="btn btn-sm font-sm btn-light rounded"
+                        onClick={() => handleShowDeleteModal(subcategory)} // Open delete modal on click
                       >
-                        {" "}
                         <i className="material-icons md-delete_forever"></i>{" "}
-                        Delete{" "}
+                        Delete
                       </a>
                     </div>
                   </div>
@@ -154,35 +147,7 @@ const ListCategoryPage = () => {
             </div>
           </div>
           {/* pagination */}
-          <div className="pagination-area mt-30 mb-50">
-            <nav aria-label="Page navigation example">
-              <ul className="pagination justify-content-start">
-                {Array.from(
-                  {
-                    length: Math.ceil(
-                      allSubcategories.length / productsPerPage
-                    ),
-                  },
-                  (_, index) => (
-                    <li
-                      key={index}
-                      className={`page-item ${
-                        currentPage === index + 1 ? "active" : ""
-                      }`}
-                    >
-                      <a
-                        onClick={() => paginate(index + 1)}
-                        className="page-link"
-                        href="#"
-                      >
-                        {index + 1}
-                      </a>
-                    </li>
-                  )
-                )}
-              </ul>
-            </nav>
-          </div>
+          {/* You can implement pagination based on your requirements */}
         </section>
         <Footer />
       </main>

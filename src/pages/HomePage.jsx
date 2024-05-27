@@ -3,19 +3,61 @@ import CardHeader from "../components/CardHeader";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import MyChartsComponent from "../components/charts/MyChartsComponent";
-
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllProductsAction } from "../redux/actions/product/productActions";
+import { Link, useNavigate } from "react-router-dom";
 import user1 from "../assets/imgs/people/avatar-1.png";
 import user2 from "../assets/imgs/people/avatar-2.png";
 import user3 from "../assets/imgs/people/avatar-3.png";
+import { useState,useEffect } from "react";
+import { fetchAllsubCategories } from "../redux/actions/categories/allCategoriesActions";
+import { fetchAllOrdersAction } from "../redux/actions/orders/ordersActions";
+import LoaderImg from "../components/loading/loading";
+import {toast, ToastContainer } from "react-toastify";
 
 const HomePage = () => {
+
+
+  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const [error, setError] = useState(false);
+  const [loading,setLoading]=useState(false);
+  const navigate = useNavigate();
+  const productData = useSelector((store) => store.products);
+  const orderData = useSelector((store) => store.orders);
+  const { products, productsLoading, appErr, serverErr } = productData;
+  const categoryData = useSelector((store) => store.categories);
+  const allSubcategories = categoryData.categoriesData;
+  console.log(orderData)
+  const data = JSON.parse(localStorage.getItem('userData'));
+  const token = data?.token ?? null; // Providing a default value for token
+
+  if(!token){
+    navigate("/login")
+  }
+  
+
+  useEffect(() => {
+    setLoading(true)
+    if(!token){
+      navigate("/login")
+    }
+  dispatch(fetchAllProductsAction())
+  dispatch(fetchAllsubCategories())
+  dispatch(fetchAllOrdersAction())
+
+  setLoading(false)
+  }, [dispatch])
+  
+
   return (
     <>
+      <ToastContainer/>
       <div className="screen-overlay"></div>
       <Aside />
       <main className="main-wrap">
         <Header />
-        <section className="content-main">
+        {loading? <LoaderImg/>: <section className="content-main">
           <div className="content-header">
             <div>
               <h2 className="content-title card-title">Dashboard</h2>
@@ -51,7 +93,7 @@ const HomePage = () => {
                   </span>
                   <div className="text">
                     <h6 className="mb-1 card-title">Orders</h6>
-                    <span>53.668</span>
+                    <span>{orderData.orders.length}</span>
                     <span className="text-sm"> Excluding orders in transit </span>
                   </div>
                 </article>
@@ -65,8 +107,8 @@ const HomePage = () => {
                   </span>
                   <div className="text">
                     <h6 className="mb-1 card-title">Products</h6>
-                    <span>9.856</span>
-                    <span className="text-sm"> In 19 Categories </span>
+                    <span>{products.length}</span>
+                    <span className="text-sm"> In {allSubcategories.length} Categories </span>
                   </div>
                 </article>
               </div>
@@ -101,7 +143,7 @@ const HomePage = () => {
                           </div>
                         </th>
                         <th className="align-middle" scope="col">
-                          Order ID
+                          Order Number
                         </th>
                         <th className="align-middle" scope="col">
                           Billing Name
@@ -124,174 +166,44 @@ const HomePage = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td className="text-center">
-                          <div className="form-check">
-                            <input className="form-check-input" type="checkbox" id="transactionCheck02" />
-                            <label className="form-check-label" htmlFor="transactionCheck02"></label>
-                          </div>
-                        </td>
-                        <td>
-                          <a href="#" className="fw-bold">
-                            #SK2540
-                          </a>
-                        </td>
-                        <td>Neal Matthews</td>
-                        <td>07 Oct, 2021</td>
-                        <td>$400</td>
-                        <td>
-                          <span className="badge badge-pill badge-soft-success">Paid</span>
-                        </td>
-                        <td>
-                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Mastercard
-                        </td>
-                        <td>
-                          <a href="#" className="btn btn-xs">
-                            {" "}
-                            View details
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="text-center">
-                          <div className="form-check">
-                            <input className="form-check-input" type="checkbox" id="transactionCheck03" />
-                            <label className="form-check-label" htmlFor="transactionCheck03"></label>
-                          </div>
-                        </td>
-                        <td>
-                          <a href="#" className="fw-bold">
-                            #SK2541
-                          </a>
-                        </td>
-                        <td>Jamal Burnett</td>
-                        <td>07 Oct, 2021</td>
-                        <td>$380</td>
-                        <td>
-                          <span className="badge badge-pill badge-soft-danger">Chargeback</span>
-                        </td>
-                        <td>
-                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Visa
-                        </td>
-                        <td>
-                          <a href="#" className="btn btn-xs">
-                            {" "}
-                            View details
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="text-center">
-                          <div className="form-check">
-                            <input className="form-check-input" type="checkbox" id="transactionCheck04" />
-                            <label className="form-check-label" htmlFor="transactionCheck04"></label>
-                          </div>
-                        </td>
-                        <td>
-                          <a href="#" className="fw-bold">
-                            #SK2542
-                          </a>
-                        </td>
-                        <td>Juan Mitchell</td>
-                        <td>06 Oct, 2021</td>
-                        <td>$384</td>
-                        <td>
-                          <span className="badge badge-pill badge-soft-success">Paid</span>
-                        </td>
-                        <td>
-                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Paypal
-                        </td>
-                        <td>
-                          <a href="#" className="btn btn-xs">
-                            {" "}
-                            View details
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="text-center">
-                          <div className="form-check">
-                            <input className="form-check-input" type="checkbox" id="transactionCheck05" />
-                            <label className="form-check-label" htmlFor="transactionCheck05"></label>
-                          </div>
-                        </td>
-                        <td>
-                          <a href="#" className="fw-bold">
-                            #SK2543
-                          </a>
-                        </td>
-                        <td>Barry Dick</td>
-                        <td>05 Oct, 2021</td>
-                        <td>$412</td>
-                        <td>
-                          <span className="badge badge-pill badge-soft-success">Paid</span>
-                        </td>
-                        <td>
-                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Mastercard
-                        </td>
-                        <td>
-                          <a href="#" className="btn btn-xs">
-                            {" "}
-                            View details
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="text-center">
-                          <div className="form-check">
-                            <input className="form-check-input" type="checkbox" id="transactionCheck06" />
-                            <label className="form-check-label" htmlFor="transactionCheck06"></label>
-                          </div>
-                        </td>
-                        <td>
-                          <a href="#" className="fw-bold">
-                            #SK2544
-                          </a>
-                        </td>
-                        <td>Ronald Taylor</td>
-                        <td>04 Oct, 2021</td>
-                        <td>$404</td>
-                        <td>
-                          <span className="badge badge-pill badge-soft-warning">Refund</span>
-                        </td>
-                        <td>
-                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Visa
-                        </td>
-                        <td>
-                          <a href="#" className="btn btn-xs">
-                            {" "}
-                            View details
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="text-center">
-                          <div className="form-check">
-                            <input className="form-check-input" type="checkbox" id="transactionCheck07" />
-                            <label className="form-check-label" htmlFor="transactionCheck07"></label>
-                          </div>
-                        </td>
-                        <td>
-                          <a href="#" className="fw-bold">
-                            #SK2545
-                          </a>
-                        </td>
-                        <td>Jacob Hunter</td>
-                        <td>04 Oct, 2021</td>
-                        <td>$392</td>
-                        <td>
-                          <span className="badge badge-pill badge-soft-success">Paid</span>
-                        </td>
-                        <td>
-                          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Paypal
-                        </td>
-                        <td>
-                          <a href="#" className="btn btn-xs">
-                            {" "}
-                            View details
-                          </a>
-                        </td>
-                      </tr>
+                    {orderData ? orderData.orders.map((order, index) => {
+                      console.log(order)
+    return (
+        // Your JSX for rendering each order goes here
+        // For example:
+        <tr key={index}>
+        <td className="text-center">
+          <div className="form-check">
+            <input className="form-check-input" type="checkbox" id="transactionCheck02" />
+            <label className="form-check-label" htmlFor="transactionCheck02"></label>
+          </div>
+        </td>
+        <td>
+          <a href="#" className="fw-bold">
+           {order.orderNumber}
+          </a>
+        </td>
+        <td>{order.orderDetails.billingDetails.fname} {order.orderDetails.billingDetails.lname}</td>
+        <td><td>{new Date(order.orderDate).toLocaleDateString()}</td>
+</td>
+        <td>₹{order.orderDetails.subtotal}</td>
+        <td>
+          <span className="badge badge-pill badge-soft-success" >{order.PaymentStatus}</span>
+        </td>
+        <td>
+          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Mastercard
+        </td>
+        <td>
+          <a href="#" className="btn btn-xs">
+            {" "}
+            View details
+          </a>
+        </td>
+      </tr>
+    );
+}) :<h1>Some Thing Went wrong try again</h1>}
+
+                     
                     </tbody>
                   </table>
                 </div>
@@ -520,7 +432,8 @@ const HomePage = () => {
               </ul>
             </nav>
           </div>
-        </section>
+        </section>}
+       
         <Footer />
       </main>
       <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>

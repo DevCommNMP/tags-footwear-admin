@@ -440,7 +440,7 @@ const BasicProductDetails = () => {
               </div>
               <div className="mb-4 col-6">
                 <label htmlFor="isPremiumLeather" className="form-label">
-                  Category Type:
+                  is Premium Leather.
                 </label>
                 <select
                   id="isPremiumLeather"

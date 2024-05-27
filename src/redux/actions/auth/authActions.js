@@ -42,9 +42,9 @@ export const loginUserAction = createAsyncThunk("user/login", async (userData, {
     // Save response to local storage
 
     localStorage.setItem("userData", JSON.stringify(res.data));
-    const authToken = Cookies.get("token");
+    // const authToken = Cookies.get("token");
 
-    console.log(authToken);
+    // console.log(authToken);
     // console.log(res.data)
     // console.log(res)
     return res.data;

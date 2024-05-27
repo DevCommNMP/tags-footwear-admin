@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteParticularProductAction, fetchAllProductsAction } from "../redux/actions/product/productActions";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Link, useNavigate } from "react-router-dom";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+// import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -16,7 +16,10 @@ const ListProductPage = () => {
   const [show, setShow] = useState(false);
 
   const navigate = useNavigate();
+  const data = JSON.parse(localStorage.getItem('userData'));
+  const token = data?.token ?? null; // Providing a default value for token
 
+ 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [productIdToDelete, setProductIdToDelete] = useState(null);
@@ -27,10 +30,13 @@ const ListProductPage = () => {
   const { products, productsLoading, appErr, serverErr } = storeData;
 
   useEffect(() => {
+    if(!token){
+      navigate("/login")
+    }
     dispatch(fetchAllProductsAction());
   }, [dispatch]);
 
-  console.log(products, productsLoading, appErr, serverErr);
+  // console.log(products, productsLoading, appErr, serverErr);
 
   // Get current products
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -46,6 +52,10 @@ const ListProductPage = () => {
     setProductIdToDelete(productId);
   };
 
+  const editImageHandler=(productId)=>{
+    navigate(`/add-product-images/${productId}`);
+    // console.log(productId);
+  }
   const deleteproductHandler = () => {
     
     console.log("product deleted successfully");
@@ -132,16 +142,11 @@ const ListProductPage = () => {
                         20
                       </button>
                     </li>
-                    {/* Add more options as needed */}
+                   
                   </ul>
                 </div>
               </div>
-              <a href="#" className="btn btn-light rounded font-md">
-                Export
-              </a>
-              <a href="#" className="btn btn-light rounded font-md">
-                Import
-              </a>
+              
               <Link to="/add-product" className="btn btn-primary btn-sm rounded">
                 Add New Product
               </Link>
@@ -150,7 +155,36 @@ const ListProductPage = () => {
           <div className="card mb-4">
             <header className="card-header">Product List</header>
             <div className="card-body">
-            
+            <article className="itemlist">
+                  <div className="row align-items-center">
+                    <div className="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
+                      <a className="itemside" href="#">
+                        <div className="left">
+                          <p>Product image</p>
+                        </div>
+                        <div className="info">
+                          <h6 className="mb-0">Product Title</h6>
+                        </div>
+                      </a>
+                    </div>
+                    <div className="col-lg-2 col-sm-2 col-4 col-price">
+                      <span>Price</span>
+                    </div>
+                    <div className="col-lg-2 col-sm-2 col-4 col-status">
+                      <span className="badge rounded-pill alert-success">Product Name</span>
+                    </div>
+                    <div className="col-lg-1 col-sm-2 col-4 col-date">
+                    <span><span>Category</span>
+</span>
+
+                    </div>
+                    <div className="col-lg-2 col-sm-2 col-4 col-action text-end">
+                        
+                        <p>Actions</p>
+
+                    </div>
+                  </div>
+                </article>            
               {currentProducts.map((product,index) => (
                 <article key={index} className="itemlist">
                   <div className="row align-items-center">
@@ -168,17 +202,23 @@ const ListProductPage = () => {
                       <span>&#8377;{product.SellingPrice}</span>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-status">
-                      <span className="badge rounded-pill alert-success">Active</span>
+                      <span className="badge rounded-pill alert-success">{product.productName}</span>
                     </div>
                     <div className="col-lg-1 col-sm-2 col-4 col-date">
-                      <span>{product.subcategoryType.subcategoryTypeName}</span>
+                    <span><span>{product.subcategoryType?.subcategoryTypeName || "Leather"}</span>
+</span>
+
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-action text-end">
-                      <a className="btn btn-sm font-sm rounded btn-brand" onClick={() => editProductHandler(product._id)}>
+                    <a className="btn btn-sm font-sm rounded btn-brand mx-1" onClick={() => editImageHandler(product._id)}>
+                        {" "}
+                        <i className="material-icons md-edit" ></i> Update Image{" "}
+                      </a>
+                      <a className="btn btn-sm font-sm rounded btn-brand mx-1" onClick={() => editProductHandler(product._id)}>
                         {" "}
                         <i className="material-icons md-edit"></i> Edit{" "}
                       </a>
-                      <a className="btn btn-sm font-sm btn-light rounded" onClick={() => deleteHandler(product._id)}>
+                      <a className="btn btn-sm font-sm btn-light rounded mx-1" onClick={() => deleteHandler(product._id)}>
                         {" "}
                         <i className="material-icons md-delete_forever"></i> Delete{" "}
                       </a>

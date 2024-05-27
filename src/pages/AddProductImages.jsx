@@ -15,8 +15,17 @@ const AddProductImages = () => {
   const [successMessage, setSuccessMessage] = useState(false);
   const [message, setMessage] = useState(false);
   const navigate = useNavigate();
+ 
+  const data = JSON.parse(localStorage.getItem('userData'));
+  const token = data?.token ?? null; // Providing a default value for token
 
+
+  
   useEffect(() => {
+    if(!token){
+      navigate("/login")
+      return;
+     }
     if (updatedProductImage && updatedProductSubImage) {
       setSuccessMessage(true);
       setMessage("Images added successfully!");

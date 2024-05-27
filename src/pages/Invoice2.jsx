@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "../assets/imgs/theme/logo.png";
 import "./invoice.css";
+import { useNavigate } from "react-router-dom/dist";
+import Header from "../components/Header";
+import Aside from "../components/Aside";
 
 const Invoice = () => {
   const [invoiceNumber, setInvoiceNumber] = useState("#1970191");
@@ -13,6 +16,17 @@ const Invoice = () => {
   const [billToAddress, setBillToAddress] = useState("205 North Michigan Avenue, Suite 810\nChicago, 60601, USA");
   const [billToPhone, setBillToPhone] = useState("(+123) 456-7890");
   const [billToEmail, setBillToEmail] = useState("example@email.com");
+
+  const navigate=useNavigate()
+  const data = JSON.parse(localStorage.getItem('userData'));
+  const token = data?.token ?? null; // Providing a default value for token
+
+  useEffect(() => {
+   if(!token){
+    navigate("/login")
+    return;
+   }
+  }, [token])
 
   const [items, setItems] = useState([
     {
@@ -66,7 +80,9 @@ const Invoice = () => {
 
   return (
     <>
-      <div className="container">
+    <Header/>
+    {/* <Aside/> */}
+      <div className="container" >
         <div className="row">
           <div className="col-12 print-hide">
             <div className="row">

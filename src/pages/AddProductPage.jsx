@@ -6,8 +6,20 @@ import BasicProductDetails from "../components/ProductBasicDetails";
 // import ProductMainImage from "../components/ProductMainImage";
 // import ProductSubImages from "../components/ProductSubImages";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom/dist";
+import { useEffect } from "react";
 
 const AddProductPage = () => {
+  const navigate = useNavigate();
+  const data = JSON.parse(localStorage.getItem('userData'));
+  const token = data?.token ?? null; // Providing a default value for token
+
+  useEffect(() => {
+   if(!token){
+    navigate("/login")
+   }
+  }, [token])
+  
   return (
     <>
       <div className="screen-overlay"></div>

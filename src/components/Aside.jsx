@@ -43,43 +43,37 @@ const Aside = () => {
                 <Link to="/products-list">Manage Products</Link>
                 <Link to="/add-product">Add Product</Link>
               </div>
-              <hr />
-              <div
-                className="submenu"
-                style={{ display: isSubMenuVisible ? "block" : "none" }}
-              >
-                <Link to="/manage-categories">Manage Categories</Link>
-                <Link to="/add-categories">Add Categories</Link>
-              </div>
+             
+           
             </li>
           </ul>
-          <hr />
+        
           <ul className="menu-aside">
-            <li className="menu-item active">
+            {/* <li className="menu-item active">
               <Link to="/" className="menu-link">
                 <i className="icon material-icons md-home"></i>
                 <span className="text">Dashboard</span>
               </Link>
-            </li>
+            </li> */}
             <li className="menu-item has-submenu">
               <a className="menu-link" onClick={toggleSubMenu}>
                 <i className="icon material-icons md-shopping_bag"></i>
-                <span className="text">Products</span>
+                <span className="text">Manage Categories</span>
               </a>
               <div
                 className="submenu"
                 style={{ display: isSubMenuVisible ? "block" : "none" }}
               >
-                <Link to="/products-list">Manage Products</Link>
-                <Link to="/add-product">Add Product</Link>
+                <Link to="/manage-categories">Manage Categories</Link>
+                <Link to="/add-category">Add Categories & Subcategories</Link>
               </div>
-              <hr />
+         
               <div
                 className="submenu"
                 style={{ display: isSubMenuVisible ? "block" : "none" }}
               >
-                <Link to="/manage-categories">Manage Categories</Link>
-                <Link to="/add-categories">Add Categories</Link>
+                {/* <Link to="/manage-categories">Manage Categories</Link>
+                <Link to="/add-categories">Add Categories</Link> */}
               </div>
             </li>
           </ul>
@@ -97,9 +91,9 @@ const Aside = () => {
               </div>
             </li>
             <li className="menu-item">
-              <Link to="/blank" className="menu-link">
+              <Link to="/generate-invoice" className="menu-link">
                 <i className="icon material-icons md-local_offer"></i>
-                <span className="text"> Starter page </span>
+                <span className="text"> Generate Invoice </span>
               </Link>
             </li>
           </ul>

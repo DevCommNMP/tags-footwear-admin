@@ -4,8 +4,20 @@ import Footer from "../components/Footer";
 import BasicProductDetails from "../components/ProductBasicDetails";
 import { Link } from "react-router-dom";
 import MyDropzone from "../components/myDropzone";
+import { useNavigate } from "react-router-dom/dist";
+import { useEffect } from "react";
 
 const AddCategoryPage = () => {
+const navigate=useNavigate()
+  const data = JSON.parse(localStorage.getItem('userData'));
+  const token = data?.token ?? null; // Providing a default value for token
+
+  useEffect(() => {
+   if(!token){
+    navigate("/login")
+    return;
+   }
+  }, [token])
   return (
     <>
       <div className="screen-overlay"></div>
