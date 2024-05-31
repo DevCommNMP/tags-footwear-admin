@@ -27,6 +27,7 @@ const navigate = useNavigate();
   if(!token){
     navigate("/login")
    }
+   
     const fetchData = async () => {
         try {
           // Dispatch the action and wait for the response
@@ -46,6 +47,7 @@ toast.error("Something went wrong try again!")
       fetchData();
 
  }, [token])
+ console.log(particularproduct)
  
   return (
     <>

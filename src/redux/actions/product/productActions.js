@@ -47,6 +47,7 @@ export const createProduct = createAsyncThunk("api/products", async (data, { rej
 
 export const updateProductDetails = createAsyncThunk("api/products/image", async ({ id, formData }, { rejectWithValue }) => {
   try {
+    console.log(id,formData)
     const config = {
       headers: {
         "Content-Type": "application/json"
@@ -117,7 +118,7 @@ export const updateProductSubImage = createAsyncThunk("api/products/subImages", 
     if (!error?.response) {
       throw error;
     }
-    console.log(error);
+    console.log(error.message);
     return rejectWithValue(error.response.data);
   }
 });

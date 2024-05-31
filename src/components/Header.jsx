@@ -3,6 +3,7 @@ import DarkModeToggle from "./DarkModeToggle";
 import { MdLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom/dist";
 import { FiUser } from "react-icons/fi";
+import logo from "../assets/imgs/theme/logo.png"
 const Header = () => {
   const navigate=useNavigate();
   const data = JSON.parse(localStorage.getItem('userData'));
@@ -23,6 +24,7 @@ const logoutHandler=async()=>{
     <>
       <header className="main-header navbar">
         <div className="col-search">
+          <img src={logo} alt="logo" style={{width:200}}/>
         </div>
         <div className="col-nav">
           <ul className="nav">

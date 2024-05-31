@@ -36,17 +36,13 @@ export const loginUserAction = createAsyncThunk("user/login", async (userData, {
 
   console.log(userData);
   try {
-    const res = await axios.post(`${baseUrl}/api/auth/login`, userData, config, {
+    const res = await axios.post(`${baseUrl}/api/auth/adminlogin`, userData, config, {
       withCredentilas: true,
     });
     // Save response to local storage
 
     localStorage.setItem("userData", JSON.stringify(res.data));
-    // const authToken = Cookies.get("token");
-
-    // console.log(authToken);
-    // console.log(res.data)
-    // console.log(res)
+  
     return res.data;
   } catch (error) {
     console.error(error);

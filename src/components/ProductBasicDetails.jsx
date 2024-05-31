@@ -87,11 +87,12 @@ const BasicProductDetails = () => {
     sizesAvailable: [{ size: "", quantity: 0 }],
     colorsAvailable: [],
     gender: "Unisex",
-    price: 0,
+    price:"",
     category: "",
     footwearType: "",
     reviews: [],
     selectedTag: "",
+    discount:"",
   });
 
 
@@ -178,9 +179,9 @@ const BasicProductDetails = () => {
       hasErrors = true;
     }
 
-    if (!formData.sizesAvailable.every((size) => size.size && size.quantity > 0)) {
+    if (!formData.sizesAvailable.every((size) => (size.size && size.quantity) >= 0)) {
       formErrors.sizesAvailable = "Shoes Size and Quantity are required";
-      hasErrors = true;
+      hasErrors = false;
     }
 
     if (formData.colorsAvailable.length === 0) {
@@ -199,7 +200,7 @@ const BasicProductDetails = () => {
       setErrors({});
 
       // console.log(formData)
-      // Handle form submission here, e.g., send data to backend
+     
       dispatch(createProduct(formData))
         .then((action) => {
           console.log(action.payload);
@@ -466,9 +467,16 @@ const BasicProductDetails = () => {
                   <div className="row gx-2">
                     <div className="mb-4 col-12">
                       <label htmlFor="product_name" className="form-label">
-                        Enter coupon code for this product
+                        Enter Discount Percentage <span style={{color:"red"}}>(only numbers)</span>
                       </label>
-                      <input type="text" className="form-control" />
+                      <input 
+  type="number" 
+  id="discount" 
+  name="discount" 
+  value={formData.discount} 
+  onChange={handleChange} 
+  className="form-control" 
+/>
                     </div>
                   </div>
                 </div>

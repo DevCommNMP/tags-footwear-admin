@@ -23,12 +23,14 @@ const HomePage = () => {
   const [error, setError] = useState(false);
   const [loading,setLoading]=useState(false);
   const navigate = useNavigate();
+  const[paidCount,setPaidCount]=useState();
+  const[codCount,setcodCount]=useState();
   const productData = useSelector((store) => store.products);
   const orderData = useSelector((store) => store.orders);
   const { products, productsLoading, appErr, serverErr } = productData;
   const categoryData = useSelector((store) => store.categories);
   const allSubcategories = categoryData.categoriesData;
-  console.log(orderData)
+  // console.log(orderData)
   const data = JSON.parse(localStorage.getItem('userData'));
   const token = data?.token ?? null; // Providing a default value for token
 
@@ -36,6 +38,29 @@ const HomePage = () => {
     navigate("/login")
   }
   
+  const viewOrderHandler=async(orderId)=>{
+    navigate(`/order-details/${orderId}`)
+
+  }
+
+  const paidOrders = async (orderData) => {
+    const paidCount = orderData.orders.filter((item) => {
+      return item.PaymentStatus === "Paid"; // Corrected the comparison and added return
+    }).length;
+     // Added .length to get the count
+     setPaidCount(paidCount)
+     console.log(paidCount)
+    return paidCount; // Return the count
+  };
+  const CODOrders = async (orderData) => {
+    const CODCount = orderData.orders.filter((item) => {
+      return item.PaymentStatus === "COD"; // Corrected the comparison and added return
+    }).length;
+     // Added .length to get the count
+     setcodCount(CODCount)
+     console.log(CODCount)
+    return paidCount; // Return the count
+  };
 
   useEffect(() => {
     setLoading(true)
@@ -45,9 +70,11 @@ const HomePage = () => {
   dispatch(fetchAllProductsAction())
   dispatch(fetchAllsubCategories())
   dispatch(fetchAllOrdersAction())
-
+paidOrders(orderData)
+CODOrders(orderData)
   setLoading(false)
   }, [dispatch])
+
   
 
   return (
@@ -78,9 +105,9 @@ const HomePage = () => {
                     <i className="text-primary material-icons md-monetization_on"></i>
                   </span>
                   <div className="text">
-                    <h6 className="mb-1 card-title">Revenue</h6>
-                    <span>$13,456.5</span>
-                    <span className="text-sm"> Shipping fees are not included </span>
+                    <h6 className="mb-1 card-title">Paid Orders</h6>
+                    <span>{paidCount}</span>
+                    <span className="text-sm"> </span>
                   </div>
                 </article>
               </div>
@@ -94,7 +121,7 @@ const HomePage = () => {
                   <div className="text">
                     <h6 className="mb-1 card-title">Orders</h6>
                     <span>{orderData.orders.length}</span>
-                    <span className="text-sm"> Excluding orders in transit </span>
+                    <span className="text-sm">  </span>
                   </div>
                 </article>
               </div>
@@ -120,8 +147,8 @@ const HomePage = () => {
                     <i className="text-info material-icons md-shopping_basket"></i>
                   </span>
                   <div className="text">
-                    <h6 className="mb-1 card-title">Monthly Earning</h6>
-                    <span>$6,982</span>
+                    <h6 className="mb-1 card-title">COD Orders</h6>
+                    <span>{codCount}</span>
                     <span className="text-sm"> Based in your local time. </span>
                   </div>
                 </article>
@@ -133,269 +160,78 @@ const HomePage = () => {
             <div className="card-body">
               <div className="table-responsive">
                 <div className="table-responsive">
-                  <table className="table align-middle table-nowrap mb-0">
-                    <thead className="table-light">
-                      <tr>
-                        <th scope="col" className="text-center">
-                          <div className="form-check align-middle">
-                            <input className="form-check-input" type="checkbox" id="transactionCheck01" />
-                            <label className="form-check-label" htmlFor="transactionCheck01"></label>
-                          </div>
-                        </th>
-                        <th className="align-middle" scope="col">
-                          Order Number
-                        </th>
-                        <th className="align-middle" scope="col">
-                          Billing Name
-                        </th>
-                        <th className="align-middle" scope="col">
-                          Date
-                        </th>
-                        <th className="align-middle" scope="col">
-                          Total
-                        </th>
-                        <th className="align-middle" scope="col">
-                          Payment Status
-                        </th>
-                        <th className="align-middle" scope="col">
-                          Payment Method
-                        </th>
-                        <th className="align-middle" scope="col">
-                          View Details
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    {orderData ? orderData.orders.map((order, index) => {
-                      console.log(order)
-    return (
-        // Your JSX for rendering each order goes here
-        // For example:
+                <table className="table align-middle table-nowrap mb-0">
+  <thead className="table-light">
+    <tr>
+      <th scope="col" className="text-center">
+        <div className="form-check align-middle">
+          S.no
+        </div>
+      </th>
+      <th className="align-middle" scope="col">
+        Order Number
+      </th>
+      <th className="align-middle" scope="col">
+        Billing Name
+      </th>
+      <th className="align-middle" scope="col">
+        Date
+      </th>
+      <th className="align-middle" scope="col">
+        Total
+      </th>
+      <th className="align-middle" scope="col">
+        Payment Status
+      </th>
+      <th className="align-middle" scope="col">
+        Payment Method
+      </th>
+      <th className="align-middle" scope="col">
+        View Details
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {orderData ? orderData.orders
+      .slice() // Create a copy of the array to avoid mutating the original array
+      .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate)) // Sort the array by order date in descending order
+      .map((order, index) => (
         <tr key={index}>
-        <td className="text-center">
-          <div className="form-check">
-            <input className="form-check-input" type="checkbox" id="transactionCheck02" />
-            <label className="form-check-label" htmlFor="transactionCheck02"></label>
-          </div>
-        </td>
-        <td>
-          <a href="#" className="fw-bold">
-           {order.orderNumber}
-          </a>
-        </td>
-        <td>{order.orderDetails.billingDetails.fname} {order.orderDetails.billingDetails.lname}</td>
-        <td><td>{new Date(order.orderDate).toLocaleDateString()}</td>
-</td>
-        <td>₹{order.orderDetails.subtotal}</td>
-        <td>
-          <span className="badge badge-pill badge-soft-success" >{order.PaymentStatus}</span>
-        </td>
-        <td>
-          <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Mastercard
-        </td>
-        <td>
-          <a href="#" className="btn btn-xs">
-            {" "}
-            View details
-          </a>
-        </td>
-      </tr>
-    );
-}) :<h1>Some Thing Went wrong try again</h1>}
+          <td className="text-center">
+            <div className="form-check">
+              {index + 1}
+            </div>
+          </td>
+          <td>
+            <a href="#" className="fw-bold">
+              {order.orderNumber}
+            </a>
+          </td>
+          <td>{order.orderDetails.billingDetails.fname} {order.orderDetails.billingDetails.lname}</td>
+          <td>{new Date(order.orderDate).toLocaleDateString()}</td>
+          <td>₹{order.orderDetails.subtotal}</td>
+          <td>
+            <span className="badge badge-pill badge-soft-success">{order.PaymentStatus}</span>
+          </td>
+          <td>
+            <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Mastercard
+          </td>
+          <td onClick={() => viewOrderHandler(order._id)}>
+            <a className="btn btn-xs">
+              View details
+            </a>
+          </td>
+        </tr>
+      )) : <tr><td colSpan="8">Some Thing Went wrong try again</td></tr>}
+  </tbody>
+</table>
 
-                     
-                    </tbody>
-                  </table>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-xl-8 col-lg-12">
-              <div className="card mb-4">
-                <article className="card-body">
-                  <h5 className="card-title">Sale statistics</h5>
-                  {/* <canvas id="myChart" height="120px"></canvas> */}
-                  <MyChartsComponent />
-                </article>
-              </div>
-              <div className="row">
-                <div className="col-lg-5">
-                  <div className="card mb-4">
-                    <article className="card-body">
-                      <h5 className="card-title">New Members</h5>
-                      <div className="new-member-list">
-                        <div className="d-flex align-items-center justify-content-between mb-4">
-                          <div className="d-flex align-items-center">
-                            <img src={user1} alt="" className="avatar" />
-                            <div>
-                              <h6>Patric Adams</h6>
-                              <p className="text-muted font-xs">Sanfrancisco</p>
-                            </div>
-                          </div>
-                          <a href="#" className="btn btn-xs">
-                            <i className="material-icons md-add"></i> Add
-                          </a>
-                        </div>
-                        <div className="d-flex align-items-center justify-content-between mb-4">
-                          <div className="d-flex align-items-center">
-                            <img src={user2} alt="" className="avatar" />
-                            <div>
-                              <h6>Dilan Specter</h6>
-                              <p className="text-muted font-xs">Sanfrancisco</p>
-                            </div>
-                          </div>
-                          <a href="#" className="btn btn-xs">
-                            <i className="material-icons md-add"></i> Add
-                          </a>
-                        </div>
-                        <div className="d-flex align-items-center justify-content-between mb-4">
-                          <div className="d-flex align-items-center">
-                            <img src={user3} alt="" className="avatar" />
-                            <div>
-                              <h6>Tomas Baker</h6>
-                              <p className="text-muted font-xs">Sanfrancisco</p>
-                            </div>
-                          </div>
-                          <a href="#" className="btn btn-xs">
-                            <i className="material-icons md-add"></i> Add
-                          </a>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
-                </div>
-                <div className="col-lg-7">
-                  <div className="card mb-4">
-                    <article className="card-body">
-                      <h5 className="card-title">Recent activities</h5>
-                      <ul className="verti-timeline list-unstyled font-sm">
-                        <li className="event-list">
-                          <div className="event-timeline-dot">
-                            <i className="material-icons md-play_circle_outline font-xxl"></i>
-                          </div>
-                          <div className="media">
-                            <div className="me-3">
-                              <h6>
-                                <span>Today</span> <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
-                              </h6>
-                            </div>
-                            <div className="media-body">
-                              <div>Lorem ipsum dolor sit amet consectetur</div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="event-list active">
-                          <div className="event-timeline-dot">
-                            <i className="material-icons md-play_circle_outline font-xxl animation-fade-right"></i>
-                          </div>
-                          <div className="media">
-                            <div className="me-3">
-                              <h6>
-                                <span>17 May</span> <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
-                              </h6>
-                            </div>
-                            <div className="media-body">
-                              <div>Debitis nesciunt voluptatum dicta reprehenderit</div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="event-list">
-                          <div className="event-timeline-dot">
-                            <i className="material-icons md-play_circle_outline font-xxl"></i>
-                          </div>
-                          <div className="media">
-                            <div className="me-3">
-                              <h6>
-                                <span>13 May</span> <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
-                              </h6>
-                            </div>
-                            <div className="media-body">
-                              <div>Accusamus voluptatibus voluptas.</div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="event-list">
-                          <div className="event-timeline-dot">
-                            <i className="material-icons md-play_circle_outline font-xxl"></i>
-                          </div>
-                          <div className="media">
-                            <div className="me-3">
-                              <h6>
-                                <span>05 April</span> <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
-                              </h6>
-                            </div>
-                            <div className="media-body">
-                              <div>At vero eos et accusamus et iusto odio dignissi</div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="event-list">
-                          <div className="event-timeline-dot">
-                            <i className="material-icons md-play_circle_outline font-xxl"></i>
-                          </div>
-                          <div className="media">
-                            <div className="me-3">
-                              <h6>
-                                <span>26 Mar</span> <i className="material-icons md-trending_flat text-brand ml-15 d-inline-block"></i>
-                              </h6>
-                            </div>
-                            <div className="media-body">
-                              <div>Responded to need “Volunteer Activities</div>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </article>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-4 col-lg-12">
-              <div className="card mb-4">
-                <article className="card-body">
-                  <h5 className="card-title">Revenue Base on Area</h5>
-                  {/* <canvas id="myChart2" height="217"></canvas> */}
-                </article>
-              </div>
-              <div className="card mb-4">
-                <article className="card-body">
-                  <h5 className="card-title">Marketing Chanel</h5>
-                  <span className="text-muted font-xs">Facebook</span>
-                  <div className="progress mb-3">
-                    <div className="progress-bar" role="progressbar" style={{ width: "15%" }}>
-                      15%
-                    </div>
-                  </div>
-                  <span className="text-muted font-xs">Instagram</span>
-                  <div className="progress mb-3">
-                    <div className="progress-bar" role="progressbar" style={{ width: "65%" }}>
-                      65%
-                    </div>
-                  </div>
-                  <span className="text-muted font-xs">Google</span>
-                  <div className="progress mb-3">
-                    <div className="progress-bar" role="progressbar" style={{ width: "51%" }}>
-                      51%
-                    </div>
-                  </div>
-                  <span className="text-muted font-xs">Twitter</span>
-                  <div className="progress mb-3">
-                    <div className="progress-bar" role="progressbar" style={{ width: "80%" }}>
-                      80%
-                    </div>
-                  </div>
-                  <span className="text-muted font-xs">Other</span>
-                  <div className="progress mb-3">
-                    <div className="progress-bar" role="progressbar" style={{ width: "80%" }}>
-                      80%
-                    </div>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
+         
           <div className="pagination-area mt-30 mb-50">
             <nav aria-label="Page navigation example">
               <ul className="pagination justify-content-start">

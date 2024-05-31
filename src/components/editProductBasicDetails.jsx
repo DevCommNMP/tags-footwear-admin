@@ -6,6 +6,7 @@ import {
   fetchAllFootrwearType,
 } from "../redux/actions/categories/allCategoriesActions";
 import { fetchParticularProduct, updateProductDetails } from "../redux/actions/product/productActions";
+import { toast } from "react-toastify";
 const capitalizeFirstCharacter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
@@ -37,9 +38,11 @@ const navigate = useNavigate();
     footwearType: "",
     reviews: [],
     selectedTag: "",
+    discount:"",
+
   });
 
-  console.log(id)
+  // console.log(id)
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -55,13 +58,17 @@ const navigate = useNavigate();
       tag: particularproduct.tag,
       promotionalPrice:0,
       description:particularproduct.description ,
-      sizesAvailable: [{ size: "", quantity: 0 }],
-      colorsAvailable: [],
+      sizesAvailable: particularproduct.sizesAvailable.map((item) => ({
+        size: item.size,
+        quantity: item.quantity
+      })),
+          
+       colorsAvailable: particularproduct.colorsAvailable,
       gender: "Unisex",
       price: particularproduct.SellingPrice,
-      category: particularproduct.Subcategory,
+      category: particularproduct.subcategory,
       footwearType: particularproduct.subcategoryType,
-    //   reviews: [],
+      discount:particularproduct.discount||0,
       selectedTag: particularproduct.tag,
     }));
   }, [dispatch]);
@@ -120,7 +127,7 @@ const navigate = useNavigate();
     e.preventDefault();
     let formErrors = {};
     let hasErrors = false;
-console.log("editing dattad")
+
     // Validate required fields
     if (!formData.title) {
       formErrors.title = "Title is required";
@@ -148,11 +155,11 @@ console.log("editing dattad")
     }
     if (
       !formData.sizesAvailable.every(
-        (size) => size.size && size.quantity > 0
+        (size) => (size.size && size.quantity) >= 0
       )
     ) {
       formErrors.sizesAvailable = "Shoe Size and Quantity are required";
-      hasErrors = true;
+      hasErrors = false;
     }
     if (formData.colorsAvailable.length === 0) {
       formErrors.colorsAvailable = "At least one Shoe color is required";
@@ -164,16 +171,22 @@ console.log("editing dattad")
       return;
     } else {
       setErrors({});
-      // Handle form submission here, e.g., send data to backend
-      console.log("updating Datat")
-      console.log(formData);
-     const action= await dispatch(updateProductDetails({id,formData}))
-     if(action.payload.success){
-      navigate(`/add-product-images/${id}`);
-     }
-     else{
-      console.log(" time pass")
-     }
+     
+      dispatch(updateProductDetails({id,formData}))
+      .then((action) => {
+        if(action.payload.success){
+          navigate(`/add-product-images/${id}`);
+         }
+         else{
+          console.log("Something went wrong try again")
+         
+         }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    
         // .then((action) => {
         //   console.log(action.payload);
         //   // Do something with action.payload
@@ -432,10 +445,17 @@ console.log("editing dattad")
                 <div className="card-body">
                   <div className="row gx-2">
                     <div className="mb-4 col-12">
-                      <label htmlFor="coupon_code" className="form-label">
-                        Enter coupon code for this product
+                    <label htmlFor="product_name" className="form-label">
+                        Enter Discount Percentage <span style={{color:"red"}}>(only numbers)</span>
                       </label>
-                      <input type="text" className="form-control" id="coupon_code" />
+                      <input 
+  type="number" 
+  id="discount" 
+  name="discount" 
+  value={formData.discount} 
+  onChange={handleChange} 
+  className="form-control" 
+/>
                     </div>
                   </div>
                 </div>
@@ -443,12 +463,7 @@ console.log("editing dattad")
 
               <div className="row">
                 <div className="ml-auto col">
-                  {/* <button
-                    type="submit"
-                    className="btn btn-outline-danger ml-auto m-auto"
-                  >
-                    Validate
-                  </button> */}
+               
                 </div>
                 <div className="ml-auto col">
                   <button

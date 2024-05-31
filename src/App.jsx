@@ -15,6 +15,7 @@ import AddProductImages from "./pages/AddProductImages";
 import Invoice from "./pages/Invoice2";
 import EditProductPage from "./pages/editProductPage";
 import Login from "./components/auth/login";
+import OrderDetailsPage from "./pages/orderDetailsPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/add-product-images/:id" element={<AddProductImages />} />       
           <Route path="/manage-categories" element={<ListCategoryPage />} />
           <Route path="/add-category" element={<AddCategoryPage />} />
+          <Route path="/order-details/:id" element={<OrderDetailsPage />} />
           <Route path="/generate-invoice" element={<Invoice />} />
           <Route element={<NotfoundPage />} /> {/* Not Found Route */}
         </Routes>
