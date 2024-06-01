@@ -90,7 +90,7 @@ const Login = ({isloggedin}) => {
                   <div className="login_wrap widget-taber-content background-white">
                     <div className="padding_eight_all bg-white">
                       <div className="heading_s1">
-                        <h1 className="mb-5">Login</h1>
+                        <h1 className="mb-5" style={{color:"black"}}>Login</h1>
                         {/* <p className="mb-30">
                           Don&apos;t have an account?{" "}
                           <Link to="/signup" onClick={() => navigate("/signup")}>
@@ -144,8 +144,9 @@ const Login = ({isloggedin}) => {
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
+                              backgroundColor:"red"
                             }}
-                            className="mb-4 btn btn-fill-out btn-block hover-up font-weight-bold"
+                            className="mb-4 btn btn-fill-out btn-block hover-up font-weight-bold" 
                             name="login"
                           >{loading ? "Loading" : "Login"}
                            
