@@ -168,7 +168,7 @@ console.log(orderdata)
       </div>
     </div>
     </>
-  );
+  );    
 };
 
 export default OrderDetailsPage;
