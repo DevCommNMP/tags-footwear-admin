@@ -10,8 +10,8 @@ import { baseUrl } from "../../../utils/baseUrl";
         },
       };
     //   console.log("fetching data");
-      const res = await axios.get(`${baseUrl}/api/orders`, config);
-      console.log(res);
+      const res = await axios.get(`${baseUrl}/api/orders/getAllorders`, config);
+    
       return res.data;
     } catch (error) {
       if (!error?.response) {

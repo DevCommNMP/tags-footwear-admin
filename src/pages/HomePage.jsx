@@ -70,12 +70,12 @@ const HomePage = () => {
   dispatch(fetchAllProductsAction())
   dispatch(fetchAllsubCategories())
   dispatch(fetchAllOrdersAction())
-paidOrders(orderData)
-CODOrders(orderData)
+paidOrders(orderData);
+CODOrders(orderData);
   setLoading(false)
-  }, [dispatch])
+  }, [dispatch,])
 
-  
+  console.log(orderData.orders)
 
   return (
     <>
@@ -207,9 +207,9 @@ CODOrders(orderData)
               {order.orderNumber}
             </a>
           </td>
-          <td>{order.orderDetails.billingDetails.fname} {order.orderDetails.billingDetails.lname}</td>
+          <td>{order?.orderDetails?.billingDetails.fname} {order.orderDetails?.billingDetails.lname}</td>
           <td>{new Date(order.orderDate).toLocaleDateString()}</td>
-          <td>₹{order.orderDetails.subtotal}</td>
+          <td>₹{order?.orderDetails?.subtotal}</td>
           <td>
             <span className="badge badge-pill badge-soft-success">{order.PaymentStatus}</span>
           </td>
