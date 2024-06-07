@@ -24,7 +24,7 @@ const ListProductPage = () => {
   const handleShow = () => setShow(true);
   const [productIdToDelete, setProductIdToDelete] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(10); // Number of products per page
+  const [productsPerPage, setProductsPerPage] = useState(25); // Number of products per page
 
   const storeData = useSelector((store) => store.products);
   const { products, productsLoading, appErr, serverErr } = storeData;
@@ -117,29 +117,29 @@ const ListProductPage = () => {
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li>
-                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(2)}>
-                        2
+                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(25)}>
+                       25
                       </button>
                     </li>
                     <li>
-                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(4)}>
-                        4
+                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(50)}>
+                        50
                       </button>
                     </li>
 
                     <li>
-                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(5)}>
-                        5
+                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(100)}>
+                        100
                       </button>
                     </li>
                     <li>
-                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(10)}>
-                        10
+                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(200)}>
+                       200
                       </button>
                     </li>
                     <li>
-                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(20)}>
-                        20
+                      <button className="dropdown-item border-none" onClick={() => handleDropdownChange(400)}>
+                       400
                       </button>
                     </li>
                    
