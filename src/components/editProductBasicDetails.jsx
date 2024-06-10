@@ -20,9 +20,6 @@ const BasicProductDetails = ({particularproduct,productsLoading,appErr,serverErr
   const storeData = useSelector((store) => store.categories);
   const { categoriesData, footwearTypeData, loading } = storeData;
 
-  // const productdata = useSelector((store) => store.products);
-  // const { particularproduct, productsLoading, appErr, serverErr } = productdata;
-  // console.log(particularproduct)
 const{id}=useParams();
 const navigate = useNavigate();
   const [formData, setFormData] = useState({
