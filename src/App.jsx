@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/HomePage";
-import Blankpage from "./pages/BlankPage";
+// import Blankpage from "./pages/BlankPage";
 import ListProductPage from "./pages/ListProductPage";
 import AddProductPage from "./pages/AddProductPage";
 import QuickView from "./components/QuickView";
@@ -16,6 +16,7 @@ import Invoice from "./pages/Invoice2";
 import EditProductPage from "./pages/editProductPage";
 import Login from "./components/auth/login";
 import OrderDetailsPage from "./pages/orderDetailsPage";
+import OrderCancellation from "./pages/orderCancellation";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/blank" element={<Blankpage />} />
+          <Route path="/cancelled-orders" element={<OrderCancellation />} />
           <Route path="/products-list" element={<ListProductPage />} />
           <Route path="/add-product" element={<AddProductPage />} />
           <Route path="/edit-product/:id" element={<EditProductPage />} />

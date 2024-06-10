@@ -159,8 +159,11 @@ const ListProductPage = () => {
                   <div className="row align-items-center">
                     <div className="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
                       <a className="itemside" href="#">
+                      <div className="left">
+                          <h6 style={{marginRight:'5px'}}>S.N.  </h6>
+                        </div>
                         <div className="left">
-                          <p>Product image</p>
+                          <h6>Product image</h6>
                         </div>
                         <div className="info">
                           <h6 className="mb-0">Product Title</h6>
@@ -168,19 +171,19 @@ const ListProductPage = () => {
                       </a>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-price">
-                      <span>Price</span>
+                      <h6>Price</h6>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-status">
                       <span className="badge rounded-pill alert-success">Product Name</span>
                     </div>
                     <div className="col-lg-1 col-sm-2 col-4 col-date">
-                    <span><span>Category</span>
+                    <span><h6>Category</h6>
 </span>
 
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-action text-end">
                         
-                        <p>Actions</p>
+                        <h6>Actions</h6>
 
                     </div>
                   </div>
@@ -190,6 +193,9 @@ const ListProductPage = () => {
                   <div className="row align-items-center">
                     <div className="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
                       <a className="itemside" href="#">
+                      <div className="left">
+                      <h6 className="mb-0">{index+1}</h6>
+                        </div>
                         <div className="left">
                           <img src={product.productImage} className="img-sm img-thumbnail" alt="Item" />
                         </div>

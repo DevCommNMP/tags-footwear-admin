@@ -72,8 +72,7 @@ const Aside = () => {
                 className="submenu"
                 style={{ display: isSubMenuVisible ? "block" : "none" }}
               >
-                {/* <Link to="/manage-categories">Manage Categories</Link>
-                <Link to="/add-categories">Add Categories</Link> */}
+                
               </div>
             </li>
           </ul>
@@ -81,7 +80,7 @@ const Aside = () => {
 
           <ul className="menu-aside">
             <li className="menu-item has-submenu">
-              <Link to="/blank" className="menu-link">
+              <Link to="/cancelled-orders" className="menu-link">
                 <i className="icon material-icons md-apps"></i>
                 <span className="text">Other Application</span>
               </Link>
