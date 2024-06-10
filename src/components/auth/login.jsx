@@ -1,29 +1,26 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import Header from "../../../components/Header/Header";
-
+import Header from "../Header";
 import { useDispatch, useSelector } from "react-redux";
 
 import LoginImg from "../../assets/imgs/page/login.jpg";
 import logoGoogle from "../../assets/imgs/theme/icons/logo-google.svg";
 // import Footer from "../Footer/Footer";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import { loginUserAction } from "../../redux/actions/auth/authActions";
-const Login = ({isloggedin}) => {
+const Login = ({ isloggedin }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // State variables for form data and errors
   const storeData = useSelector((store) => store.auth);
-  const { user,registered,loading, appErr, serverErr } = storeData;
+  const { user, registered, loading, appErr, serverErr } = storeData;
 
- useEffect(() => {
-  if(registered){
-    toast("You are registered Successfully")
-   
-  }
-  
- }, [appErr,serverErr])
- 
+  useEffect(() => {
+    if (registered) {
+      toast("You are registered Successfully");
+    }
+  }, [appErr, serverErr]);
 
   // State variables for form data and errors
   const [formData, setFormData] = useState({
@@ -76,8 +73,8 @@ const Login = ({isloggedin}) => {
 
   return (
     <>
-    <ToastContainer/>
-      {/* <Header /> */}
+      <ToastContainer />
+      <Header />
       <div className="page-content pt-150 pb-150">
         <div className="container">
           <div className="row">
@@ -90,7 +87,9 @@ const Login = ({isloggedin}) => {
                   <div className="login_wrap widget-taber-content background-white">
                     <div className="padding_eight_all bg-white">
                       <div className="heading_s1">
-                        <h1 className="mb-5" style={{color:"black"}}>Login</h1>
+                        <h1 className="mb-5" style={{ color: "black" }}>
+                          Login
+                        </h1>
                         {/* <p className="mb-30">
                           Don&apos;t have an account?{" "}
                           <Link to="/signup" onClick={() => navigate("/signup")}>
@@ -131,8 +130,10 @@ const Login = ({isloggedin}) => {
                                 <span>Remember me</span>
                               </label>
                             </div>
+                            <Link to="/forgot-password">
+                              <a className="text-muted">Forgot password?</a>
+                            </Link>
                           </div>
-                          <Link to="/forgot-password"><a className="text-muted">Forgot password?</a></Link>
                         </div>
                         <div className="form-group mb-30">
                           <button
@@ -144,12 +145,14 @@ const Login = ({isloggedin}) => {
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
-                              backgroundColor:"red"
+                              backgroundColor: "red",
+                              color: "white",
+                              fontWeight: 700,  
                             }}
-                            className="mb-4 btn btn-fill-out btn-block hover-up font-weight-bold" 
+                            className="mb-4 btn btn-fill-out btn-block hover-up font-weight-bold"
                             name="login"
-                          >{loading ? "Loading" : "Login"}
-                           
+                          >
+                            {loading ? "Loading" : "Login"}
                           </button>
                           {/* <a
                             className="btn btn-light social-login google-login bg-light text-dark"

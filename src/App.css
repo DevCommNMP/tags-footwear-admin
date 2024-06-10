@@ -355,3 +355,27 @@
   background-color: #000000 !important;
   /* Black */
 }
+
+.bg-theme-dark{
+  background-color: #2f3446 !important;
+}
+
+.login_wrap  form input {
+  width: 100%;
+  padding: 10px 20px;
+  margin: 10px 0;
+}
+
+.login_wrap  form .form-check-input[type=checkbox] {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  padding: 0;
+  margin: 0 10px 0 0;
+}
+
+.login_wrap  form .chek-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
