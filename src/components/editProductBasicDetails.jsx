@@ -22,6 +22,7 @@ const BasicProductDetails = ({particularproduct,productsLoading,appErr,serverErr
 
   // const productdata = useSelector((store) => store.products);
   // const { particularproduct, productsLoading, appErr, serverErr } = productdata;
+  // console.log(particularproduct)
 const{id}=useParams();
 const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -387,6 +388,7 @@ const navigate = useNavigate();
                   <option value="">Select Tag</option>
                   <option value="new">New</option>
                   <option value="hot">Hot</option>
+                  <option value="sale">Sale</option>
                   <option value="popular">Popular</option>
                   <option value="trending">Trending</option>
                 </select>
