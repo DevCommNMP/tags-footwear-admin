@@ -9,13 +9,13 @@ import { baseUrl } from "../../../utils/baseUrl";
           "Content-Type": "application/json",
         },
       };
-    //   console.log("fetching data");
+  
       const res = await axios.get(`${baseUrl}/api/orders/getAllorders`, config);
     
       return res.data;
     } catch (error) {
       if (!error?.response) {
-        console.log(error.message);
+     
         throw error;
       }
       return rejectWithValue(error?.response?.data);
@@ -31,8 +31,7 @@ export const fetchOrder = createAsyncThunk("order/fetchOrder", async (orderId, {
     };
 
     const res = await axios.get(`${baseUrl}/api/orders/${orderId}`, config);
-    console.log(orderId)
-    console.log(res.data)
+  
     return res.data;
   } catch (error) {
     if (!error.response) {

@@ -28,7 +28,7 @@ const addToCart = (product) => {
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
   // Return the updated cart items
-  console.log(cartItems);
+
   return cartItems;
 };
 

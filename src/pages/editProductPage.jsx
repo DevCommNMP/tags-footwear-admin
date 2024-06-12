@@ -33,11 +33,9 @@ const navigate = useNavigate();
           // Dispatch the action and wait for the response
           const res = await dispatch(fetchParticularProduct(id));
            
-          // Once the response is received, access the payload
-        //   console.log(res.payload);
+      
         } catch (error) {
-          // Handle any errors that occur during the dispatch or data fetching process
-        //   console.error('Error fetching product:', error);
+        
 toast.error("Something went wrong try again!")
         }
       };
@@ -47,7 +45,7 @@ toast.error("Something went wrong try again!")
       fetchData();
 
  }, [token])
- console.log(particularproduct)
+
  
   return (
     <>

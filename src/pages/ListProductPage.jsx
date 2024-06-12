@@ -36,7 +36,7 @@ const ListProductPage = () => {
     dispatch(fetchAllProductsAction());
   }, [dispatch]);
 
-  // console.log(products, productsLoading, appErr, serverErr);
+  
 
   // Get current products
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -44,7 +44,7 @@ const ListProductPage = () => {
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
   const editProductHandler = (productId) => {
     navigate(`/edit-product/${productId}`);
-    console.log(productId);
+
   };
 
   const deleteHandler = (productId) => {
@@ -54,13 +54,13 @@ const ListProductPage = () => {
 
   const editImageHandler=(productId)=>{
     navigate(`/add-product-images/${productId}`);
-    // console.log(productId);
+   
   }
   const deleteproductHandler = () => {
     
-    console.log("product deleted successfully");
+  
     const res = dispatch(deleteParticularProductAction(productIdToDelete));
-    console.log(res.status);
+
     setShow(!show);
   };
   // Change page

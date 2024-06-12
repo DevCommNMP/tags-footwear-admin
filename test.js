@@ -662,7 +662,7 @@ const getallUniqueColor = async (data) => {
 
 // Example usage
 getallUniqueColor(data).then((uniqueColors) => {
-    console.log(uniqueColors);
+  
 });
 
 getallUniqueColor(data);

@@ -60,7 +60,7 @@ const MyDropzone = ({ setUpdatedProductImage }) => {
     setLoading(true);
     try {
       const action = await dispatch(updateProductImage({ id, image: selectedFiles[0] }));
-      console.log(action.payload.success)
+     
       if (action.payload.success) {
         setSuccessMessage(true);
         setErrorMessage(false); // Reset error message state

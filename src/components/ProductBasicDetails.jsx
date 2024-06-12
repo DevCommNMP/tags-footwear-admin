@@ -104,7 +104,7 @@ const BasicProductDetails = () => {
       ...formData,
       [name]: value,
     });
-    // console.log(formData);
+
   };
 
   const handleSizeChange = (index, e) => {
@@ -199,11 +199,11 @@ const BasicProductDetails = () => {
     } else {
       setErrors({});
 
-      // console.log(formData)
+   
      
       dispatch(createProduct(formData))
         .then((action) => {
-          console.log(action.payload);
+        
           navigate(`/add-product-images/${action.payload._id}`);
           // Do something with action.payload
         })

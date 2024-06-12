@@ -17,7 +17,7 @@ const OrderCancellation = () => {
   const token = data?.token ?? null; // Providing a default value for token
 const [Orders,setOrders]=useState([]);
   // Fetching subcategories from the Redux store
-  console.log(Orders)
+
   useEffect( () => {
     if(!token){
       navigate("/login")
@@ -47,16 +47,14 @@ const [Orders,setOrders]=useState([]);
     setSelectedSubcategory(null);
   };
 
-  // Function to handle subcategory deletion
+ 
   const handleDeleteSubcategory = () => {
-    // Dispatch action to delete subcategory
-    // This is where you would dispatch the action to delete the selected subcategory
-    console.log("Deleting subcategory:", selectedSubcategory);
-    // After deletion, you can close the modal
+ 
     setShowDeleteModal(false);
     setSelectedSubcategory(null);
   };
 
+  console.log(Orders)
   return (
     <>
       {/* Delete Modal */}
@@ -112,7 +110,7 @@ const [Orders,setOrders]=useState([]);
                           <h6 className="mb-0">Order No.</h6>
                         </div>
                         <div className="info">
-                          <h6 className="mb-0">Order No.</h6>
+                          <h6 className="mb-0">Date </h6>
                         </div>
                         
                       </a>
@@ -121,6 +119,7 @@ const [Orders,setOrders]=useState([]);
                     <div className="col-lg-2 col-sm-2 col-4 col-price info">
                       <span>User</span> {/* Assuming subcategory has price property */}
                     </div>
+                    
                     <div className="col-lg-2 col-sm-2 col-4 col-price info">
                       <span>Amount</span> {/* Assuming subcategory has price property */}
                     </div>
@@ -135,49 +134,48 @@ const [Orders,setOrders]=useState([]);
                   
                   </div>
                 </article>
-              {Orders.map((order, index) => (
-                <article key={index} className="itemlist">
-                  <div className="row align-items-center">
-                    <div className="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
-                      <a className="itemside" href="#">
-                        <div className="left">
-                          <img
-                            src={order.orderNumber} // Assuming subcategory has imgUrl property
-                            className="img-sm img-thumbnail"
-                            alt="Item"
-                          />
-                        </div>
-                        <div className="info">
-                          <h6 className="mb-0">{order.orderNumber}</h6>
-                        </div>
-                        <div className="info">
-                          <h6 className="mb-0">{order.order_id}</h6>
-                        </div>
-                      </a>
-                    </div>
-                    <div className="col-lg-2 col-sm-2 col-4 col-price">
-                      <span>{order.orderDetails.billingDetails.fname} {order.orderDetails.billingDetails.lname}</span> {/* Assuming subcategory has price property */}
-                    </div>
-                    <div className="col-lg-2 col-sm-2 col-4 col-price">
-                      <span>&#8377;{order.order_id}</span> {/* Assuming subcategory has price property */}
-                    </div>
-                    <div className="col-lg-2 col-sm-2 col-4 col-status">
-                      <span className="badge rounded-pill alert-success">
-                        Active
-                      </span>
-                     
-                    </div>
-                    <div className="col-lg-1 col-sm-2 col-4 col-date">
-                    <span className="badge rounded-pill alert-success">
-                    <span className="badge rounded-pill alert-success"  style={{backgroundColor:"red",padding:10,borderRadius:5,cursor:"pointer"}}>
-                       View
-                      </span>
-                      </span>
-                    </div>
-                   
-                  </div>
-                </article>
-              ))}
+                {Orders
+  .filter(order => order.orderStatus.toLowerCase() === "cancelled") // Filter orders with orderStatus equal to "cancelled"
+  .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate)) // Sort orders by orderDate in descending order
+  .map((order, index) => (
+    <article key={index} className="itemlist">
+      <div className="row align-items-center">
+        <div className="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
+          <a className="itemside" href="#">
+            <div className="left">
+              <h6>{index+1}</h6>
+            </div>
+            <div className="info">
+              <h6 className="mb-0">{order.orderNumber}</h6>
+            </div>
+            <div className="info">
+              <h6 className="mb-0">{new Date(order.orderDate).toLocaleDateString()}</h6>
+            </div>
+          </a>
+        </div>
+        <div className="col-lg-2 col-sm-2 col-4 col-price">
+          <span>{order.orderDetails.billingDetails.fname} {order.orderDetails.billingDetails.lname}</span> {/* Assuming subcategory has price property */}
+        </div>
+        <div className="col-lg-2 col-sm-2 col-4 col-price">
+          <span>&#8377;{order.orderDetails.subtotal}</span> {/* Assuming subcategory has price property */}
+        </div>
+        <div className="col-lg-2 col-sm-2 col-4 col-status">
+          <span className="badge rounded-pill alert-success">
+            {order.orderStatus}
+          </span>
+        </div>
+        <div className="col-lg-1 col-sm-2 col-4 col-date" onClick={()=>navigate(`/order-details/${order._id}`)}>
+          <span className="badge rounded-pill alert-success">
+            <span className="badge rounded-pill alert-success"  style={{backgroundColor:"red",padding:10,borderRadius:5,cursor:"pointer"}}>
+              View
+            </span>
+          </span>
+        </div>
+      </div>
+    </article>
+  ))}
+
+
             </div>
           </div>
           {/* pagination */}

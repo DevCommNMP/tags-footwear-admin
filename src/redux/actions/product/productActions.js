@@ -11,13 +11,13 @@ export const fetchAllProductsAction = createAsyncThunk("api/products", async (_,
         "Content-Type": "application/json",
       },
     };
-    console.log("fetching data");
+  
     const res = await axios.get(`${baseUrl}/api/products`, config);
-    console.log("fetched data");
+  
     return res.data;
   } catch (error) {
     if (!error?.response) {
-      console.log(error.message);
+   
       throw error;
     }
     return rejectWithValue(error?.response?.data);
@@ -32,13 +32,13 @@ export const createProduct = createAsyncThunk("api/products", async (data, { rej
         "Content-Type": "application/json",
       },
     };
-    console.log("fetching data");
+   
     const res = await axios.post(`${baseUrl}/api/products`, data, config);
-    console.log("fetched data");
+  
     return res.data;
   } catch (error) {
     if (!error?.response) {
-      console.log(error.message);
+  
       throw error;
     }
     return rejectWithValue(error?.response?.data);
@@ -47,17 +47,15 @@ export const createProduct = createAsyncThunk("api/products", async (data, { rej
 
 export const updateProductDetails = createAsyncThunk("api/products/image", async ({ id, formData }, { rejectWithValue }) => {
   try {
-    console.log(id,formData)
+   
     const config = {
       headers: {
         "Content-Type": "application/json"
       },
     };
-    // for (let pair of formData.entries()) {
-    //   console.log(pair[0] + ', ' + (pair[1] instanceof File ? pair[1].name : pair[1]));
-    // }
+   
     const res = await axios.put(`${baseUrl}/api/products/${id}`, formData, config);
-    console.log(res);
+   
     return res.data;
   } catch (error) {
     if (!error?.response) {
@@ -80,11 +78,9 @@ export const updateProductImage = createAsyncThunk("api/products/image", async (
         "Content-Type": "multipart/form-data",
       },
     };
-    // for (let pair of formData.entries()) {
-    //   console.log(pair[0] + ', ' + (pair[1] instanceof File ? pair[1].name : pair[1]));
-    // }
+ 
     const res = await axios.post(`${baseUrl}/api/products/${id}`, formData, config);
-    console.log(res);
+   
     return res.data;
   } catch (error) {
     if (!error?.response) {
@@ -95,7 +91,7 @@ export const updateProductImage = createAsyncThunk("api/products/image", async (
 });
 
 export const updateProductSubImage = createAsyncThunk("api/products/subImages", async ({ id, image }, { rejectWithValue }) => {
-  // console.log(id,image)
+
   try {
     const formData = new FormData();
     formData.append("id", id); // Append key-value pair for id
@@ -110,15 +106,15 @@ export const updateProductSubImage = createAsyncThunk("api/products/subImages", 
         "Content-Type": "multipart/form-data",
       },
     };
-    console.log(image);
+   
     const res = await axios.post(`${baseUrl}/api/products/subImages/${id}`, formData, config);
-    console.log(res);
+   
     return res.data;
   } catch (error) {
     if (!error?.response) {
       throw error;
     }
-    console.log(error.message);
+   
     return rejectWithValue(error.response.data);
   }
 });
@@ -132,7 +128,7 @@ export const fetchParticularProduct = createAsyncThunk("api/products/id", async 
       },
     };
     const res = await axios.get(`${baseUrl}/api/products/${id}`, config);
-    console.log(res);
+  
     return res.data;
   } catch (error) {
     if (!error?.response) {
@@ -151,7 +147,7 @@ export const deleteParticularProductAction = createAsyncThunk("api/products/dele
       },
     };
     const res = await axios.delete(`${baseUrl}/api/products/${id}`, config);
-    console.log(res);
+  
     return res.data;
   } catch (error) {
     if (!error?.response) {

@@ -19,7 +19,7 @@ export const fetchAllsubCategories = createAsyncThunk("products/categories", asy
     // Send request to server to fetch categories
     const res = await axios.get(`${baseUrl}/api/category/getsubCategories`, config); // Using baseUrl from imported module
 
-    console.log(res)
+  
     return res.data;
   } catch (error) {
     if (!error.response) {

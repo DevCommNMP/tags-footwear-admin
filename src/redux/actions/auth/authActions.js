@@ -34,7 +34,6 @@ export const loginUserAction = createAsyncThunk("user/login", async (userData, {
     },
   };
 
-  console.log(userData);
   try {
     const res = await axios.post(`${baseUrl}/api/auth/adminlogin`, userData, config, {
       withCredentilas: true,
@@ -53,7 +52,7 @@ export const loginUserAction = createAsyncThunk("user/login", async (userData, {
   }
 });
 export const verifyEmail = createAsyncThunk("user/verifyemail", async (token, { rejectWithValue }) => {
-  console.log(token); // Log the token for debugging purposes
+ // Log the token for debugging purposes
 
   try {
     const config = {

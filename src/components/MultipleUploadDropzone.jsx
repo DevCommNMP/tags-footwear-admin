@@ -19,7 +19,7 @@ const MultipleUploadDropzone = ({ setUpdatedProductSubImage }) => {
       setLoading(true);
       try {
         const action = await dispatch(updateProductSubImage({ id, image: selectedFiles }));
-        console.log(action.payload.success)
+        
         if (action.payload.success) {
           setMessage("Product image updated successfully !");
           setAlertType("success");

@@ -12,7 +12,7 @@ import { CgEnter } from "react-icons/cg";
 
 const OrderDetailsPage = () => {
   const { id } = useParams();
-  console.log(id)
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

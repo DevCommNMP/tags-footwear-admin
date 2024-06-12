@@ -30,7 +30,7 @@ const HomePage = () => {
   const { products, productsLoading, appErr, serverErr } = productData;
   const categoryData = useSelector((store) => store.categories);
   const allSubcategories = categoryData.categoriesData;
-  // console.log(orderData)
+  
   const data = JSON.parse(localStorage.getItem('userData'));
   const token = data?.token ?? null; // Providing a default value for token
 
@@ -49,7 +49,7 @@ const HomePage = () => {
     }).length;
      // Added .length to get the count
      setPaidCount(paidCount)
-     console.log(paidCount)
+  
     return paidCount; // Return the count
   };
   const CODOrders = async (orderData) => {
@@ -58,7 +58,7 @@ const HomePage = () => {
     }).length;
      // Added .length to get the count
      setcodCount(CODCount)
-     console.log(CODCount)
+     
     return paidCount; // Return the count
   };
 
@@ -75,7 +75,7 @@ CODOrders(orderData);
   setLoading(false)
   }, [dispatch,])
 
-  console.log(orderData.orders)
+
 
   return (
     <>

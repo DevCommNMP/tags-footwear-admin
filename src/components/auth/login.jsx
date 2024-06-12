@@ -45,17 +45,17 @@ const Login = ({ isloggedin }) => {
     e.preventDefault();
 
     const validationResult = validateForm(formData);
-    console.log(validationResult);
+  
     if (Object.keys(validationResult).length === 0) {
       const res = await dispatch(loginUserAction(formData));
       if (!res.error) {
-        // console.log(res.error.message)
+    
         navigate("/");
       } else {
-        console.log(res.error.message);
+     
       }
     } else {
-      console.log("Error in form validation");
+      
     }
   };
 

@@ -46,7 +46,7 @@ const ListCategoryPage = () => {
   const handleDeleteSubcategory = () => {
     // Dispatch action to delete subcategory
     // This is where you would dispatch the action to delete the selected subcategory
-    console.log("Deleting subcategory:", selectedSubcategory);
+  
     // After deletion, you can close the modal
     setShowDeleteModal(false);
     setSelectedSubcategory(null);
