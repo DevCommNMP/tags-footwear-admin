@@ -1,24 +1,104 @@
-page[size="A4"] {
-  width: 21cm !important;
-  height: 29.7cm !important;
+/* invoice.css */
+
+/* Adjust the size of the invoice */
+#invoice_wrapper {
+  width: 14.8cm;
+  height: 21cm;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+}
+
+/* Adjust other styles to fit within the new dimensions */
+.invoice-info {
+  font-size: 0.9em;
+}
+
+.invoice-header,
+.invoice-top,
+.invoice-center,
+.invoice-bottom {
+  padding: 10px 0;
+}
+
+.invoice-header-1,
+.invoice-title-1 {
+  font-size: 1.2em;
+}
+
+.invoice-addr-1 {
+  font-size: 0.9em;
+}
+
+.table-responsive {
+  font-size: 0.9em;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+.table th,
+.table td {
+  padding: 0.5rem;
+  vertical-align: top;
 }
 
 @media print {
-
-  body,
-  page {
+  #invoice_wrapper {
+    width: 14.8cm;
+    height: 21cm;
     margin: 0;
-    box-shadow: 0;
     padding: 0;
   }
 }
 
-#invoice_wrapper {
-  margin-top: 100px;
-}
-
 @media print {
-  .print-hide {
-    display: none !important;
+  body * {
+    visibility: hidden;
   }
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+  .print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .invoice-inner.print-area p {
+    font-family: 8px;
+  }
+
+  .invoice-inner.print-area h1{
+    font-family: 8px;
+  }
+
+  .invoice-inner.print-area h2{
+    font-family: 8px;
+  }
+
+  .invoice-inner.print-area h3{
+    font-family: 8px;
+  }
+
+  .invoice-inner.print-area h4{
+    font-family: 8px;
+  }
+
+  .invoice-inner.print-area h5{
+    font-family: 8px;
+  }
+
+  .invoice-inner.print-area h6{
+    font-family: 8px;
+  }
+
+  /* .invoice-inner.print-area {
+    font-family: 8px;
+  } */
 }

@@ -3,7 +3,7 @@ import Logo from "../assets/imgs/theme/logo.png";
 import "./invoice.css";
 import { useNavigate } from "react-router-dom/dist";
 import Header from "../components/Header";
-import Aside from "../components/Aside";
+// import Aside from "../components/Aside"; // Commented as it's not used
 
 const Invoice = () => {
   const [invoiceNumber, setInvoiceNumber] = useState("#1970191");
@@ -17,16 +17,16 @@ const Invoice = () => {
   const [billToPhone, setBillToPhone] = useState("(+123) 456-7890");
   const [billToEmail, setBillToEmail] = useState("example@email.com");
 
-  const navigate=useNavigate()
-  const data = JSON.parse(localStorage.getItem('userData'));
+  const navigate = useNavigate();
+  const data = JSON.parse(localStorage.getItem("userData"));
   const token = data?.token ?? null; // Providing a default value for token
 
   useEffect(() => {
-   if(!token){
-    navigate("/login")
-    return;
-   }
-  }, [token])
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+  }, [token]);
 
   const [items, setItems] = useState([
     {
@@ -55,9 +55,6 @@ const Invoice = () => {
     setItems(updatedItems);
   };
 
-  // itanery operator 
-
-
   const handleAddItem = () => {
     setItems([
       ...items,
@@ -80,11 +77,11 @@ const Invoice = () => {
 
   return (
     <>
-    <Header/>
-    {/* <Aside/> */}
-      <div className="container" >
+      <Header />
+      {/* <Aside/> */}
+      <div className="container">
         <div className="row">
-          <div className="col-12 print-hide">
+          <div className="col-6 print-hide">
             <div className="row">
               <div className="col-12">
                 <h4>Invoice Details</h4>
@@ -112,13 +109,13 @@ const Invoice = () => {
               </div>
               <div className="col-6">
                 <h4>Buyers detail</h4>
-                <label htmlFor="">Invoice Number</label>
+                <label htmlFor="">Name</label>
                 <input type="text" className="col-6 form-control" value={billToName} onChange={handleBillToNameChange} />
-                <label htmlFor="">Invoice Number</label>
+                <label htmlFor="">Address</label>
                 <input type="text" className="col-6 form-control" value={billToAddress} onChange={handleBillToAddressChange} />
-                <label htmlFor="">Invoice Number</label>
+                <label htmlFor="">Phone Number</label>
                 <input type="text" className="col-6 form-control" value={billToPhone} onChange={handleBillToPhoneChange} />
-                <label htmlFor="">Invoice Number</label>
+                <label htmlFor="">Email</label>
                 <input type="text" className="col-6 form-control" value={billToEmail} onChange={handleBillToEmailChange} />
               </div>
               <h4>Product Details</h4>
@@ -199,28 +196,30 @@ const Invoice = () => {
             </div>
           </div>
 
-          <div className="col-12">
-            <div className="invoice-inner">
-              <div size="A4" className="invoice-info" id="invoice_wrapper">
+          <div className="col-6">
+            <div className="invoice-inner print-area">
+              <div size="A5" className="invoice-info " id="invoice_wrapper">
                 <div className="invoice-header">
                   <div className="row">
-                    <div className="col-sm-6">
-                      <div className="invoice-name">
-                        <div className="logo">
-                          <a href="/">
-                            <img src={Logo} alt="logo" height={70} />
-                          </a>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <div className="col-sm-6">
+                        <div className="invoice-name">
+                          <div className="logo">
+                            <a href="/">
+                              <img src={Logo} alt="logo" height={50} />
+                            </a>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-sm-6  text-end">
-                      <div className="invoice-numb">
-                        <h4 className="invoice-header-1 mb-10 mt-20">
-                          Invoice No: <span className="text-heading">{invoiceNumber}</span>
-                        </h4>
-                        <h6>
-                          Invoice Date: <span className="text-heading">{invoiceDate}</span>
-                        </h6>
+                      <div className="col-sm-6 text-end">
+                        <div className="invoice-numb">
+                          <h4 className="invoice-header-1 mb-10 mt-20">
+                            Invoice No: <span className="text-heading">{invoiceNumber}</span>
+                          </h4>
+                          <h6>
+                            Invoice Date: <span className="text-heading">{invoiceDate}</span>
+                          </h6>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -228,49 +227,36 @@ const Invoice = () => {
                 <hr />
                 <div className="invoice-top">
                   <div className="row">
-                    <div className="col-lg-4 col-md-4" style={{ maxWidth: "50% !important" }}>
-                      <div className="invoice-number">
-                        <h4 className="invoice-title-1 mb-10">Invoice To</h4>
-                        <p className="invoice-addr-1">
-                          <strong>{invoiceToName}</strong> <br />
-                          {invoiceToAddress}
-                          <br />
-                          <abbr title="Phone">Phone:</abbr> {invoiceToPhone}
-                          <br />
-                          <abbr title="Email">Email:</abbr>
-                          {invoiceToEmail}
-                          <br />
-                        </p>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <div className="">
+                        <div className="invoice-number">
+                          <h4 className="invoice-title-1 mb-10">Invoice To</h4>
+                          <p className="invoice-addr-1">
+                            <strong>{invoiceToName}</strong> <br />
+                            {invoiceToAddress}
+                            <br />
+                            <abbr title="Phone">Phone:</abbr> {invoiceToPhone}
+                            <br />
+                            <abbr title="Email">Email:</abbr>
+                            {invoiceToEmail}
+                            <br />
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="col-lg-4 col-md-4" style={{ maxWidth: "50% !important" }}>
-                      <div className="invoice-number">
-                        <h4 className="invoice-title-1 mb-10">Invoice To</h4>
-                        <p className="invoice-addr-1">
-                          <strong>{invoiceToName}</strong> <br />
-                          {invoiceToAddress}
-                          <br />
-                          <abbr title="Phone">Phone:</abbr> {invoiceToPhone}
-                          <br />
-                          <abbr title="Email">Email:</abbr>
-                          {invoiceToEmail}
-                          <br />
-                        </p>
-                      </div>
-                    </div>
-                    <div className="col-lg-4 col-md-4" style={{ textAlign: "start", maxWidth: "50% !important" }}>
-                      <div className="invoice-number">
-                        <h4 className="invoice-title-1 mb-10">Bill To</h4>
-                        <p className="invoice-addr-1">
-                          <strong>{billToName}</strong> <br />
-                          <div>{billToAddress}</div>
-                          {/* <br /> */}
-                          <abbr title="Phone">Phone:</abbr> {billToPhone}
-                          <br />
-                          <abbr title="Email">Email: </abbr>
-                          {billToEmail}
-                          <br />
-                        </p>
+
+                      <div className="" style={{ textAlign: "start" }}>
+                        <div className="invoice-number">
+                          <h4 className="invoice-title-1 mb-10">Bill To</h4>
+                          <p className="invoice-addr-1">
+                            <strong>{billToName}</strong> <br />
+                            <div>{billToAddress}</div>
+                            <abbr title="Phone">Phone:</abbr> {billToPhone}
+                            <br />
+                            <abbr title="Email">Email: </abbr>
+                            {billToEmail}
+                            <br />
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -304,19 +290,19 @@ const Invoice = () => {
                         ))}
 
                         <tr>
-                          <td colSpan="3" className="text-end f-w-600">
+                          <td colSpan="5" className="text-end f-w-600">
                             SubTotal
                           </td>
                           <td className="text-right">$1710.99</td>
                         </tr>
                         <tr>
-                          <td colSpan="3" className="text-end f-w-600">
+                          <td colSpan="5" className="text-end f-w-600">
                             Tax
                           </td>
                           <td className="text-right">$85.99</td>
                         </tr>
                         <tr>
-                          <td colSpan="3" className="text-end f-w-600">
+                          <td colSpan="5" className="text-end f-w-600">
                             Grand Total
                           </td>
                           <td className="text-right f-w-600">$1795.99</td>
@@ -332,8 +318,8 @@ const Invoice = () => {
                         <h3 className="invoice-title-1">Important Note</h3>
                         <ul className="important-notes-list-1">
                           <li>All amounts shown on this invoice are in US dollars</li>
-                          <li>finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
-                          <li>Once order done, money can&apos;t refund</li>
+                          <li>Finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+                          <li>Once order done, money can't be refunded</li>
                           <li>Delivery might delay due to some external dependency</li>
                         </ul>
                       </div>
