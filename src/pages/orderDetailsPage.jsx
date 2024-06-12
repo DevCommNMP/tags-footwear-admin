@@ -29,7 +29,7 @@ console.log(orderdata)
 
   return (
     <>
-   <Header/>
+   {/* <Header/> */}
     <div>
       <div className="invoice invoice-content invoice-5">
       
@@ -83,31 +83,32 @@ console.log(orderdata)
                                     <p>SKUID: {item.product.productName}</p>
                                   </div>
                                 </td>
-                                <td className="text-center" style={{color:"black"}}><span style={{ fontSize: 15,color:"black" }}>&#8377;</span>{item.product.SellingPrice}</td>
-                                <td className="text-center" style={{color:"black"}}>&#8377; {item.product.SellingPrice <= 1000 ? ((item.product.SellingPrice * 0.12).toFixed(0)) : ((item.product.SellingPrice * 0.18).toFixed(0))}</td>
+                                <td className="text-center" style={{color:"black"}}><span style={{ fontSize: 15,color:"black" }}>&#8377;</span> {((item.price - (item.price <= 1000 ? (item.price * 0.12) : (item.price * 0.18))).toFixed(2))}</td>
+                                <td className="text-center" style={{color:"black"}}>&#8377;  {item.price <= 1000 ? ((item.price * 0.12).toFixed(2)) : ((item.price * 0.18).toFixed(2))}</td>
                                 <td className="text-center" style={{color:"black"}}>{item.color}</td>
                                 <td className="text-center" style={{color:"black"}}>{item.quantity}</td>
                                 <td className="text-center" style={{color:"black"}}>{item.size}</td>
                                
-                                <td className="text-right"  style={{color:"black"}}>&#8377;{item.product.SellingPrice * item.quantity}</td>
+                                <td className="text-right"  style={{color:"black"}}>&#8377;    {((item.price - (item.price <= 1000 ? (item.price * 0.12) : (item.price * 0.18))).toFixed(2))}
+                                </td>
                               </tr>
                             ))}
                             {orderdata && orderdata.orderDetails && orderdata.orderDetails.CGST >0 && (
                               <tr>
                                 <td colSpan="6" className="text-end f-w-600"  style={{color:"black"}}>IGST</td>
-                                <td className="text-right"  style={{color:"black"}}>&#8377;{orderdata.orderDetails.CGST}</td>
+                                <td className="text-right"  style={{color:"black"}}>&#8377;{(orderdata.orderDetails.CGST.toFixed(2))}</td>
                               </tr>
                             )}
                             {orderdata && orderdata.orderDetails && orderdata.orderDetails.SGST >0 && (
                               <tr>
                                 <td colSpan="6" className="text-end f-w-600">SGST</td>
-                                <td className="text-right">&#8377;{orderdata.orderDetails.SGST}</td>
+                                <td className="text-right">&#8377;{(orderdata.orderDetails.SGST.toFixed(0))}</td>
                               </tr>
                             )}
                             {orderdata && orderdata.orderDetails && (
                               <tr>
                                 <td colSpan="6" className="text-end f-w-600" style={{color:"black"}} >SubTotal</td>
-                                <td className="text-right"  style={{color:"black"}}>&#8377;{orderdata.orderDetails.subtotal}</td>
+                                <td className="text-right"  style={{color:"black"}}>&#8377;{(orderdata.orderDetails.subtotal).toFixed(2)}</td>
                               </tr>
                               
                               
@@ -143,7 +144,7 @@ console.log(orderdata)
                         </div>
                         <div className="col-md-6 text-end">
                           <h6 className="mb-15">Total Amount</h6>
-                          <h3 className="mt-0 mb-0 text-brand">&#8377; {orderdata && orderdata.orderDetails && orderdata.orderDetails.subtotal}</h3>
+                          <h3 className="mt-0 mb-0 text-brand">&#8377; {(orderdata && orderdata.orderDetails && orderdata.orderDetails.subtotal.toFixed(2))}</h3>
                           <p className="mb-0 text-muted">Taxes Included</p>
                         </div>
                       </div>
