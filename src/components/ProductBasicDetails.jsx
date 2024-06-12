@@ -201,6 +201,8 @@ const BasicProductDetails = () => {
 
    
      
+      // Handle form submission here, e.g., send data to backend
+      console.log(formData);
       dispatch(createProduct(formData))
         .then((action) => {
         
