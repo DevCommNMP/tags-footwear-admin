@@ -32,9 +32,9 @@ const Invoice = () => {
     {
       productName: "I am Name of the product",
       description: "I am description",
-      unitPrice: "$10",
+      unitPrice: "₹10",
       quantity: 2,
-      amount: "$20",
+      amount: "₹20",
     },
   ]);
 
@@ -202,29 +202,44 @@ const Invoice = () => {
                 <div className="invoice-header">
                   <div className="row">
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <div className="col-sm-6">
+                      <div className="col-12" style={{ textAlign: "center" }}>
                         <div className="invoice-name">
                           <div className="logo">
                             <a href="/">
-                              <img src={Logo} alt="logo" height={50} />
+                              <img src={Logo} alt="logo" height={80} />
                             </a>
                           </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 text-end">
-                        <div className="invoice-numb">
-                          <h4 className="invoice-header-1 mb-10 mt-20">
-                            Invoice No: <span className="text-heading">{invoiceNumber}</span>
-                          </h4>
-                          <h6>
-                            Invoice Date: <span className="text-heading">{invoiceDate}</span>
-                          </h6>
+                          <p>1368, D-5, Narayana Shasthri Road, Devaraj Mohalla, Mysore - 570001</p>
+                          <hr style={{margin:'0px'}}/>
+                          <div
+                            className="section-container"
+                            style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
+                          >
+                            <div className="phone">
+                              <span title="Phone">Phone:</span> +91 9611 459 290
+                            </div>
+                            <h3 className="invoice-title">Invoice</h3>
+                            <div className="gstin">
+                              <span title="Phone">GSTIN : </span> 29AAUFT8008P1Z2
+                            </div>
+                          </div>
+                          <hr style={{margin:'0px'}}/>
+
+                          <div className="invoice-numb" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <span className="invoice-header-1">
+                              Invoice No: <span className="text-heading">{invoiceNumber}</span>
+                            </span>
+                            <span>
+                              Invoice Date: <span className="text-heading">{invoiceDate}</span>
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <hr />
+                <hr style={{margin:'0px'}}/>
+
                 <div className="invoice-top">
                   <div className="row">
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -244,7 +259,7 @@ const Invoice = () => {
                         </div>
                       </div>
 
-                      <div className="" style={{ textAlign: "start" }}>
+                      <div style={{ textAlign: "start" }}>
                         <div className="invoice-number">
                           <h4 className="invoice-title-1 mb-10">Bill To</h4>
                           <p className="invoice-addr-1">
@@ -317,10 +332,8 @@ const Invoice = () => {
                       <div>
                         <h3 className="invoice-title-1">Important Note</h3>
                         <ul className="important-notes-list-1">
-                          <li>All amounts shown on this invoice are in US dollars</li>
-                          <li>Finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
-                          <li>Once order done, money can't be refunded</li>
-                          <li>Delivery might delay due to some external dependency</li>
+                          <li>All amounts shown on this invoice are in INR</li>
+
                         </ul>
                       </div>
                     </div>
@@ -328,26 +341,9 @@ const Invoice = () => {
                       <div className="text-end">
                         <p className="mb-0 text-13">Thank you for your business</p>
                         <p>
-                          <strong>AliThemes JSC</strong>
+                          <strong>TAGS Footwear</strong>
                         </p>
-                        <div className="mobile-social-icon mt-50 print-hide">
-                          <h6>Follow Us</h6>
-                          <a href="#">
-                            <img src="assets/imgs/theme/icons/icon-facebook-white.svg" alt="" />
-                          </a>
-                          <a href="#">
-                            <img src="assets/imgs/theme/icons/icon-twitter-white.svg" alt="" />
-                          </a>
-                          <a href="#">
-                            <img src="assets/imgs/theme/icons/icon-instagram-white.svg" alt="" />
-                          </a>
-                          <a href="#">
-                            <img src="assets/imgs/theme/icons/icon-pinterest-white.svg" alt="" />
-                          </a>
-                          <a href="#">
-                            <img src="assets/imgs/theme/icons/icon-youtube-white.svg" alt="" />
-                          </a>
-                        </div>
+
                       </div>
                     </div>
                   </div>
