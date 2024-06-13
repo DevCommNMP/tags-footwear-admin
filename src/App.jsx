@@ -17,6 +17,8 @@ import EditProductPage from "./pages/editProductPage";
 import Login from "./components/auth/login";
 import OrderDetailsPage from "./pages/orderDetailsPage";
 import OrderCancellation from "./pages/orderCancellation";
+import SubscribedUsers from "./pages/subscribedUsers";
+import UsersQuery from "./pages/usersQuery";
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
           <Route path="/add-category" element={<AddCategoryPage />} />
           <Route path="/order-details/:id" element={<OrderDetailsPage />} />
           <Route path="/generate-invoice" element={<Invoice />} />
+          <Route path="/subscribers" element={<SubscribedUsers/>} />
+          <Route path="/users-queries" element={<UsersQuery/>} />
           <Route element={<NotfoundPage />} /> {/* Not Found Route */}
         </Routes>
       </BrowserRouter>

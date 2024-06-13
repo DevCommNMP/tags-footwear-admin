@@ -85,7 +85,7 @@ const ListCategoryPage = () => {
           <div className="content-header">
             <div>
               <h2 className="content-title card-title">All Categories</h2>
-              <p>Lorem ipsum dolor sit amet.</p>
+              {/* <p>Lorem ipsum dolor sit amet.</p> */}
             </div>
             <div>
               {/* Dropdown and buttons */}
@@ -103,11 +103,7 @@ const ListCategoryPage = () => {
                     <div className="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
                       <a className="itemside" href="#">
                         <div className="left">
-                          <img
-                            src={subcategory.imgUrl} // Assuming subcategory has imgUrl property
-                            className="img-sm img-thumbnail"
-                            alt="Item"
-                          />
+                         {index+1}
                         </div>
                         <div className="info">
                           <h6 className="mb-0">{subcategory.subcategoriesName}</h6>
@@ -115,15 +111,15 @@ const ListCategoryPage = () => {
                       </a>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-price">
-                      <span>&#8377;{subcategory.price}</span> {/* Assuming subcategory has price property */}
+                      {/* <span>&#8377;{subcategory.price}</span> Assuming subcategory has price property */}
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-status">
-                      <span className="badge rounded-pill alert-success">
+                      {/* <span className="badge rounded-pill alert-success">
                         Active
-                      </span>
+                      </span> */}
                     </div>
                     <div className="col-lg-1 col-sm-2 col-4 col-date">
-                      <span>00</span>
+                      {/* <span>00</span> */}
                     </div>
                     <div className="col-lg-2 col-sm-2 col-4 col-action text-end">
                       <a

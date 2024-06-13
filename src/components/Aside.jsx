@@ -79,21 +79,29 @@ const Aside = () => {
           <hr />
 
           <ul className="menu-aside">
-            <li className="menu-item has-submenu">
+            {/* <li className="menu-item has-submenu"> */}
               <Link to="/cancelled-orders" className="menu-link">
                 <i className="icon material-icons md-apps"></i>
-                <span className="text">Other Application</span>
+                <span className="text">Cancelled Orders</span>
               </Link>
               <div className="submenu">
                 <Link to="/blank">Setting sample 1</Link>
                 <Link to="/blank">Setting sample 2</Link>
               </div>
-            </li>
+            {/* </li> */}
             <li className="menu-item">
               <Link to="/generate-invoice" className="menu-link">
                 <i className="icon material-icons md-local_offer"></i>
                 <span className="text"> Generate Invoice </span>
               </Link>
+              {/* <Link to="/subscribers" className="menu-link">
+                <i className="icon material-icons md-local_offer"></i>
+                <span className="text"> Suscribed Users </span>
+              </Link>
+              <Link to="/users-queries" className="menu-link">
+                <i className="icon material-icons md-local_offer"></i>
+                <span className="text"> Queries </span>
+              </Link> */}
             </li>
           </ul>
           <br />
