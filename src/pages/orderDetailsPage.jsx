@@ -158,7 +158,7 @@ console.log(orderdata)
                   </div>
                   <div className="invoice-btn-section clearfix d-print-none" style={{textAlign:"center"}}>
                     <a href="javascript:window.print()" className="btn btn-lg btn-custom btn-print hover-up" style={{background:"grey"}}>
-                      <img src="assets/imgs/theme/icons/icon-print.svg" alt=""  style={{color:"black"}}/ > Print
+                      <img src="assets/imgs/theme/icons/icon-print.svg" alt=""/ > Print
                     </a>
                   </div>
                 </div>
