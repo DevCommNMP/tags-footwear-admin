@@ -10,9 +10,9 @@ import LoaderImg from "../components/loading/loading";
 import Header from "../components/Header";
 import { CgEnter } from "react-icons/cg";
 
-const OrderDetailsPage = () => {
+
+const Invoice = () => {
   const { id } = useParams();
-  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -32,9 +32,11 @@ console.log(orderdata)
    {/* <Header/> */}
     <div>
       <div className="invoice invoice-content invoice-5">
+        <div className="back-top-home hover-up mt-0 ml-30">
       
-        {loading ? <LoaderImg/> : (
-          <div className="container" style={{margin:"0px auto"}}>
+        </div>
+        {loading ? <LoaderImg /> : (
+          <div className="container">
             <div className="row">
               <div className="col-lg-12">
                 <div className="invoice-inner">
@@ -48,23 +50,25 @@ console.log(orderdata)
                             </Link>
                             <div className="text">
                               <strong className="text-brand">Tags Footwear</strong> <br />
-                              1368, D-5, Narayana Shasthri Road, Devaraj Mohalla, Mysore - 570001
+                              1368, D-5, Narayana Shasthri Road, Devaraj Mohalla, Mysore - 570001<br/>
+                              GSTN:  29AAUFT8008P1Z2
                             </div>
+                            
                           </div>
                         </div>
                         <div className="col-md-6 text-end">
-                          <h2 style={{color:"black"}}>INVOICE</h2>
-                          <h6 style={{color:"black"}}>
-                            ID Number: <span className="text-brand">{orderdata && orderdata.orderNumber}</span>
+                          <h2>INVOICE</h2>
+                          <h6>
+                          ID Number: <span className="text-brand">{orderdata && orderdata.orderNumber}</span>
                           </h6>
                         </div>
                       </div>
                     </div>
-                    <div className="invoice-center" style={{marginTop:30}}>
+                    <div className="invoice-center">
                       <div className="table-responsive">
                         <table className="table table-striped invoice-table">
                           <thead className="bg-active">
-                            <tr style={{marginTop:10}}>
+                            <tr>
                               <th>Item</th>
                               <th className="text-center">Unit Price</th>
                               <th className="text-right">Tax (per quantity)</th>
@@ -75,7 +79,7 @@ console.log(orderdata)
                             </tr>
                           </thead>
                           <tbody>
-                            {orderdata && orderdata.orderDetails && orderdata.orderDetails.productDetails && orderdata.orderDetails.productDetails.map((item, index) => (
+                          {orderdata && orderdata.orderDetails && orderdata.orderDetails.productDetails && orderdata.orderDetails.productDetails.map((item, index) => (
                               <tr key={index}>
                                 <td>
                                   <div className="item-desc-1" style={{color:"black"}}>
@@ -93,7 +97,7 @@ console.log(orderdata)
                                 </td>
                               </tr>
                             ))}
-                            {orderdata && orderdata.orderDetails && orderdata.orderDetails.CGST >0 && (
+                           {orderdata && orderdata.orderDetails && orderdata.orderDetails.CGST >0 && (
                               <tr>
                                 <td colSpan="6" className="text-end f-w-600"  style={{color:"black"}}>IGST</td>
                                 <td className="text-right"  style={{color:"black"}}>&#8377;{(orderdata.orderDetails.CGST.toFixed(2))}</td>
@@ -110,14 +114,10 @@ console.log(orderdata)
                                 <td colSpan="6" className="text-end f-w-600" style={{color:"black"}} >SubTotal</td>
                                 <td className="text-right"  style={{color:"black"}}>&#8377;{(orderdata.orderDetails.subtotal).toFixed(2)}</td>
                               </tr>
-                              
-                              
                             )}
-                             
-     
-                          
                           </tbody>
                         </table>
+
                       </div>
                     </div>
                     <div className="invoice-bottom pb-80">
@@ -125,9 +125,9 @@ console.log(orderdata)
                         <div className="col-md-6">
                           <h6 className="mb-15">Invoice Info</h6>
                           <p className="font-sm">
-                            <strong>Issue date:</strong> {formattedDate}
-                            <br />
-                            {orderdata && orderdata.orderDetails && orderdata.orderDetails.billingDetails && (
+<strong>Issue date:</strong> {formattedDate}   
+                         <br />
+                         {orderdata && orderdata.orderDetails && orderdata.orderDetails.billingDetails && (
                               <>
                                 <strong>Invoice To:</strong> {orderdata.orderDetails.billingDetails.fname} {orderdata.orderDetails.billingDetails.lname}
                                 <br />
@@ -144,7 +144,7 @@ console.log(orderdata)
                         </div>
                         <div className="col-md-6 text-end">
                           <h6 className="mb-15">Total Amount</h6>
-                          <h3 className="mt-0 mb-0 text-brand">&#8377; {(orderdata && orderdata.orderDetails && orderdata.orderDetails.subtotal.toFixed(2))}</h3>
+                          <h3 className="mt-0 mb-0 text-brand">&#8377;{(orderdata && orderdata.orderDetails && orderdata.orderDetails.subtotal.toFixed(2))}</h3>
                           <p className="mb-0 text-muted">Taxes Included</p>
                         </div>
                       </div>
@@ -156,9 +156,9 @@ console.log(orderdata)
                       </div>
                     </div>
                   </div>
-                  <div className="invoice-btn-section clearfix d-print-none" style={{textAlign:"center"}}>
-                    <a href="javascript:window.print()" className="btn btn-lg btn-custom btn-print hover-up" style={{background:"grey"}}>
-                      <img src="assets/imgs/theme/icons/icon-print.svg" alt=""/ > Print
+                  <div className="invoice-btn-section clearfix d-print-none">
+                    <a href="javascript:window.print()" className="btn btn-lg btn-custom btn-print hover-up">
+                      <img src="assets/imgs/theme/icons/icon-print.svg" alt="" /> Print
                     </a>
                   </div>
                 </div>
@@ -169,7 +169,7 @@ console.log(orderdata)
       </div>
     </div>
     </>
-  );    
+  );
 };
 
-export default OrderDetailsPage;
+export default Invoice;
