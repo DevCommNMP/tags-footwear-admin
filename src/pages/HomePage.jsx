@@ -38,6 +38,7 @@ const HomePage = () => {
     navigate("/login")
   }
   
+
   const viewOrderHandler=async(orderId)=>{
     navigate(`/order-details/${orderId}`)
 
@@ -73,7 +74,7 @@ const HomePage = () => {
 paidOrders(orderData);
 CODOrders(orderData);
   setLoading(false)
-  }, [dispatch,])
+  }, [dispatch])
 
 
 
@@ -214,7 +215,7 @@ CODOrders(orderData);
             <span className="badge badge-pill badge-soft-success">{order.PaymentStatus}</span>
           </td>
           <td>
-            <i className="material-icons md-payment font-xxl text-muted mr-5"></i> Mastercard
+            <i className="material-icons md-payment font-xxl text-muted mr-5"></i> {order.paymentMethod?order.paymentMethod:""}
           </td>
           <td onClick={() => viewOrderHandler(order._id)}>
             <a className="btn btn-xs">
