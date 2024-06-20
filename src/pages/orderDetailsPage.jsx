@@ -51,7 +51,7 @@ console.log(orderdata)
                             <div className="text">
                               <strong className="text-brand">Tags Footwear</strong> <br />
                               1368, D-5, Narayana Shasthri Road, Devaraj Mohalla, Mysore - 570001<br/>
-                              GSTN:  29AAUFT8008P1Z2
+                              GSTN:29AAUFT8008P1Z2
                             </div>
                             
                           </div>
